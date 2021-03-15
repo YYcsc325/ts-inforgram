@@ -1,15 +1,15 @@
-import { connect } from 'dva';
-import { get } from 'lodash';
-import { IUserProps } from '@/service/user';
+import { connect } from "dva";
+import { get } from "lodash";
+import { IUserProps } from "@/service/user";
 
 const loginAction = ({ payload }: any) => ({
-  type: 'user/fetchUserList',
+  type: "user/fetchUserList",
   payload,
 });
 
 const mapStateToProps = ({ adloading }: any) => {
   return {
-    loginLoading: get(adloading, ['user', 'inforgram', 'user'], false),
+    loginLoading: get(adloading, ["user", "inforgram", "user"], false),
   };
 };
 const mapDispatchToProps = (dispatch) => {
