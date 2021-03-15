@@ -15,7 +15,7 @@
 .idea
 
 # umi
-# /src/.umi
-# /src/.umi-production
-# /src/.umi-test
-# /.env.local
+/src/.umi
+/src/.umi-production
+/src/.umi-test
+/.env.local
