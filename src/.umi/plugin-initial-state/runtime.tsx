@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React from "react";
-import Provider from "./Provider";
+import React from 'react';
+import Provider from './Provider';
 
 export function rootContainer(container: React.ReactNode) {
   return React.createElement(
@@ -8,6 +8,6 @@ export function rootContainer(container: React.ReactNode) {
     // 但 webpack-5 没有 node 补丁（包括 path）
     Provider,
     null,
-    container
+    container,
   );
 }

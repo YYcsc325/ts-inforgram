@@ -15,7 +15,7 @@ if (window.g_initWebpackHotDevClient) {
 
     // TODO: is update available?
     // @ts-ignore
-    if (!isUpdateAvailable() || module.hot.status() !== "idle") {
+    if (!isUpdateAvailable() || module.hot.status() !== 'idle') {
       return;
     }
 
@@ -40,7 +40,7 @@ if (window.g_initWebpackHotDevClient) {
       },
       function (err: Error) {
         handleApplyUpdates(err, null);
-      }
+      },
     );
   }
 
@@ -48,3 +48,4 @@ if (window.g_initWebpackHotDevClient) {
     tryApplyUpdates,
   });
 }
+      

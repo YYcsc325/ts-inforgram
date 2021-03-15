@@ -1,3 +1,3 @@
 // @ts-nocheck
 // @ts-ignore
-export { Helmet } from "/Users/yycsc/Desktop/ts-inforgram/node_modules/_react-helmet@6.1.0@react-helmet";
+export { Helmet } from '/Users/bestmatch/Desktop/LearningMaterials/Project/ts-inforgram/node_modules/react-helmet';

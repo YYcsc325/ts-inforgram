@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import { plugin } from "../core/umiExports";
-import { ApplyPluginsType } from "umi";
+import { ApplyPluginsType } from 'umi';
 import { useModel } from "../plugin-model/useModel";
 if (typeof useModel !== "function") {
   throw new Error(
