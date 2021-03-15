@@ -1,9 +1,9 @@
-import React from 'react';
-import { Checkbox } from 'antd';
-import Cookies from 'js-cookie';
+import React from "react";
+import { Checkbox } from "antd";
+import Cookies from "js-cookie";
 
-import connect from '../connect';
-import styles from '../index.less';
+import connect from "./connect";
+import styles from "./index.less";
 
 const formItemLayout = {
   labelCol: {
@@ -33,50 +33,50 @@ export interface ConfigProps {
 
 export const loginConfig = [
   {
-    type: 'Input',
+    type: "Input",
     connect,
     isShow: () => true,
     formItemProps: {
-      name: 'email',
-      label: 'Email:',
-      placeholder: 'pleace input username',
+      name: "email",
+      label: "Email:",
+      placeholder: "pleace input username",
     },
     itemProps: {
       style: {
-        height: '40px',
+        height: "40px",
       },
     },
   },
   {
-    type: 'Input',
+    type: "Input",
     connect,
     isShow: () => true,
     style: {
-      height: '40px',
+      height: "40px",
     },
     formItemProps: {
-      name: 'passWord',
-      label: 'Password:',
-      placeholder: 'pleace input password',
+      name: "passWord",
+      label: "Password:",
+      placeholder: "pleace input password",
     },
     itemProps: {
       style: {
-        height: '40px',
+        height: "40px",
       },
     },
   },
 ];
 export const loginTextConfig = [
   {
-    type: 'custom',
+    type: "custom",
     isShow: () => true,
     formItemProps: {
-      key: 'customCheckBox',
+      key: "customCheckBox",
     },
     component: ({ isChecked, setIsChecked }: ConfigProps) => {
       return (
-        <div className={styles['selectCheckBox']}>
-          <span style={{ float: 'left' }}>
+        <div className={styles["selectCheckBox"]}>
+          <span style={{ float: "left" }}>
             <Checkbox
               checked={isChecked}
               onChange={(e) => {
@@ -92,15 +92,15 @@ export const loginTextConfig = [
     },
   },
   {
-    type: 'custom',
+    type: "custom",
     isShow: () => true,
     formItemProps: {
-      key: 'customSubmit',
+      key: "customSubmit",
     },
     component: ({ handleSubmit }: ConfigProps) => {
       return (
         <div
-          className={styles['loginStyle']}
+          className={styles["loginStyle"]}
           onClick={() => {
             handleSubmit();
           }}
@@ -111,15 +111,15 @@ export const loginTextConfig = [
     },
   },
   {
-    type: 'custom',
+    type: "custom",
     isShow: () => true,
     formItemProps: {
-      key: 'customSubmitText',
+      key: "customSubmitText",
     },
     component: () => {
       return (
         <div className={styles.loginTextStyle}>
-          <div className={styles['loginTextStyle_header']}>
+          <div className={styles["loginTextStyle_header"]}>
             Don't have an account? Register here.
           </div>
           <div className={styles.loginLanguage}>
