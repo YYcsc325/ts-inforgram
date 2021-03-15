@@ -1,0 +1,224 @@
+.signup-form-container{
+    display: block;
+    .signup_sidebar{
+        display: inline-block;
+        width: 500px;
+        background:linear-gradient(135deg,#582E8D,#419BAD 100%);
+        padding: 30px 30px 0;
+        position: relative;
+        min-height: 100vh;
+        margin: 0;
+        border: 0;
+        vertical-align: top;
+        outline: 0;
+        color: white;
+        .logo{
+            position: relative;
+            top: 0;
+            left: 0;
+            margin: 0 0 40px;
+            width: 146px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #3195cb;
+            text-decoration: none;
+        }
+        h2{
+            color: white;
+            font-size: 40px;
+            font-weight: 200;
+            margin-bottom: 40px;
+        }
+        .testimonial{
+            font-size: 22px;
+            font-style: italic;
+            font-weight: 200;
+            line-height: 29px;
+            margin-bottom: 15px;
+        }
+        .testimonial_author{
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            img{
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+            span{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 17px;
+                margin-top: 13px;
+            }
+        }
+        .sidebar_footer{
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            background: rgba(15,115,64,.5);
+            padding: 30px;
+            text-align: center;
+            div{
+                margin-bottom: 10px;
+            }
+            img{
+                width: 400px;
+            }
+        }
+    }
+    .form_wrapper{
+        width: calc(100% - 500px);
+        display: inline-block;
+        padding: 0 30px;
+        height: 100vh;
+        .form_container{
+            width: 100%;
+            max-width: 436px;
+            margin: 70px auto 0;
+            text-align: center;
+            h1{
+                color: #656565;
+                font-size: 41px;
+                font-weight: 300;
+                line-height: 60px;
+                margin-bottom: 30px;
+            }
+            .soc_connect{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                a{
+                    display: inline-block;
+                    width: 210px;
+                    border-radius: 4px;
+                    margin-bottom: 20px;
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    text-decoration: none;
+                    padding-left: 20px;
+                    position: relative;
+                    box-sizing: border-box;
+                }
+                a::before{
+                    content: '';
+                    background-size: 50%;
+                    background-repeat: no-repeat;
+                    position: absolute;
+                }
+                .google::before{
+                    width: 38px;
+                    height: 38px;
+                    background-image: url(https://cdn.jifo.co/i/frontpage/social/google.svg);
+                    background-color: #fff;
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    background-position: center;
+                    left: 1px;
+                    top: 1px;
+                }
+                .facebook::before{
+                    width: 40px;
+                    height: 40px;
+                    left: 10px;
+                    top:10px;
+                    background-image: url(https://cdn.jifo.co/i/frontpage/social/facebook-white.svg);
+                }
+                .twitter::before{
+                    width: 40px;
+                    height: 40px;
+                    left: 10px;
+                    top:10px;
+                    background-image: url(https://cdn.jifo.co/i/frontpage/social/twitter-white.svg);
+                }
+                .linkedin::before{
+                    width: 40px;
+                    height: 40px;
+                    left: 10px;
+                    top:10px;
+                    background-image: url(https://cdn.jifo.co/i/frontpage/social/linkedin-white.svg);
+                }
+            }
+            .ls_or{
+                width: 100%;
+                margin: 10px auto 30px;
+                text-align: center;
+                .ls_line{
+                    height: 1px;
+                    background-color: #ccc;
+                }
+                .ls_text{
+                    width: 160px;
+                    font-size: 15px;
+                    line-height: 17px;
+                    color: #434343;
+                    background-color: #fff;
+                    margin: -10px auto 0;
+                    position: inherit !important;
+                    top: -9px;
+                }
+            }
+            .formViewStyle{
+                .selectCheckBox{
+                    span:hover{
+                        text-decoration: underline;
+                    }
+                    a{
+                        float: right;
+                        color: #3195cb;
+                        font-size: 13px;
+                        text-align: right;
+                        &:hover{
+                            text-decoration: underline;
+                            opacity: .9;
+                        }
+                    }
+                }
+                .loginStyle{
+                    height: 50px;
+                    border-radius: 4px;
+                    background: #3195cb;
+                    cursor: pointer;
+                    text-align: center;
+                    font-size: 17px;
+                    color: #fff;
+                    line-height: 50px;
+                    &:hover{
+                        opacity: .9;
+                    }
+                }
+                .loginTextStyle{
+                    .loginTextStyle_header{
+                        font-size: 15px;
+                        line-height: 17px;
+                        color:#3195cb;
+                        cursor: pointer;
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                    .loginLanguage{
+                        display: flex;
+                        justify-content: space-around;
+                        font-size: 13px;
+                        margin-top: 14px;
+                        a{
+                            color:#757575;
+                            &:hover{
+                                text-decoration: underline;
+                                color: #58aad7;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
