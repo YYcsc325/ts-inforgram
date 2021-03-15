@@ -1,2 +1,2 @@
 // @ts-nocheck
-export default () => ({ loading: false, refresh: () => {} });
+export default () => ({ loading: false, refresh: () => {} })

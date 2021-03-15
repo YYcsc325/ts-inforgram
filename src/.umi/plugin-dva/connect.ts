@@ -1,15 +1,15 @@
 // @ts-nocheck
-import { IRoute } from "@umijs/core";
-import { AnyAction } from "redux";
-import React from "react";
-import { EffectsCommandMap, SubscriptionAPI } from "dva";
-import { match } from "react-router-dom";
-import { Location, LocationState, History } from "history";
+import { IRoute } from '@umijs/core';
+import { AnyAction } from 'redux';
+import React from 'react';
+import { EffectsCommandMap, SubscriptionAPI } from 'dva';
+import { match } from 'react-router-dom';
+import { Location, LocationState, History } from 'history';
 
-export * from "/Users/yycsc/Desktop/ts-inforgram/src/models/user";
+export * from '/Users/bestmatch/Desktop/LearningMaterials/Project/ts-inforgram/src/models/user';
 
 export interface Action<T = any> {
-  type: T;
+  type: T
 }
 
 export type Reducer<S = any, A extends Action = AnyAction> = (
@@ -22,7 +22,10 @@ export type ImmerReducer<S = any, A extends Action = AnyAction> = (
   action: A
 ) => void;
 
-export type Effect = (action: AnyAction, effects: EffectsCommandMap) => void;
+export type Effect = (
+  action: AnyAction,
+  effects: EffectsCommandMap,
+) => void;
 
 /**
  * @type P: Type of payload
@@ -35,10 +38,7 @@ export type Dispatch = <P = any, C = (payload: P) => void>(action: {
   [key: string]: any;
 }) => any;
 
-export type Subscription = (
-  api: SubscriptionAPI,
-  done: Function
-) => void | Function;
+export type Subscription = (api: SubscriptionAPI, done: Function) => void | Function;
 
 export interface Loading {
   global: boolean;
@@ -68,7 +68,7 @@ export type RequiredConnectProps<
   P extends { [K in keyof P]?: string } = {},
   S = LocationState,
   T = {}
-> = Required<ConnectProps<P, S, T>>;
+  > = Required<ConnectProps<P, S, T>>
 
 /**
  * @type T: React props
@@ -80,3 +80,4 @@ export type ConnectRC<
   S = {},
   Q = {}
 > = React.ForwardRefRenderFunction<any, T & RequiredConnectProps<U, S, Q>>;
+
