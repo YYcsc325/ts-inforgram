@@ -15,7 +15,7 @@ const menuList: MenuList[] = [
     title: 'Create',
     child: [
       {id: '0_0', title: 'Infographics'},
-      {id: '0_1', title: 'Facebook posts'},
+      // {id: '0_1', title: 'Facebook posts'},
       {id: '0_2', title: 'Reports'},
       {id: '0_3', title: 'Slides'},
       {id: '0_4', title: 'Dashboards'},
@@ -24,7 +24,7 @@ const menuList: MenuList[] = [
       {id: '0_7', title: 'Email headers'},
       {id: '0_8', title: 'YouTube thumbnails'},
       {id: '0_9', title: 'Single map'},
-      {id: '0_10', title: 'Dashboards'},
+      // {id: '0_10', title: 'Dashboards'},
       {id: '0_11', title: 'Single chart'},
     ]
   },
