@@ -1,3 +1,98 @@
-.title {
-  background: rgb(121, 242, 157);
+.infogramLayout {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  .publicHeadComponent {
+    padding-left: 14px;
+    padding-right: 30px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 80px;
+    background-color: transparent;
+    display: flex;
+    z-index: 10;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-property: background-color, left;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      width: 146px;
+
+      img {
+        width: 146px;
+      }
+    }
+
+    :global {
+      .ant-menu-horizontal {
+        line-height: 80px;
+        border: 0;
+        background-color: transparent;
+      }
+
+      .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+        transition: background-color 0.25s ease-in-out 0s;
+        margin: 0;
+        font-size: 15px;
+        font-weight: 500;
+        padding-right: 20px;
+        padding-left: 14px;
+        color: rgb(255, 255, 255);
+        border-color: transparent;
+      }
+
+      .ant-menu-submenu:hover, .ant-menu-item:hover, .ant-menu-submenu .ant-menu-submenu-horizontal:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: transparent;
+      }
+
+      .ant-menu-submenu-title:hover {
+        color: rgb(255, 255, 255);
+        border-color: transparent;
+      }
+    }
+
+    .publicHeadComponentLogin {
+      height: 40px;
+      min-width: 140px;
+      border-radius: 4px;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out;
+      transition-property: border-color, background-color, color;
+      background-color: transparent;
+      font-size: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      a {
+        color: rgb(255, 255, 255);
+      }
+    }
+  }
+
+
+  .publicHeadComponentScroll {
+    background-color: rgba(64, 49, 97, 0.8);
+  }
+
+
+  .componentBody {
+    background: darkgray;
+    width: 100%;
+    flex: 1;
+    color: black;
+    overflow-y: scroll;
+    padding-top: 80px;
+
+  }
 }
