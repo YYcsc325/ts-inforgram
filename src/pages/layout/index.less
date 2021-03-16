@@ -1,3 +1,173 @@
-.title {
-  background: rgb(121, 242, 157);
+.infogramLayout {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  .publicHeadComponent {
+    padding-left: 14px;
+    padding-right: 30px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 80px;
+    background-color: transparent;
+    display: flex;
+    z-index: 10;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-property: background-color, left;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      width: 146px;
+
+      img {
+        width: 146px;
+      }
+    }
+
+    .infogramMenuAndLogin {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .infogramMenu {
+        margin-right: 12px;
+
+        .infogramMenuUl {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .infogramMenuLi {
+            cursor: pointer;
+            position: relative;
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+
+              .infogramMenuNav {
+                z-index: 3;
+                display: block;
+              }
+            }
+
+            a {
+              line-height: 80px;
+              padding: 0 13px;
+              font-size: 15px;
+              color: #fff;
+            }
+
+            .infogramMenuNav {
+              position: absolute;
+              z-index: 0;
+              display: none;
+              transition-duration: 0.25s;
+              transition-timing-function: ease-in-out;
+              transition-property: display, z-index;
+              top: 80px;
+              left: 0;
+
+              .infogramMenuNavUl {
+                list-style: none;
+                padding: 0;
+                background-color: rgb(122, 79, 138);
+
+                li {
+                  width: 205px;
+
+                  &:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                  }
+
+                  a {
+                    line-height: 37px;
+                    padding: 10px 15px 10px 30px;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      .publicHeadComponentLogin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          color: rgb(255, 255, 255);
+          height: 40px;
+          min-width: 140px;
+          border-radius: 4px;
+          transition-duration: 0.15s;
+          transition-timing-function: ease-in-out;
+          transition-property: border-color, background-color, color;
+          background-color: transparent;
+          font-size: 15px;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          font-weight: 500;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+
+          &:hover {
+            background-color: rgb(255, 255, 255);
+            color: rgb(101, 101, 101);
+          }
+
+          &:last-child {
+            background-color: #ce2533;
+            border-color: #ce2533;
+            margin-left: 8px;
+
+            &:hover {
+              color: rgb(255, 255, 255);
+              background-color: rgb(220, 83, 86);
+              border-color: rgb(220, 83, 86);
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+
+  .publicHeadComponentScroll {
+    background-color: rgba(64, 49, 97, 0.8);
+    .infogramMenuLi {
+      &:hover {
+        background-color: rgb(122, 79, 138);
+      }
+    }
+    //.infogramMenu {
+    //
+    //
+    //  .infogramMenuUl {
+
+
+
+  }
+
+
+  .componentBody {
+    background: darkgray;
+    width: 100%;
+    flex: 1;
+    color: black;
+    overflow-y: scroll;
+    padding-top: 80px;
+
+  }
 }
