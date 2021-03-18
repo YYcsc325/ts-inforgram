@@ -2,6 +2,8 @@
   width: 276px;
   height: 100vh;
   background-image: linear-gradient(#2d4164, #3c2e5e);
+  color: #fff;
+  font-size: 15px;
 }
 
 .icon {
@@ -44,21 +46,116 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-
-  .user-icon {
-    display: inline-block;
-    width: 58px;
-    height: 58px;
-    line-height: 58px;
-    text-align: center;
-    border-radius: 50%;
-    background: rgb(223, 208, 193);
-    font-size: 26px;
-    font-weight: initial;
-  }
-  .user-mes {
-  }
 }
+
 .user:hover {
   background: #667ca4;
+}
+
+.user-icon {
+  display: inline-block;
+  width: 58px;
+  height: 58px;
+  line-height: 58px;
+  text-align: center;
+  border-radius: 50%;
+  background: rgb(223, 208, 193);
+  font-size: 26px;
+  font-weight: initial;
+  color: rgb(101, 101, 101);
+}
+
+.user-mes {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 20px 15px 20px 0;
+  padding-right: 15px;
+  color: #fff;
+  width: 174px;
+  height: 100%;
+  position: relative;
+}
+
+.username {
+  font-size: 21px;
+}
+
+.mes {
+  font-size: 11px;
+}
+
+.outlined {
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+.library-item {
+  color: #fff;
+  height: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 50px;
+  cursor: pointer;
+  padding: 0 16px;
+  background: #1d2742;
+  position: relative;
+}
+
+.library-drop {
+  position: absolute;
+  right: 18px;
+}
+
+.library-open {
+  height: 52px;
+  padding-left: 35px;
+  padding-right: 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.border-line {
+  border-top: 2px solid #576480;
+}
+.background-line {
+  background-color: #1d2742;
+}
+.background-rl {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.background-hover:hover {
+  background-color: #667ca4;
+}
+
+.key-item {
+  color: #fff;
+  height: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 50px;
+  cursor: pointer;
+  padding: 0 16px;
+}
+
+.key-item:hover {
+  background-color: #667ca4;
+}
+
+.active {
+  background-color: #667ca4;
+}
+
+.key-name {
+  margin-left: 10px;
+}
+
+.introduce {
+  position: absolute;
+  bottom: 0;
+  padding: 22px 16px;
+  opacity: 0.5;
 }
