@@ -164,10 +164,41 @@
     flex: 1;
     overflow-y: scroll;
 
+    .jionBtn {
+      width: 300px;
+      align-self: center;
+      margin: 22px auto 26px;
+      padding: 23px 0;
+      text-align: center;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      cursor: pointer;
+      height: 40px;
+      min-width: 140px;
+      border-radius: 4px;
+      border: 2px solid rgb(206, 37, 51);
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out;
+      transition-property: border-color, background-color, color;
+      color: rgb(255, 255, 255);
+      font-size: 15px;
+      background-color: rgb(206, 37, 51);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        color: rgb(255, 255, 255);
+        background-color: rgb(220, 83, 86);
+        border-color: rgb(220, 83, 86);
+      }
+    }
+
     .componentBodyTitleBox {
       width: 100%;
       min-height: 740px;
-      margin: -80px 0px 45px;
+      margin: -80px 0 45px;
       padding: 80px 20px 191px;
       background-repeat: no-repeat;
       background-image: url(https://cdn-web.jifo.co/_next/static/images/background-513ea781fe7baf48146ecc529bea441e.svg), linear-gradient(267.77deg, rgb(65, 155, 173) 0%, rgb(64, 100, 185) 50%, rgb(88, 46, 141) 100%);
@@ -214,87 +245,279 @@
         z-index: 1;
         width: 100%;
 
-        &>span {
+        & > span {
           display: inline-block;
           background: rgb(255, 255, 255);
           border-radius: 50%;
           width: 6px;
           height: 6px;
           align-self: center;
-          margin: 0px 6px;
+          margin: 0 6px;
         }
       }
 
     }
 
-
-    .jionBtn {
-      width: 300px;
-      align-self: center;
-      margin: 22px auto 26px;
-      padding: 23px 0px;
+    .videoBox {
       text-align: center;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
-      cursor: pointer;
-      height: 40px;
-      min-width: 140px;
-      border-radius: 4px;
-      border: 2px solid rgb(206, 37, 51);
-      transition-duration: 0.15s;
-      transition-timing-function: ease-in-out;
-      transition-property: border-color, background-color, color;
-      color: rgb(255, 255, 255);
-      font-size: 15px;
-      background-color: rgb(206, 37, 51);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: relative;
+      background: rgb(255, 255, 255);
+      padding: 0 0 45px;
+      width: 100%;
 
-      &:hover {
-        color: rgb(255, 255, 255);
-        background-color: rgb(220, 83, 86);
-        border-color: rgb(220, 83, 86);
+      & > video {
+        min-height: 510px;
+        margin-top: -280px;
+        box-shadow: rgb(0 0 0 / 10%) 0 6px 41px 8px;
+        border-radius: 8px;
       }
     }
 
-    .dataPresentation{
+    .introduceContent {
+      width: 100%;
+      background: rgb(255, 255, 255);
+      display: flex;
+      flex-direction: column;
+      -webkit-box-pack: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding-top: 60px;
+
+      .introduceContentCardOne {
+        width: 100%;
+        max-width: 940px;
+        margin: 0 auto 100px;
+        display: flex;
+        flex-flow: row-reverse wrap;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        background: rgb(255, 255, 255);
+        position: relative;
+
+
+        .introduceContentCardOneContent {
+          width: 49%;
+          text-align: left;
+          letter-spacing: 1px;
+
+          .introduceContentCardOneTitle {
+            width: 100%;
+            color: rgb(101, 101, 101);
+            font-size: 41px;
+            font-weight: 300;
+            line-height: 50px;
+          }
+
+          .introduceContentCardOneText {
+            margin: 25px 0 0;
+            padding: 8px 0 10px 50px;
+            line-height: 25px;
+            text-align: left;
+            background-position: left top;
+            letter-spacing: 0;
+            font-size: 15px;
+            color: rgb(67, 67, 67);
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
+
+            > h3 {
+              font-size: 17px;
+              letter-spacing: 0.1px;
+              margin: 0 0 4px;
+              font-style: normal;
+              font-weight: bold;
+              line-height: 26px;
+            }
+          }
+
+
+        }
+
+        .introduceContentCardOnePic {
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+        }
+      }
+
+      .introduceContentCardTwo {
+        width: 100%;
+        max-width: 940px;
+        display: flex;
+        flex-flow: row wrap;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        background: rgb(255, 255, 255);
+        position: relative;
+        margin: 0 auto 158px;
+
+        .introduceContentCardTwoTitle {
+          width: 100%;
+          color: rgb(101, 101, 101);
+          font-size: 41px;
+          font-weight: 300;
+          line-height: 50px;
+          margin: 12px 0 0;
+        }
+
+        .introduceContentCardTwoPic {
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+          width: 60%;
+          margin: auto;
+          height: 400px;
+        }
+
+        .introduceContentCardTwoContent {
+          text-align: left;
+          letter-spacing: 1px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+
+          .introduceContentCardTwoText {
+            margin: 25px 0 0;
+            line-height: 25px;
+            letter-spacing: 0;
+            font-size: 15px;
+            color: rgb(67, 67, 67);
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
+            text-align: center;
+            background-position: center top;
+            padding: 50px 0 0;
+            flex: 1 1 0;
+
+            > h3 {
+              font-size: 17px;
+              letter-spacing: 0.1px;
+              margin: 0 0 4px;
+              font-style: normal;
+              font-weight: bold;
+              line-height: 26px;
+            }
+          }
+        }
+      }
+
+      .cardIconOne {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/branding-8e6d72e62aca075a025af6bc02dee6b0.svg");
+      }
+
+      .cardIconTwo {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/guidelines-2f1b67e75037d59a56b89f0bff023ff3.svg");
+      }
+
+      .cardIconThree {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/animation-d0cb84f3100e1256249e618a0066606b.svg");
+      }
+
+      .cardIconFour {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/interactive-6d0447a4094121d9042157770ed8c1fe.svg");
+      }
+
+      .cardIconFive {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/collaboration-bc2dd2fbadcb825f45f64d8f663eda07.svg");
+      }
+
+      .cardIconSix {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/permissions-ebc69fbf0665b79cf8cec1ca32571807.svg");
+      }
+
+      .cardIconSeven {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/history-3be383e01504a5b96be61b3d8988b6ce.svg");
+      }
+
+      .cardIconEight {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/measure-90487a5582b1b307a40bdd1cc3d73c42.svg");
+      }
+
+      .cardIconNine {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/interactivity-e32b782bd6684343a1fb5d7985f97712.svg");
+      }
+
+      .cardIconTen {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/customlinks-09ddda47eb1a8829995c4b476bb69ea0.svg");
+      }
+
+      .cardIconEleven {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/share-981ee177e1b78f4a55040ff894131dbb.svg");
+      }
+
+      .cardIconTwelve {
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/mobile-f6f8b7d3da142d63c33d9247bdfce96e.svg");
+      }
+
+      .cardPicOne {
+        width: 49%;
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/picture1-9e4f2c009190b0c57b05517f85f767ed.png");
+      }
+
+      .cardPicTwo {
+        width: 44%;
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/picture2-95142cee147977b6f0e6bd926f3cd5d4.png");
+      }
+
+      .cardPicThree {
+        width: 49%;
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/picture3-08ad3e3101f1cdb91ae8cba2b5417418.png");
+      }
+
+      .cardPicFour {
+        width: 44%;
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/picture4-611625e6574f8abe34f8dfb8595a5d1b.png");
+      }
+
+      .cardPicFive {
+        width: 49%;
+        background-image: url("https://cdn-web.jifo.co/_next/static/images/picture5-2a7ab8f1acd4f93cdb95597c636b7977.png");
+      }
+    }
+
+    .dataPresentation {
       width: 100%;
       background: rgb(251, 251, 251);
       //opacity: 0;
       transition: opacity 0.6s ease 0s;
-      padding: 0px 20px;
-      .dataPresentationTitle{
+      padding: 0 20px;
+
+      .dataPresentationTitle {
         color: rgb(101, 101, 101);
         font-size: 29px;
         font-weight: 300;
         line-height: 38px;
         text-align: center;
-        padding: 41px 0px 10px;
+        padding: 41px 0 10px;
       }
-      .dataPresentationContent{
+
+      .dataPresentationContent {
         max-width: 940px;
         margin: auto;
-        padding: 50px 0px 18px;
+        padding: 50px 0 18px;
         display: flex;
         flex-flow: row wrap;
         -webkit-box-pack: justify;
         justify-content: space-between;
-        .dataPresentationCard{
-          flex: 1 1 0%;
+
+        .dataPresentationCard {
+          flex: 1 1 0;
           min-width: 300px;
           min-height: 272px;
           text-align: left;
-          .dataPresentationCardPic{
+
+          .dataPresentationCardPic {
             min-height: 100px;
-            margin: 0px 0px 20px;
+            margin: 0 0 20px;
             display: block;
           }
-          .dataPresentationCardTitle{
+
+          .dataPresentationCardTitle {
             color: rgb(67, 67, 67);
           }
-          .dataPresentationCardSubTitle{
+
+          .dataPresentationCardSubTitle {
             color: rgb(67, 67, 67);
             font-size: 15px;
             line-height: 26px;
@@ -310,7 +533,7 @@
       width: 100%;
       //opacity: 0;
       transition: opacity 0.6s ease 0s;
-      padding: 0px 20px;
+      padding: 0 20px;
 
       .possibilitiesTitle {
         color: rgb(255, 255, 255);
@@ -318,14 +541,14 @@
         font-weight: 300;
         line-height: 38px;
         text-align: center;
-        padding: 40px 0px 0px;
+        padding: 40px 0 0;
         margin: 0;
       }
 
       .possibilitiesLinksBox {
         max-width: 940px;
         margin: auto;
-        padding: 50px 0px;
+        padding: 50px 0;
         display: flex;
         flex-flow: row wrap;
         -webkit-box-pack: justify;
@@ -337,7 +560,7 @@
           border-radius: 4px;
           background: rgba(255, 255, 255, 0.2);
           color: rgb(255, 255, 255);
-          padding: 0px 32px;
+          padding: 0 32px;
           text-align: center;
           display: flex;
           flex-direction: column;
@@ -367,7 +590,7 @@
 
     .usingCompany {
       max-width: 940px;
-      margin: 0px auto;
+      margin: 0 auto;
       padding: 59px 20px 31px;
 
       .usingCompanyText {
@@ -376,14 +599,212 @@
         font-weight: 300;
         line-height: 40px;
         text-align: center;
-        margin: 0px 0px 25px;
+        margin: 0 0 25px;
       }
 
       .usingCompanyPic {
         max-width: 100%;
-        margin: 22px 0px 54px;
+        margin: 22px 0 54px;
       }
     }
 
+    .moreLinksBoxBackground {
+      padding: 40px 0;
+      background-color: rgb(247, 247, 247);
+
+      .moreLinksBox {
+        max-width: 930px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+
+        .moreLinks {
+          flex-basis: 20%;
+          display: flex;
+          flex-wrap: wrap;
+
+          .moreLinksTitle {
+            color: rgb(101, 101, 101);
+            padding-bottom: 10px;
+            font-size: 17px;
+          }
+
+          .moreLinksList {
+            flex-basis: 100%;
+
+            .moreLinksLi {
+              line-height: 17px;
+              margin-bottom: 13px;
+
+              .moreLink {
+                text-decoration: none;
+                color: rgb(49, 149, 203);
+                font-size: 15px;
+                line-height: 17px;
+
+                &:hover {
+                  text-decoration: underline;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .publicFooterComponent {
+      padding: 30px 0;
+
+      .publicFooterBox {
+        max-width: 1200px;
+        margin: 0 auto;
+
+        .thirdPartyLinks {
+          margin-bottom: 30px;
+          display: flex;
+          -webkit-box-pack: center;
+          justify-content: center;
+
+          > a {
+            width: 40px;
+            transition-duration: 0.15s;
+            transition-timing-function: ease-in-out;
+            transition-property: border-color, background-color, color;
+            border-radius: 4px;
+            margin: 0 4px;
+            height: 40px;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            background-color: rgb(235, 235, 238);
+
+            > img {
+              width: 50%;
+              height: 50%;
+            }
+          }
+        }
+
+        .contactInformation {
+          display: flex;
+          justify-content: center;
+          font-weight: 500;
+
+          .contactInformationInfo, .contactInformationTel, .contactInformationChat {
+            background-image: url("https://cdn-web.jifo.co/_next/static/images/email-grey-615f2f464c7a375d3851daa793e0c813.svg");
+            background-repeat: no-repeat;
+            background-size: 18px 18px;
+            padding-left: 23px;
+            margin: 0 10px;
+            color: rgb(49, 149, 203);
+            font-size: 15px;
+            line-height: 17px;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          .contactInformationTel {
+            background-image: url("https://cdn-web.jifo.co/_next/static/images/phone-grey-0566308aea706a64e1d13a746e1b0929.svg");
+          }
+
+          .contactInformationChat {
+            background-image: url("https://cdn-web.jifo.co/_next/static/images/chat-grey-a7247611de3210d7f99ccd5956a0ccd3.svg");
+          }
+        }
+
+        .languagesList {
+          margin-top: 20px;
+          display: flex;
+          -webkit-box-pack: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          font-weight: 500;
+
+          > a {
+            font-size: 13px;
+            color: rgb(117, 117, 117);
+            margin: 0 10px;
+            line-height: 17px;
+
+            &:hover {
+              text-decoration: underline;
+              color: rgb(88, 170, 215);
+            }
+          }
+        }
+
+        .statementContent {
+          text-align: center;
+          margin-top: 30px;
+          margin-bottom: 25px;
+          color: rgb(101, 101, 101);
+          line-height: 20px;
+          font-weight: 500;
+
+          > p {
+            font-size: 15px;
+            margin: 0;
+
+            > a {
+              text-decoration: none;
+              color: rgb(49, 149, 203);
+              font-size: 15px;
+              line-height: 17px;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+
+            > small {
+              font-size: 11px;
+              display: block;
+            }
+          }
+        }
+
+        .footerPic {
+          margin: 0 auto;
+          display: block;
+          width: 65px;
+        }
+      }
+    }
+  }
+
+  .supportBtn {
+    width: 103px;
+    height: 50px;
+    padding: 0;
+    margin: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    overflow: visible;
+    opacity: 1;
+    z-index: 999998;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition-property: opacity, top, bottom;
+    right: 0;
+
+    :global {
+      .ant-btn {
+        width: 103px;
+        height: 50px;
+        background-color: #38a86f;
+        color: #ffffff;
+        fill: #ffffff;
+        border: none;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
   }
 }
