@@ -7,12 +7,10 @@ const routes = [
     path: "/",
     exact: false,
     component: "@/layouts",
-    routes: [
-      { exact: true, path: "/crowd", component: "@/pages/crowd" },
-      { exact: true, path: "/conversion", component: "@/pages/conversion" },
-    ],
+    redirect: "/home",
+    routes: [{ exact: true, path: "/crowd", component: "@/pages/crowd" }],
   },
-  { component: "@/pages/404" },
+  { path: "*", component: "@/pages/404" },
 ];
 
 export default routes;
