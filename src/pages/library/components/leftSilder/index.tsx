@@ -6,9 +6,12 @@ import {
 } from "@ant-design/icons";
 import { noop } from "lodash";
 import classNames from "classnames";
+import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
 import { data, libraryItems } from "./mock";
+
+const prefixCls = createPrefixClass("left-silder", styles);
 
 type MapComType = "a" | "span";
 
@@ -25,27 +28,27 @@ const LeftSilder = () => {
   const [active, setActive] = useState<string>();
 
   return (
-    <div className={styles["left-silder"]}>
-      <div className={styles.icon}>
-        <span className={styles.infogram}>infogram</span>
-        <span className={styles.upgrade}>Upgrade</span>
+    <div className={prefixCls()}>
+      <div className={prefixCls("icon")}>
+        <span className={prefixCls("infogram")}>infogram</span>
+        <span className={prefixCls("upgrade")}>Upgrade</span>
       </div>
-      <div className={styles.user}>
-        <span className={styles["user-icon"]}>YC</span>
-        <span className={styles["user-mes"]}>
-          <DownOutlined className={styles.outlined} />
-          <div className={styles.username}>YY小学徒 CSC...</div>
-          <div className={styles.mes}>Basic account</div>
+      <div className={prefixCls("user")}>
+        <span className={prefixCls("user-icon")}>YC</span>
+        <span className={prefixCls("user-mes")}>
+          <DownOutlined className={prefixCls("outlined")} />
+          <div className={prefixCls("username")}>YY小学徒 CSC...</div>
+          <div className={prefixCls("mes")}>Basic account</div>
         </span>
       </div>
-      <div className={styles.library}>
+      <div className={prefixCls("library")}>
         <div
-          className={styles["library-item"]}
+          className={prefixCls("library-item")}
           onClick={() => setVisible(!visible)}
         >
           <MedicineBoxOutlined />
-          <span className={styles["key-name"]}>Library</span>
-          <span className={styles["library-drop"]}>
+          <span className={prefixCls("key-name")}>Library</span>
+          <span className={prefixCls("library-drop")}>
             {visible ? <UpOutlined /> : <DownOutlined />}
           </span>
         </div>
@@ -64,11 +67,11 @@ const LeftSilder = () => {
                 const IconCom = icon || noop;
                 return (
                   <div
-                    className={classNames(styles["library-open"], {
-                      [styles["border-line"]]: needLine,
-                      [styles["background-line"]]: backGround === "line",
-                      [styles["background-rl"]]: backGround === "rl",
-                      [styles["background-hover"]]: needHover,
+                    className={classNames(prefixCls("library-open"), {
+                      [prefixCls("border-line")]: needLine,
+                      [prefixCls("background-line")]: backGround === "line",
+                      [prefixCls("background-rl")]: backGround === "rl",
+                      [prefixCls("background-hover")]: needHover,
                     })}
                     style={style}
                     key={name}
@@ -82,7 +85,7 @@ const LeftSilder = () => {
           </div>
         )}
       </div>
-      <div className={styles["function-key"]}>
+      <div className={prefixCls("function-key")}>
         {data.map(
           ({
             name,
@@ -96,20 +99,20 @@ const LeftSilder = () => {
             const Com = icon || noop;
             return (
               <div
-                className={classNames(styles["key-item"], {
-                  [styles.active]: id === active,
+                className={classNames(prefixCls("key-item"), {
+                  [prefixCls("active")]: id === active,
                 })}
                 onClick={() => setActive(id)}
                 key={name}
               >
                 <Com />
-                <span className={styles["key-name"]}>{name}</span>
+                <span className={prefixCls("key-name")}>{name}</span>
               </div>
             );
           }
         )}
       </div>
-      <div className={styles.introduce}>
+      <div className={prefixCls("introduce")}>
         <div>Learn how to use Infogram</div>
         <div style={{ marginTop: "20px" }}>Get inspiration from examples</div>
       </div>

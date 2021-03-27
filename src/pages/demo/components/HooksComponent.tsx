@@ -3,7 +3,7 @@
  * @desc 对useEffect, useCallback, useMemo的解释
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 // useMemo跟useCallback 跟 useEffect使用方式一样
 // useMemo 返回一个返回缓存的变量
@@ -22,7 +22,7 @@ function Child({ callback }) {
 
 const HooksComponent = (props = {}) => {
   const [count, setCount] = useState(1);
-  const [val, setVal] = useState('');
+  const [val, setVal] = useState("");
   const [vals, setVals] = useState(1);
 
   // 传递给子组件， 父子间count发生变化，子组件进行更新，子组件监听这个函数
@@ -30,7 +30,7 @@ const HooksComponent = (props = {}) => {
     (val) => {
       return count + val;
     },
-    [count],
+    [count]
   );
 
   const valueData = useMemo(() => {

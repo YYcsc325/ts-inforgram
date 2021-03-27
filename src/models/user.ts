@@ -1,19 +1,19 @@
-import { postQueryUserData, getQueryUserData } from '@/service/user';
-import createActions, { Model } from 'dva';
+import { getQueryUserData } from "@/service/user";
+import { Model } from "dva";
 
 const userModel: Model = {
-  namespace: 'user',
+  namespace: "user",
   state: {},
   effects: {
     *fetchUserList({ payload }, { call, put }) {
       let response = [];
       try {
         response = yield call(getQueryUserData, { ...payload });
-      } catch(err) {
-          throw err;
+      } catch (err) {
+        throw err;
       }
       yield put({
-        type: 'updateIn',
+        type: "updateIn",
         payload: response.result,
       });
       return response;
@@ -35,6 +35,4 @@ const userModel: Model = {
   },
 };
 
-export const userEffectActions = userModel.effects;
-export const userReducerActions = userModel.reducers;
 export default userModel;

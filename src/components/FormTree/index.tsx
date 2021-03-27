@@ -1,50 +1,50 @@
-import { Component } from 'react';
-import { Tree } from 'antd';
-import styles from './index.less';
+import { Component } from "react";
+import { Tree } from "antd";
+import styles from "./index.less";
 
 const { TreeNode } = Tree;
 
 const defaultData = [
   {
-    title: '互联网',
-    key: '1',
+    title: "互联网",
+    key: "1",
     children: [
       {
-        title: '购物',
-        key: '1-1',
+        title: "购物",
+        key: "1-1",
         children: [
-          { title: '0-0-0-0', key: '0-0-0-0' },
-          { title: '0-0-0-1', key: '0-0-0-1' },
-          { title: '0-0-0-2', key: '0-0-0-2' },
+          { title: "0-0-0-0", key: "0-0-0-0" },
+          { title: "0-0-0-1", key: "0-0-0-1" },
+          { title: "0-0-0-2", key: "0-0-0-2" },
         ],
       },
       {
-        title: '音乐',
-        key: '1-2',
+        title: "音乐",
+        key: "1-2",
         children: [
-          { title: '0-0-1-0', key: '0-0-1-0' },
-          { title: '0-0-1-1', key: '0-0-1-1' },
-          { title: '0-0-1-2', key: '0-0-1-2' },
+          { title: "0-0-1-0", key: "0-0-1-0" },
+          { title: "0-0-1-1", key: "0-0-1-1" },
+          { title: "0-0-1-2", key: "0-0-1-2" },
         ],
       },
       {
-        title: '哈哈哈',
-        key: '1-3',
+        title: "哈哈哈",
+        key: "1-3",
       },
     ],
   },
   {
-    title: '游戏',
-    key: '2',
+    title: "游戏",
+    key: "2",
     children: [
-      { title: '大话', key: '2-1' },
-      { title: '梦幻', key: '2-2' },
-      { title: '0-1-0-2', key: '0-1-0-2' },
+      { title: "大话", key: "2-1" },
+      { title: "梦幻", key: "2-2" },
+      { title: "0-1-0-2", key: "0-1-0-2" },
     ],
   },
   {
-    title: '教育',
-    key: '3',
+    title: "教育",
+    key: "3",
   },
 ];
 
@@ -54,8 +54,12 @@ function getValue(treeData, checkedKeys, mode) {
   for (let i = 0; i < treeData.length; i++) {
     const item = treeData[i];
     if (checkedKeys.indexOf(item.key) !== -1) {
-      if (item.children && item.children.length > 0 && mode === 'children') {
-        const [nextRes, nextRealRes] = getValue(item.children, checkedKeys, mode);
+      if (item.children && item.children.length > 0 && mode === "children") {
+        const [nextRes, nextRealRes] = getValue(
+          item.children,
+          checkedKeys,
+          mode
+        );
         res = res.concat(nextRes);
         realRes = realRes.concat(nextRealRes);
       } else {
@@ -72,7 +76,7 @@ function getValue(treeData, checkedKeys, mode) {
 }
 
 // 初始化
-function initValue(treeData, checkedKeys, mode = 'all') {
+function initValue(treeData, checkedKeys, mode = "all") {
   if (!checkedKeys) return [];
 
   let res = [];
@@ -90,7 +94,7 @@ function initValue(treeData, checkedKeys, mode = 'all') {
     } else {
       const nextRes = initValue(item.children, checkedKeys, mode);
       let flag = true;
-      item.children.map(i => {
+      item.children.map((i) => {
         if (nextRes.indexOf(i.key) === -1) {
           flag = false;
         }
@@ -116,13 +120,17 @@ class FormTree extends Component {
       expandedKeys: props.expandedKeys || [],
       autoExpandParent: true,
       selectedKeys: props.selectedKeys || [],
-      mode: props.mode || 'all',
+      mode: props.mode || "all",
       treeData: props.treeData || defaultData,
     };
-    this.state.checkedKeys = initValue(this.state.treeData, props.value, this.state.mode);
+    this.state.checkedKeys = initValue(
+      this.state.treeData,
+      props.value,
+      this.state.mode
+    );
   }
 
-  triggerChange = changedValue => {
+  triggerChange = (changedValue) => {
     // Should provide an event to pass value to Form.
     const { onChange, onItemChange } = this.props;
     const { treeData, mode } = this.state;
@@ -131,7 +139,7 @@ class FormTree extends Component {
     onItemChange && onItemChange(resval, realVal);
   };
 
-  onExpand = expandedKeys => {
+  onExpand = (expandedKeys) => {
     // if not set autoExpandParent to false, if children expanded, parent can not collapse.
     // or, you can remove all expanded children keys.
     this.setState({
@@ -155,8 +163,8 @@ class FormTree extends Component {
     }
   };
 
-  renderTreeNodes = data =>
-    data.map(item => {
+  renderTreeNodes = (data) =>
+    data.map((item) => {
       if (item.children) {
         return (
           <TreeNode title={item.title} key={item.key} dataRef={item}>

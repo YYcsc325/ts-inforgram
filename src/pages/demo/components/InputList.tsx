@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Input } from 'antd';
+import React, { useState } from "react";
+import { Form, Input } from "antd";
 let uid = 1;
 const CustomInput = ({
   inputKey,
@@ -17,7 +17,7 @@ const CustomInput = ({
           onClick={() => {
             onAddClick();
           }}
-          style={{ cursor: 'pointer', marginRight: '10px' }}
+          style={{ cursor: "pointer", marginRight: "10px" }}
         >
           添加
         </span>
@@ -27,7 +27,7 @@ const CustomInput = ({
           onClick={() => {
             onDeleteClick(inputKey);
           }}
-          style={{ cursor: 'pointer', marginRight: '10px' }}
+          style={{ cursor: "pointer", marginRight: "10px" }}
         >
           删除
         </span>
@@ -45,18 +45,18 @@ const InputList = ({ options = [], fatherKey, form, rules = [], ...reset }) => {
         {
           key: `${fatherKey}.${uid++}`,
         },
-      ]),
+      ])
     );
   };
   // 删除数据
   const deleteClick = (key) => {
-    console.log(key, 'key');
+    console.log(key, "key");
     setList(list.filter((item) => item.key !== key));
   };
   return (
     <Form form={form}>
       {list.map(({ key, label, rules }, index) => {
-        console.log(key, 'key');
+        console.log(key, "key");
         return (
           <Form.Item name={key} label={label} rules={rules}>
             <CustomInput

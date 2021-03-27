@@ -1,23 +1,29 @@
-import React, {useEffect} from 'react'
-// import styles from './index.less'
-import {Layout} from 'antd'
-import {IRouteComponentProps} from 'umi'
+import React, { FC, useEffect } from "react";
+import { Layout } from "antd";
+import { IRouteComponentProps } from "umi";
 
+import LayoutContext from "./context";
 
-interface PageProps extends IRouteComponentProps {
-}
+interface PageProps extends IRouteComponentProps {}
 
-const Index = ({children, location}: PageProps) => {
+const BasicLayOut: FC<PageProps> = ({
+  children,
+  location,
+  ...reset
+}: IRouteComponentProps) => {
+  const [value] = useState({});
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
-
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Layout>
-      <div>{children}</div>
+      <LayoutContext.Provider value={{ value }}>
+        {children}
+      </LayoutContext.Provider>
     </Layout>
-  )
-}
+  );
+};
 
-export default Index
+export default BasicLayOut;

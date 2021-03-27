@@ -1,8 +1,8 @@
-import { connect } from 'dva';
+import { connect } from "dva";
 
 const mapStateToProps = (state, props) => {
   return {
-    initialValue: '',
+    initialValue: "",
   };
 };
 const mapDispatchToProps = (dispatch, props) => {
