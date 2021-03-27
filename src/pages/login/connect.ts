@@ -14,10 +14,13 @@ const mapStateToProps = ({ adloading }: any) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    login({ email, passWord }: IUserProps) {
+    dispatchLogin({ email, passWord }: IUserProps) {
       return dispatch(loginAction({ payload: { email, passWord } }));
     },
   };
 };
+
+export type ILoginMapProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 export default connect(mapStateToProps, mapDispatchToProps);

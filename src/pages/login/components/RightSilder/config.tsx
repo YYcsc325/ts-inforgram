@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox } from "antd";
 import Cookies from "js-cookie";
 
-import connect from "./connect";
+import connect from "@/pages/login/connect";
 import styles from "./index.less";
 
 const formItemLayout = {

@@ -178,16 +178,6 @@ export function CopyContent(props) {
   );
 }
 
-export function addTreeKey(list: any[] = [], cb: (val: any) => any) {
-  if (!isFunc(cb)) return list;
-  return list.map((item: any) => {
-    const result = cb({ ...item });
-    if (item.children && item.children.length) {
-      result.children = addTreeKey(item.children, cb);
-    }
-    return result;
-  });
-}
 /**
  * @name 监听页面切换
  */
