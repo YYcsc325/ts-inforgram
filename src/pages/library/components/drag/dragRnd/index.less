@@ -1,0 +1,54 @@
+.dragWarpClass {
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  border: 1px solid transparent;
+  border-radius: 1px;
+  &:hover {
+    border-color: #3195cb;
+  }
+}
+.isActive {
+  border-color: #3195cb;
+  border-style: dashed;
+  z-index: 9999;
+}
+.defaultSpan {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  background: #1890ff;
+  position: absolute;
+}
+.leftTop {
+  left: -4px;
+  top: -4px;
+}
+.centerTop {
+  left: 49%;
+  top: -5px;
+}
+.rightTop {
+  right: -4px;
+  top: -4px;
+}
+.leftCenter {
+  left: -5px;
+  top: 49%;
+}
+.rightCenter {
+  right: -5px;
+  top: 49%;
+}
+.leftBottom {
+  left: -4px;
+  bottom: -4px;
+}
+.centerBottom {
+  left: 49%;
+  bottom: -5px;
+}
+.rightBottom {
+  right: -4px;
+  bottom: -4px;
+}
