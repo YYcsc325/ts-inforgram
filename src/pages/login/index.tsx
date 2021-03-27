@@ -5,12 +5,7 @@ import LeftComponent from "./components/LeftSilder";
 import RightComponent from "./components/RightSilder";
 import styles from "./index.less";
 
-class Index extends Component<any, any> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+class Index extends Component<any> {
   render() {
     const { loginLoading = false } = this.props;
     return (
@@ -22,10 +17,5 @@ class Index extends Component<any, any> {
     );
   }
 }
-
-// "react-dnd-html5-backend": "11.1.3",
-// "react-dnd": "11.1.3",
-// "react-rnd": "10.1.9",
-// "immutability-helper": "^3.0.0"
 
 export default Index;
