@@ -5,7 +5,7 @@ const userModel: Model = {
   namespace: "user",
   state: {},
   effects: {
-    *fetchUserList({ payload }, { call, put }) {
+    *fetchUserList({ payload }, { call, put, select }) {
       let response = [];
       try {
         response = yield call(getQueryUserData, { ...payload });
@@ -31,7 +31,10 @@ const userModel: Model = {
     },
   },
   subscriptions: {
-    setup({ dispatch, history }) {},
+    setup({ dispatch, history }) {
+      // 这里是监听路由变化
+      history.listen((location) => {});
+    },
   },
 };
 

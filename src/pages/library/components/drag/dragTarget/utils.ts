@@ -2,7 +2,7 @@
  * @name 获取list最大值
  * @param {*} arr
  */
-function Max(arr) {
+function Max(arr: number[] = []) {
   return Math.max(...arr);
 }
 
@@ -10,7 +10,7 @@ function Max(arr) {
  * @name 获取list最小值
  * @param {*} arr
  */
-function Min(arr = []) {
+function Min(arr: number[] = []) {
   return Math.min(...arr);
 }
 
@@ -21,7 +21,13 @@ function Min(arr = []) {
  * @param {*} position 所有元素的坐标
  * @param {*} xy  需要比较哪个方位的
  */
-export function getMaxMin(target, arr = [], position = {}, x, y) {
+export function getMaxMin(
+  target: any,
+  arr = [],
+  position = {},
+  x: string,
+  y: string
+) {
   let list = [];
   arr.map((key) => {
     list.push(position[key][x]);

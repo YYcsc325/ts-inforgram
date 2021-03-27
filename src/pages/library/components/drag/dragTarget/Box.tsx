@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useDrag } from "react-dnd";
-import { ItemTypes } from "./ItemTypes";
+import { dragConsts } from "@/consts";
 
 const style = {
   border: "1px dashed gray",
@@ -22,8 +22,8 @@ let uid = 1;
 const Box: FC<IBoxProps> = ({ name, url, customType }) => {
   console.log();
   const [{ isDragging }, drag] = useDrag({
-    type: "box",
-    item: { name, type: "box", url, id: ++uid, customType },
+    type: dragConsts.box,
+    item: { name, type: dragConsts.box, url, id: ++uid, customType },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
