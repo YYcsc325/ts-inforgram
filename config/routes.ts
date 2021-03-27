@@ -2,13 +2,15 @@ const routes = [
   { path: "/login", component: "@/pages/login" },
   { path: "/home", component: "@/pages/home" },
   { path: "/demo", component: "@/pages/demo" },
-  { path: "/library", component: "@/pages/library" },
   {
     path: "/",
     exact: false,
     component: "@/layouts",
-    redirect: "/home",
-    routes: [{ exact: true, path: "/crowd", component: "@/pages/crowd" }],
+    routes: [
+      { exact: true, path: "/", redirect: "/home", component: "@/pages/login" },
+      { exact: true, path: "/library", component: "@/pages/library" },
+      { exact: true, path: "/crowd", component: "@/pages/crowd" },
+    ],
   },
   { path: "*", component: "@/pages/404" },
 ];
