@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ReactChild = ({ children, onChange, ...reset }) => {
   function clickKey(key) {
@@ -12,13 +12,13 @@ const ReactChild = ({ children, onChange, ...reset }) => {
             onClick: () => {
               clickKey(child.props);
             },
-          }),
+          })
         )}
       </div>
     </div>
   );
 };
-ReactChild.displayName = 'ReactChild';
+ReactChild.displayName = "ReactChild";
 
 const Comtab = ({ children, onChange, label, ...reset }) => {
   return (
@@ -33,7 +33,7 @@ const Comtab = ({ children, onChange, label, ...reset }) => {
   );
 };
 // displayName 给组件标注名称，容易定位问题
-Comtab.displayName = 'Comtab';
+Comtab.displayName = "Comtab";
 
 ReactChild.CustomTab = Comtab;
 export default ReactChild;

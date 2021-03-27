@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useMemo } from 'react';
-import { Form } from 'antd';
-import { processingObj } from '@/util/utils';
+import React, { FC, useCallback, useMemo } from "react";
+import { Form } from "antd";
+import { processingObj } from "@/util/utils";
 
-import mapUi from './mapUi';
+import mapUi from "./mapUi";
 
 interface IFormProps {
   form: any;
@@ -34,7 +34,7 @@ const FormView: FC<IFormProps> = ({
             component,
           }: any = {}) => {
             let Element: any = mapUi[type] || component;
-            if (typeof isShow === 'function') {
+            if (typeof isShow === "function") {
               isShow = isShow({ form, ...stateProps });
             }
             if (!Element || !isShow) return;
@@ -46,7 +46,7 @@ const FormView: FC<IFormProps> = ({
             }: any) {
               return (
                 <Form.Item
-                  {...processingObj(formItemProp, 'calling', {
+                  {...processingObj(formItemProp, "calling", {
                     ...connectProps,
                   })}
                 >
@@ -62,7 +62,7 @@ const FormView: FC<IFormProps> = ({
                   if (props.onChange) props.onChange(...args1); // 配置层组件的onChange
                   if (onChange) onChange(form.getFieldsValue()); // 最外层组件的onChange
                 },
-                [props],
+                [props]
               );
               return <Element {...props} onChange={handleChange} />;
             };
@@ -82,7 +82,7 @@ const FormView: FC<IFormProps> = ({
                 />
               </FormItem>
             );
-          },
+          }
         )
         .filter(Boolean)}
     </Form>

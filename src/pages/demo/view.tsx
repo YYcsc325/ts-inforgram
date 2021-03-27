@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Form, Button, Input } from 'antd';
-import { StaticModal, FormView } from '@/components';
-import { defaultConfig } from './defaultConfig';
+import React, { useState } from "react";
+import { Form, Button, Input } from "antd";
+import { StaticModal, FormView } from "@/components";
+import { defaultConfig } from "./defaultConfig";
 
 const Index = (props = {}) => {
   const [form] = Form.useForm();
-  const [initialValueInput] = useState('1234');
+  const [initialValueInput] = useState("1234");
 
   const handleSubmit = () => {
-    console.log(form, 'form');
+    console.log(form, "form");
     form
       .validateFields()
       .then((values) => {
-        console.log(values, 'values');
+        console.log(values, "values");
       })
       .catch((err) => {
-        console.log(err, 'err');
+        console.log(err, "err");
       });
   };
 
@@ -32,7 +32,7 @@ const Index = (props = {}) => {
         form={form}
         config={defaultConfig}
         formProps={{
-          layout: 'horizontal',
+          layout: "horizontal",
         }}
         stateProps={{
           onChangeState: () => {},
