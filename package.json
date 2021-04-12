@@ -30,6 +30,7 @@
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",
     "react-rnd": "^10.2.4",
+    "rxjs": "^6.6.7",
     "umi": "^3.3.3"
   },
   "devDependencies": {

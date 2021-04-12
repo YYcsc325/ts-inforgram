@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { Layout } from "antd";
 import { IRouteComponentProps } from "umi";
 
-import LayoutContext from "./context";
+import { ContextProvider } from "./context";
 
 interface PageProps extends IRouteComponentProps {}
 
@@ -19,9 +19,7 @@ const BasicLayOut: FC<PageProps> = ({
 
   return (
     <Layout>
-      <LayoutContext.Provider value={{ value }}>
-        {children}
-      </LayoutContext.Provider>
+      <ContextProvider value={{ value }}>{children}</ContextProvider>
     </Layout>
   );
 };

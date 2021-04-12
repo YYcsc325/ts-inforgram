@@ -12,22 +12,21 @@ const style = {
   float: "left",
 };
 
-interface IBoxProps {
+interface IImgBoxProps {
   name: string;
   url: string;
-  customType: string;
+  type: string;
 }
 
 let uid = 1;
-const Box: FC<IBoxProps> = ({ name, url, customType }) => {
-  console.log();
+const ImgBox: FC<IImgBoxProps> = ({ name, url, type }) => {
   const [{ isDragging }, drag] = useDrag({
     type: dragConsts.box,
-    item: { name, type: dragConsts.box, url, id: ++uid, customType },
+    item: { name, type, url, id: ++uid },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        // alert(`You dropped ${item.name} into ${dropResult.name}!`)
+        console.log("您已经放下了", dropResult);
       }
     },
     collect: (monitor) => ({
@@ -44,4 +43,4 @@ const Box: FC<IBoxProps> = ({ name, url, customType }) => {
   );
 };
 
-export default Box;
+export default ImgBox;
