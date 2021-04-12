@@ -1,0 +1,58 @@
+@keyframes templateAdd {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(90deg);
+  }
+}
+@-webkit-keyframes templateAdd {
+  from {
+    -webkit-transform: rotateZ(0);
+  }
+  to {
+    -webkit-transform: rotateZ(90deg);
+  }
+}
+.dt-rotate-box {
+  color: #fff;
+  display: inline-block;
+
+  &-template {
+    background-color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-icon {
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #aaa;
+    font-size: 20px;
+  }
+  &-template-add {
+    position: absolute;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #aaa;
+    line-height: 56px;
+    text-align: center;
+    font-size: 28px;
+    -webkit-animation-name: templateAdd;
+    -webkit-animation-duration: 0.5s;
+    animation-name: templateAdd;
+    animation-duration: 0.5s;
+  }
+}
+.dt-rotate-box:hover {
+  cursor: pointer;
+}

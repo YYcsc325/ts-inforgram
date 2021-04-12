@@ -1,7 +1,9 @@
-import React, { useState, forwardRef, useEffect } from "react";
+import React, { useState, forwardRef } from "react";
 import { useDrop } from "react-dnd";
 import { dragConsts } from "@/consts";
+import ScalableBox from "@/pages/library/components/drag/components/ScalableBox";
 
+import { DragConextCache } from "../DragContext/index";
 import DragRnd from "../dragRnd/index";
 import DragCanvas from "./DragCanvas";
 import "./index.less";
@@ -11,31 +13,18 @@ import "./index.less";
  * @param {*} props
  * @param {*} ref
  */
-const Dustbin = (props = {}, ref) => {
-  const [clickId, setClickId] = useState<string | null>(null);
-  const [list, setList] = useState([]);
-  const [allPosition, setAllPosition] = useState({});
-
-  // 空点击的时候去除选择元素的边框
-  useEffect(() => {
-    document.onclick = function (e: any) {
-      if (e.target.nodeName === "DIV") {
-        setClickId(null);
-      }
-    };
-  });
+const Dustbin = (props = {}, ref: React.RefObject<HTMLDivElement>) => {
+  const [list, setList] = useState<Array<{ id: string; type: string }>>([]);
 
   // 放下拖拽元素的触发的事件
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: dragConsts.box,
-    drop: (item, monitor) => {
-      const { id } = item;
-      let isFind = list.find((keys) => keys.id === id);
-
+    drop: (item: any, monitor) => {
+      const isFind = list.find((keys) => keys.id === item.id);
       // 如果没找到就是添加一个新元素
       if (!isFind) {
-        let { x, y } = monitor.getClientOffset(); // 获取位置有点问题
-        setList([...list, { ...item, left: x, top: y }]);
+        let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
+        setList(list.concat({ ...item, left: x, top: y }));
       }
       return { ...item };
     },
@@ -45,24 +34,18 @@ const Dustbin = (props = {}, ref) => {
     }),
   });
 
-  const handleClick = (id: string) => {
-    setClickId(id);
-  };
-
   return (
     <div ref={ref} className={"dragDustbin"}>
-      <DragCanvas allPosition={allPosition} clickId={clickId} />
       <div ref={drop} className={"content"}>
         {list.map((item) => {
-          const { id } = item;
+          const { type, ...reset } = item;
+          const Element = getDragComponent(type);
           return (
-            <DragRnd
-              {...item}
-              isActive={clickId === id}
-              allPosition={allPosition}
-              onHandleClick={handleClick}
-              setAllPosition={setAllPosition}
-            />
+            <DragRnd {...reset}>
+              <ScalableBox>
+                <Element {...item} />
+              </ScalableBox>
+            </DragRnd>
           );
         })}
       </div>
@@ -70,3 +53,12 @@ const Dustbin = (props = {}, ref) => {
   );
 };
 export default forwardRef(Dustbin);
+
+function getDragComponent(type: any) {
+  try {
+    const component = require(`@/components/DragComponents/${type}`).default;
+    return component;
+  } catch (err) {
+    return () => {};
+  }
+}

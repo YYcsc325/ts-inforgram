@@ -30,7 +30,13 @@ const LeftSilder = () => {
   return (
     <div className={prefixCls()}>
       <div className={prefixCls("icon")}>
-        <span className={prefixCls("infogram")}>infogram</span>
+        <span className={prefixCls("infogram")}>
+          <img
+            style={{ width: "110px" }}
+            src="https://cdn-web.jifo.co/_next/static/images/logo-light-6a12d956b64625dbed69e989c9a86b03.svg"
+            alt="Inforgram"
+          />
+        </span>
         <span className={prefixCls("upgrade")}>Upgrade</span>
       </div>
       <div className={prefixCls("user")}>

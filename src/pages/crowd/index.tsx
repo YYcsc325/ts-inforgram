@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import Context from "@/layouts/context";
+import React from "react";
+import { contextConsumer, useLayoutHookContext } from "@/layouts/context";
 
 const Crowd = () => {
-  const { value } = useContext<any>(Context);
+  const { value } = useLayoutHookContext();
   return (
     <div>
       <div>这是Crowd {value}</div>
@@ -13,14 +13,8 @@ const Crowd = () => {
   );
 };
 
-function CrowdChildren() {
-  return (
-    <Context.Consumer>
-      {({ value }: any) => {
-        return <div>这是CrowdChildren {value}</div>;
-      }}
-    </Context.Consumer>
-  );
+function CrowdChildren({ consumer }) {
+  return <div>这是CrowdChildren {consumer.value}</div>;
 }
 
-export default Crowd;
+export default contextConsumer(Crowd);
