@@ -12,7 +12,9 @@ import {
   IdcardOutlined,
   FundProjectionScreenOutlined,
 } from "@ant-design/icons";
+
 import RotateBox from "./components/rotateBox";
+import Disgraceful from "./components/Disgraceful";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("right-silder", styles);
@@ -133,7 +135,9 @@ const RightSilder = () => {
           <div></div>
         </div>
       </div>
-      <div className={prefixCls("content")}></div>
+      <div className={prefixCls("content")}>
+        <Disgraceful url="https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000"></Disgraceful>
+      </div>
     </div>
   );
 };
