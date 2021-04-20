@@ -2,6 +2,8 @@ const routes = [
   { path: "/login", component: "@/pages/login" },
   { path: "/home", component: "@/pages/home" },
   { path: "/demo", component: "@/pages/demo" },
+  { path: "/demoContent", component: "@/pages/demoContent" },
+  { exact: true, path: "/edit", component: "@/pages/edit" },
   {
     path: "/",
     exact: false,
