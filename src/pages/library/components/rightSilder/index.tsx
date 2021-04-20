@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Checkbox } from "antd";
 import Drag from "@/pages/library/components/drag/index";
 import { createPrefixClass } from "@/util/utils";
+import { set } from "lodash";
 import {
   UserOutlined,
   AppstoreOutlined,
@@ -10,6 +11,7 @@ import {
   DesktopOutlined,
   CopyOutlined,
   IdcardOutlined,
+  DeleteOutlined,
   FundProjectionScreenOutlined,
 } from "@ant-design/icons";
 
@@ -77,6 +79,41 @@ const selectConfigure = [
 ];
 
 const RightSilder = () => {
+  const [dataList, setDataList] = useState([
+    {
+      id: "1",
+      checked: false,
+      url:
+        "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+    },
+    {
+      id: "2",
+      checked: false,
+      url:
+        "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+    },
+  ]);
+
+  const checkedList = useMemo(() => {
+    return dataList.filter((item) => item.checked).map((item) => item.id);
+  }, [dataList]);
+
+  const indeterminate = useMemo(() => {
+    return !!checkedList.length && checkedList.length < dataList.length;
+  }, [dataList, checkedList]);
+
+  const checkAll = useMemo(() => {
+    if (dataList.length) return checkedList.length === dataList.length;
+    return false;
+  }, [dataList, checkedList]);
+
+  const handleDelete = useCallback(() => {
+    const filterData = dataList.filter(
+      (item) => !checkedList.includes(item.id)
+    );
+    setDataList(filterData);
+  }, [dataList, checkedList]);
+
   return (
     <div className={prefixCls()}>
       <div className={prefixCls("header")}>
@@ -124,19 +161,49 @@ const RightSilder = () => {
           </div>
         </div>
         <div className={prefixCls("odps")}>
-          <div>
-            <Checkbox />
-            <span
-              style={{ fontSize: "15px", color: "#fff", marginLeft: "10px" }}
-            >
-              Select all
-            </span>
+          <div className={prefixCls("odps-left")}>
+            <Checkbox
+              indeterminate={indeterminate}
+              style={{ marginBottom: "4px" }}
+              checked={checkAll}
+              onChange={(e) =>
+                setDataList([
+                  ...dataList.map((item) => ({
+                    ...item,
+                    checked: e.target.checked,
+                  })),
+                ])
+              }
+            />
+            {!checkedList.length ? (
+              <span className={prefixCls("odps-select")}>Select all</span>
+            ) : (
+              <span className={prefixCls("odps-delete")} onClick={handleDelete}>
+                <DeleteOutlined style={{ fontSize: "18px" }} />
+              </span>
+            )}
           </div>
           <div></div>
         </div>
       </div>
       <div className={prefixCls("content")}>
-        <Disgraceful url="https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000"></Disgraceful>
+        {dataList.map(({ checked, url, id }) => (
+          <Disgraceful
+            url={url}
+            checked={checked}
+            onCheck={(checked) => {
+              const item = dataList.find((item) => item.id === id);
+              const index = dataList.findIndex((item) => item.id === id);
+              setDataList([
+                ...set(dataList, [index], {
+                  ...item,
+                  checked: checked,
+                }),
+              ]);
+            }}
+            className={prefixCls("content-item")}
+          />
+        ))}
       </div>
     </div>
   );

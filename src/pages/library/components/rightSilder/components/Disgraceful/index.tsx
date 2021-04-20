@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { createPrefixClass } from "@/util/utils";
+import { Checkbox } from "antd";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
 import classNames from "classnames";
 
@@ -9,15 +10,18 @@ const prefixCls = createPrefixClass("container", styles);
 
 interface IDisgracefulProps {
   url: string;
+  checked?: boolean;
+  className?: string;
+  onCheck: (e: boolean) => void;
 }
 
 const Disgraceful: FC<IDisgracefulProps> & {
   Icon: FC<IDisgracefulIconProps>;
-} = ({ url }) => {
+} = ({ url, checked, onCheck, className }) => {
   const [isEnter, setIsEnter] = useState(false);
 
   return (
-    <div className={prefixCls()}>
+    <div className={classNames(prefixCls(), className)}>
       <div
         className={prefixCls("disgrace-ful")}
         style={{
@@ -36,6 +40,14 @@ const Disgraceful: FC<IDisgracefulProps> & {
           })}
         >
           {!isEnter && <div className={prefixCls("title")}>Public</div>}
+          {(isEnter || checked) && (
+            <div className={prefixCls("title-checkbox")}>
+              <Checkbox
+                onChange={(e) => onCheck(e.target.checked)}
+                checked={checked}
+              />
+            </div>
+          )}
           {isEnter && (
             <div className={prefixCls("hover-title")}>
               <DisgracefulIcon>
