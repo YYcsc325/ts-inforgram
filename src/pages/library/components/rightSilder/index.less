@@ -51,13 +51,42 @@
     height: 52px;
     background-color: rgb(55, 55, 55, 0.9);
     margin: 0 -25px;
-    padding: 0 25px;
+    padding: 5px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+  &-odps-left {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &-odps-select {
+    font-size: 15px;
+    color: #fff;
+    margin-left: 10px;
+  }
+  &-odps-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #c32f2f;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 10px;
+  }
+  &-odps-delete:hover {
+    background-color: #dc5356;
+  }
   &-content {
     padding: 0 25px;
     margin-top: 25px;
+  }
+  &-content-item {
+    margin-right: 20px;
   }
 }
