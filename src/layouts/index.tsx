@@ -11,7 +11,7 @@ const BasicLayOut: FC<PageProps> = ({
   location,
   ...reset
 }: IRouteComponentProps) => {
-  const [value] = useState({});
+  const [value] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);

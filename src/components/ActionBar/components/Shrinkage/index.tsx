@@ -9,26 +9,25 @@ import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
+import LabelTitle from "../LabelTitle";
 import { data, libraryItems } from "./mock";
 
-const prefixCls = createPrefixClass("left-silder", styles);
+const prefixCls = createPrefixClass("shrinkage", styles);
 
-type MapComType = "a" | "span";
+interface IShrinkageProps {
+  isOpen?: boolean;
+}
 
-const MapCom = ({ name, type }: { name: string; type: MapComType }) => {
-  const map = {
-    a: <a href="">{name}</a>,
-    span: <span>{name}</span>,
-  };
-  return map[type] || map.span;
-};
-
-const LeftSilder = () => {
+const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState<string>();
 
   return (
-    <div className={prefixCls()}>
+    <div
+      className={classNames(prefixCls(), {
+        [prefixCls("open")]: isOpen,
+      })}
+    >
       <div className={prefixCls("icon")}>
         <span className={prefixCls("infogram")}>
           <img
@@ -83,7 +82,7 @@ const LeftSilder = () => {
                     key={name}
                   >
                     <IconCom style={{ marginRight: "10px" }} />
-                    <MapCom type={type} name={name} />
+                    <LabelTitle type={type} name={name} />
                   </div>
                 );
               }
@@ -126,4 +125,4 @@ const LeftSilder = () => {
   );
 };
 
-export default LeftSilder;
+export default Shrinkage;
