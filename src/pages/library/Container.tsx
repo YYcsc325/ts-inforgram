@@ -17,7 +17,7 @@ import {
 
 import RotateBox from "./components/rotateBox";
 import Disgraceful from "./components/Disgraceful";
-import styles from "./index.less";
+import styles from "./Container.less";
 
 const prefixCls = createPrefixClass("right-silder", styles);
 
@@ -78,7 +78,7 @@ const selectConfigure = [
   },
 ];
 
-const RightSilder = () => {
+const Container = () => {
   const [dataList, setDataList] = useState([
     {
       id: "1",
@@ -209,4 +209,4 @@ const RightSilder = () => {
   );
 };
 
-export default RightSilder;
+export default Container;

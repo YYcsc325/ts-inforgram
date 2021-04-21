@@ -1,17 +1,20 @@
-.dt-left-silder {
+.dt-shrinkage {
   width: 276px;
   height: 100vh;
   background-image: linear-gradient(#2d4164, #3c2e5e);
   color: #fff;
   font-size: 15px;
   border-right: 2px solid #1d2742;
+  position: fixed;
+  z-index: 99;
 
   &-icon {
+    display: flex;
     height: 80px;
     box-sizing: border-box;
     padding: 25px 15px 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     color: #fff;
   }
 
@@ -25,6 +28,7 @@
     width: 110px;
     height: 30px;
     line-height: 30px;
+    font-size: 12px;
     background: #3ea771;
     border-radius: 4px;
     text-align: center;

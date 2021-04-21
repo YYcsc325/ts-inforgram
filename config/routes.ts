@@ -3,7 +3,6 @@ const routes = [
   { path: "/home", component: "@/pages/home" },
   { path: "/demo", component: "@/pages/demo" },
   { path: "/demoContent", component: "@/pages/demoContent" },
-  { exact: true, path: "/edit", component: "@/pages/edit" },
   {
     path: "/",
     exact: false,
@@ -12,6 +11,7 @@ const routes = [
       { exact: true, path: "/", redirect: "/home", component: "@/pages/login" },
       { exact: true, path: "/library", component: "@/pages/library" },
       { exact: true, path: "/crowd", component: "@/pages/crowd" },
+      { exact: true, path: "/edit", component: "@/pages/edit" },
     ],
   },
   { path: "*", component: "@/pages/404" },
