@@ -1,12 +1,9 @@
-import React, { FC, useState } from "react";
-import {
-  DownOutlined,
-  UpOutlined,
-  MedicineBoxOutlined,
-} from "@ant-design/icons";
-import { noop } from "lodash";
+import { Link } from "umi";
 import classNames from "classnames";
+import React, { FC, useState } from "react";
 import { createPrefixClass } from "@/util/utils";
+import UpDownArrow from "@/components/UpDownArrow";
+import { MedicineBoxOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 import LabelTitle from "../LabelTitle";
@@ -19,49 +16,45 @@ interface IShrinkageProps {
 }
 
 const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
-  const [visible, setVisible] = useState(false);
-  const [active, setActive] = useState<string>();
+  const [visible, setVisible] = useState<boolean>(false);
+  const [active, setActive] = useState<string>("");
+
+  const handleLibraryClick = () => {
+    setVisible(!visible);
+  };
 
   return (
     <div
       className={classNames(prefixCls(), {
         [prefixCls("open")]: isOpen,
+        [prefixCls("close")]: !isOpen,
       })}
     >
       <div className={prefixCls("icon")}>
-        <span className={prefixCls("infogram")}>
-          <img
-            style={{ width: "110px" }}
-            src="https://cdn-web.jifo.co/_next/static/images/logo-light-6a12d956b64625dbed69e989c9a86b03.svg"
-            alt="Inforgram"
-          />
-        </span>
+        <span className={prefixCls("logo")}></span>
         <span className={prefixCls("upgrade")}>Upgrade</span>
       </div>
       <div className={prefixCls("user")}>
         <span className={prefixCls("user-icon")}>YC</span>
         <span className={prefixCls("user-mes")}>
-          <DownOutlined className={prefixCls("outlined")} />
+          <UpDownArrow type={"down"} className={prefixCls("outlined")} />
           <div className={prefixCls("username")}>YY小学徒 CSC...</div>
           <div className={prefixCls("mes")}>Basic account</div>
         </span>
       </div>
       <div className={prefixCls("library")}>
-        <div
-          className={prefixCls("library-item")}
-          onClick={() => setVisible(!visible)}
-        >
+        <div className={prefixCls("library-item")} onClick={handleLibraryClick}>
           <MedicineBoxOutlined />
           <span className={prefixCls("key-name")}>Library</span>
           <span className={prefixCls("library-drop")}>
-            {visible ? <UpOutlined /> : <DownOutlined />}
+            <UpDownArrow type={visible ? "up" : "down"} />
           </span>
         </div>
         {visible && (
           <div>
             {libraryItems.map(
               ({
-                icon,
+                icon: Icon,
                 type = "span",
                 name,
                 needLine,
@@ -69,7 +62,6 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
                 needHover,
                 style,
               }) => {
-                const IconCom = icon || noop;
                 return (
                   <div
                     className={classNames(prefixCls("library-open"), {
@@ -81,7 +73,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
                     style={style}
                     key={name}
                   >
-                    <IconCom style={{ marginRight: "10px" }} />
+                    <Icon style={{ marginRight: "10px" }} />
                     <LabelTitle type={type} name={name} />
                   </div>
                 );
@@ -93,26 +85,30 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
       <div className={prefixCls("function-key")}>
         {data.map(
           ({
-            name,
-            icon,
             id,
+            name,
+            icon: Icon,
+            link,
           }: {
             name: string;
             icon: Function;
             id: string;
+            link: string;
           }) => {
-            const Com = icon || noop;
             return (
-              <div
+              <Link
+                to={link}
                 className={classNames(prefixCls("key-item"), {
                   [prefixCls("active")]: id === active,
                 })}
-                onClick={() => setActive(id)}
-                key={name}
+                onClick={() => {
+                  setActive(id);
+                }}
+                key={id}
               >
-                <Com />
+                <Icon />
                 <span className={prefixCls("key-name")}>{name}</span>
-              </div>
+              </Link>
             );
           }
         )}

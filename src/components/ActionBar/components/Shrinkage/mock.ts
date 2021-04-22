@@ -13,21 +13,25 @@ export const data = [
     id: "1",
     icon: LineChartOutlined,
     name: "Analytics",
+    link: "/brandsets",
   },
   {
     id: "2",
     icon: TeamOutlined,
     name: "Manage teams",
+    link: "/brandsets",
   },
   {
     id: "3",
     icon: CodeSandboxOutlined,
     name: "Branding",
+    link: "/brandsets",
   },
   {
     id: "4",
     icon: LinkedinOutlined,
     name: "Content library",
+    link: "/brandsets",
   },
 ];
 

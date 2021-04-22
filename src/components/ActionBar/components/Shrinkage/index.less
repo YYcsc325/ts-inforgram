@@ -8,6 +8,14 @@
   position: fixed;
   z-index: 99;
 
+  &-open {
+    left: 0;
+    transition: left 0.2s ease-in-out;
+  }
+  &-close {
+    left: -276px;
+    transition: left 0.2s ease-in-out;
+  }
   &-icon {
     display: flex;
     height: 80px;
@@ -18,10 +26,13 @@
     color: #fff;
   }
 
-  &-infogram {
+  &-logo {
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
+    width: 110px;
+    height: 41px;
+    background-image: url("https://cdn-web.jifo.co/_next/static/images/logo-light-6a12d956b64625dbed69e989c9a86b03.svg");
   }
   &-upgrade {
     display: inline-block;
@@ -125,6 +136,7 @@
     background-color: #667ca4;
   }
   &-key-item {
+    display: block;
     color: #fff;
     height: 50px;
     font-size: 15px;
@@ -136,6 +148,7 @@
 
   &-key-item:hover {
     background-color: #667ca4;
+    color: #fff;
   }
 
   &-active {

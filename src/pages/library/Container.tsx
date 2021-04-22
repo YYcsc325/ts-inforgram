@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useCallback } from "react";
-import { Checkbox } from "antd";
-import Drag from "@/pages/library/components/drag/index";
-import { createPrefixClass } from "@/util/utils";
 import { set } from "lodash";
+import { Checkbox } from "antd";
+import { createPrefixClass } from "@/util/utils";
+import React, { useState, useMemo, useCallback } from "react";
+import Drag from "@/pages/library/components/drag/index";
 import {
   UserOutlined,
   AppstoreOutlined,
@@ -15,14 +15,15 @@ import {
   FundProjectionScreenOutlined,
 } from "@ant-design/icons";
 
+import styles from "./Container.less";
 import RotateBox from "./components/rotateBox";
 import Disgraceful from "./components/Disgraceful";
-import styles from "./Container.less";
 
 const prefixCls = createPrefixClass("right-silder", styles);
 
 const selectConfigure = [
   {
+    id: "1",
     name: "Infographics",
     width: 70,
     height: 100,
@@ -30,6 +31,7 @@ const selectConfigure = [
     icon: <ContainerOutlined />,
   },
   {
+    id: "2",
     name: "Reports",
     width: 80,
     height: 100,
@@ -37,6 +39,7 @@ const selectConfigure = [
     icon: <DatabaseOutlined />,
   },
   {
+    id: "3",
     name: "Slides",
     width: 100,
     height: 70,
@@ -44,6 +47,7 @@ const selectConfigure = [
     icon: <FundProjectionScreenOutlined />,
   },
   {
+    id: "4",
     name: "Dashboards",
     width: 100,
     height: 70,
@@ -51,6 +55,7 @@ const selectConfigure = [
     icon: <DesktopOutlined />,
   },
   {
+    id: "5",
     name: "Social media",
     width: 100,
     height: 80,
@@ -58,6 +63,7 @@ const selectConfigure = [
     icon: <IdcardOutlined />,
   },
   {
+    id: "6",
     name: "Posters",
     width: 80,
     height: 100,
@@ -65,6 +71,7 @@ const selectConfigure = [
     icon: <CopyOutlined />,
   },
   {
+    id: "7",
     name: "Social media",
     boxStyle: {
       padding: "0 20px",
@@ -133,6 +140,7 @@ const Container = () => {
           <div className={prefixCls("select")}>
             {selectConfigure.map(
               ({
+                id,
                 width,
                 height,
                 name,
@@ -144,6 +152,7 @@ const Container = () => {
                   className={prefixCls("rotate-box")}
                   name={name}
                   style={boxStyle}
+                  key={id}
                 >
                   <RotateBox.Template
                     className={prefixCls("rotate-template")}
@@ -190,6 +199,7 @@ const Container = () => {
         {dataList.map(({ checked, url, id }) => (
           <Disgraceful
             url={url}
+            key={id}
             checked={checked}
             onCheck={(checked) => {
               const item = dataList.find((item) => item.id === id);
