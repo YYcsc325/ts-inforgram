@@ -1,20 +1,33 @@
-import React from "react";
+import React, { FC, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
+import { data } from "../Shrinkage/mock";
 
 const prefixCls = createPrefixClass("odps", styles);
+interface IOdpsProps {
+  onOpen: () => void;
+}
 
-const arr = [1, 2, 3, 4, 5];
+const Odps: FC<IOdpsProps> = ({ onOpen }) => {
+  const handleOpenClick = useCallback(() => {
+    onOpen();
+  }, [onOpen]);
 
-const Odps = () => {
   return (
     <div className={prefixCls()}>
-      <div className={prefixCls("switch")}>点击</div>
+      <div className={prefixCls("switch")} onClick={handleOpenClick}>
+        点击
+      </div>
       <div className={prefixCls("user-icon")}>哈哈</div>
-      {arr.map((item) => (
-        <div>{item}</div>
-      ))}
+      {data.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div key={item.id} className={prefixCls("select-icon")}>
+            <Icon />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -10,6 +10,7 @@ const routes = [
     routes: [
       { exact: true, path: "/", redirect: "/home", component: "@/pages/login" },
       { exact: true, path: "/library", component: "@/pages/library" },
+      { exact: true, path: "/brandsets", component: "@/pages/brandsets" },
       { exact: true, path: "/crowd", component: "@/pages/crowd" },
       { exact: true, path: "/edit", component: "@/pages/edit" },
     ],

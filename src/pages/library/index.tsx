@@ -10,7 +10,7 @@ const prefixCls = createPrefixClass("library", styles);
 const Library = () => {
   return (
     <div className={prefixCls()}>
-      <ActionBar />
+      <ActionBar showShrinkage={true} />
       <Container />
     </div>
   );
