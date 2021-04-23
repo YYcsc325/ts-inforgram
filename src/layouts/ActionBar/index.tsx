@@ -4,31 +4,20 @@ import { createPrefixClass } from "@/util/utils";
 import styles from "./index.less";
 import Odps from "./Odps";
 import Shrinkage from "./Shrinkage";
+import { actionBarItems } from "./mock";
 
 const prefixCls = createPrefixClass("action-bar", styles);
-
-interface IActionBarProps {
-  showShrinkage?: boolean;
-}
 
 interface IActionBarState {
   isShowShrinkage: boolean;
 }
 
-class ActionBar extends React.Component<IActionBarProps, IActionBarState> {
+class ActionBar extends React.Component<any, IActionBarState> {
   constructor(props: any) {
     super(props);
     this.state = {
       isShowShrinkage: false,
     };
-  }
-  componentDidUpdate(preProps: any) {
-    const { showShrinkage } = this.props;
-    if (preProps.showShrinkage !== showShrinkage) {
-      this.setState({
-        isShowShrinkage: showShrinkage as boolean,
-      });
-    }
   }
 
   handleChangeShrinkage = (isOpen: boolean) => {
@@ -39,10 +28,16 @@ class ActionBar extends React.Component<IActionBarProps, IActionBarState> {
 
   render() {
     const { isShowShrinkage } = this.state;
+    const key = window.location.hash?.split("#/docs")?.[1];
+    const selectedBarId = actionBarItems.find((item) => item.link === key)?.id;
+
     return (
       <div className={prefixCls()}>
-        <Odps onOpen={() => this.setState({ isShowShrinkage: true })} />
-        <Shrinkage isOpen={isShowShrinkage} />
+        <Odps
+          onOpen={() => this.setState({ isShowShrinkage: true })}
+          selectId={selectedBarId}
+        />
+        <Shrinkage isOpen={isShowShrinkage} selectId={selectedBarId} />
       </div>
     );
   }
