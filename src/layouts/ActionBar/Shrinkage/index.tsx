@@ -7,17 +7,17 @@ import { MedicineBoxOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 import LabelTitle from "../LabelTitle";
-import { data, libraryItems } from "./mock";
+import { actionBarList, libraryItems } from "../mock";
 
 const prefixCls = createPrefixClass("shrinkage", styles);
 
 interface IShrinkageProps {
+  selectId?: string;
   isOpen?: boolean;
 }
 
-const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
+const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [active, setActive] = useState<string>("");
 
   const handleLibraryClick = () => {
     setVisible(!visible);
@@ -83,7 +83,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
         )}
       </div>
       <div className={prefixCls("function-key")}>
-        {data.map(
+        {actionBarList.map(
           ({
             id,
             name,
@@ -98,12 +98,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen }) => {
             return (
               <Link
                 to={link}
-                className={classNames(prefixCls("key-item"), {
-                  [prefixCls("active")]: id === active,
-                })}
-                onClick={() => {
-                  setActive(id);
-                }}
+                className={classNames(prefixCls("key-item"))}
                 key={id}
               >
                 <Icon />

@@ -4,13 +4,13 @@ import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
 
-interface IBrandsetsProps {
+interface IContentProps {
   [x: string]: any;
 }
 
-const prefixCls = createPrefixClass("brandsets", styles);
+const prefixCls = createPrefixClass("content", styles);
 
-const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
+const Content: FC<IContentProps> = ({ consumer }) => {
   const handleClick = () => {
     consumer?.handleShowShrinkageChange(false);
   };
@@ -21,9 +21,9 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick}>
-      brandsets
+      content
     </div>
   );
 };
 
-export default contextConsumer(Brandsets);
+export default contextConsumer(Content);

@@ -1,25 +1,26 @@
 import {
   TeamOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  AppstoreOutlined,
+  LinkedinOutlined,
   LineChartOutlined,
   CodeSandboxOutlined,
-  LinkedinOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  AppstoreOutlined,
+  MedicineBoxOutlined,
 } from "@ant-design/icons";
 
-export const data = [
+export const actionBarList = [
   {
     id: "1",
     icon: LineChartOutlined,
     name: "Analytics",
-    link: "/brandsets",
+    link: "/analytics",
   },
   {
     id: "2",
     icon: TeamOutlined,
     name: "Manage teams",
-    link: "/brandsets",
+    link: "/teams",
   },
   {
     id: "3",
@@ -31,7 +32,40 @@ export const data = [
     id: "4",
     icon: LinkedinOutlined,
     name: "Content library",
+    link: "/content",
+  },
+];
+
+export const actionBarItems = [
+  {
+    id: "1",
+    icon: MedicineBoxOutlined,
+    name: "Library",
+    link: "/library",
+  },
+  {
+    id: "2",
+    icon: LineChartOutlined,
+    name: "Analytics",
+    link: "/analytics",
+  },
+  {
+    id: "3",
+    icon: TeamOutlined,
+    name: "Manage teams",
+    link: "/teams",
+  },
+  {
+    id: "4",
+    icon: CodeSandboxOutlined,
+    name: "Branding",
     link: "/brandsets",
+  },
+  {
+    id: "5",
+    icon: LinkedinOutlined,
+    name: "Content library",
+    link: "/content",
   },
 ];
 
