@@ -1,4 +1,4 @@
-import { connect } from "dva";
+import { connect, Dispatch } from "umi";
 import { get } from "lodash";
 import { IUserProps } from "@/service/user";
 
@@ -12,7 +12,7 @@ const mapStateToProps = ({ adloading }: any) => {
     loginLoading: get(adloading, ["user", "inforgram", "user"], false),
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     dispatchLogin({ email, passWord }: IUserProps) {
       return dispatch(loginAction({ payload: { email, passWord } }));

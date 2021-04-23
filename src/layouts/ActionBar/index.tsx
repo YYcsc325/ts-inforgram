@@ -2,8 +2,8 @@ import React from "react";
 import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
-import Odps from "./components/Odps";
-import Shrinkage from "./components/Shrinkage";
+import Odps from "./Odps";
+import Shrinkage from "./Shrinkage";
 
 const prefixCls = createPrefixClass("action-bar", styles);
 

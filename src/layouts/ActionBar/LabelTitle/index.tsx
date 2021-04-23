@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React from "react";
 
 type MapComType = "a" | "span";
 

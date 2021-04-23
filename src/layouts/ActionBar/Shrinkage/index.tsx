@@ -7,7 +7,7 @@ import { MedicineBoxOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 import LabelTitle from "../LabelTitle";
-import { data, libraryItems } from "./mock";
+import { data, libraryItems } from "../mock";
 
 const prefixCls = createPrefixClass("shrinkage", styles);
 

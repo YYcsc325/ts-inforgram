@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef } from "react";
 import { Layout } from "antd";
 import { IRouteComponentProps } from "umi";
-import ActionBar from "@/components/ActionBar";
+import ActionBar from "./ActionBar";
 import { createPrefixClass } from "@/util/utils";
 
 import { ContextProvider } from "./context";

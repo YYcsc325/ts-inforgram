@@ -13,13 +13,13 @@ export const data = [
     id: "1",
     icon: LineChartOutlined,
     name: "Analytics",
-    link: "/brandsets",
+    link: "/analytics",
   },
   {
     id: "2",
     icon: TeamOutlined,
     name: "Manage teams",
-    link: "/brandsets",
+    link: "/teams",
   },
   {
     id: "3",
@@ -31,7 +31,7 @@ export const data = [
     id: "4",
     icon: LinkedinOutlined,
     name: "Content library",
-    link: "/brandsets",
+    link: "/content",
   },
 ];
 

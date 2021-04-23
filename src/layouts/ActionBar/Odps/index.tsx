@@ -3,7 +3,7 @@ import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
 import RotateAllow from "../RotateAllow";
-import { data } from "../Shrinkage/mock";
+import { data } from "../mock";
 
 const prefixCls = createPrefixClass("odps", styles);
 interface IOdpsProps {
