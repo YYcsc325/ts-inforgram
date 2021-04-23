@@ -1,25 +1,37 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { Layout } from "antd";
 import { IRouteComponentProps } from "umi";
+import ActionBar from "@/components/ActionBar";
+import { createPrefixClass } from "@/util/utils";
 
 import { ContextProvider } from "./context";
+import styles from "./index.less";
+
+const prefixCls = createPrefixClass("layout", styles);
 
 interface PageProps extends IRouteComponentProps {}
 
 const BasicLayOut: FC<PageProps> = ({
   children,
   location,
-  ...reset
 }: IRouteComponentProps) => {
-  const [value] = useState(1);
+  const actionBarRef = useRef<any>(null);
+
+  /** 是否展开用户信息 */
+  const handleShowShrinkageChange = (check: boolean) => {
+    actionBarRef?.current?.handleChangeShrinkage(check);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <Layout>
-      <ContextProvider value={{ value }}>{children}</ContextProvider>
+    <Layout className={prefixCls()}>
+      <ContextProvider value={{ handleShowShrinkageChange }}>
+        <ActionBar ref={actionBarRef} />
+        {children}
+      </ContextProvider>
     </Layout>
   );
 };

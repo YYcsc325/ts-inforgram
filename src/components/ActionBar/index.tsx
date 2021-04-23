@@ -8,7 +8,7 @@ import Shrinkage from "./components/Shrinkage";
 const prefixCls = createPrefixClass("action-bar", styles);
 
 interface IActionBarProps {
-  showShrinkage: boolean;
+  showShrinkage?: boolean;
 }
 
 interface IActionBarState {
@@ -19,19 +19,29 @@ class ActionBar extends React.Component<IActionBarProps, IActionBarState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isShowShrinkage: props.showShrinkage || false,
+      isShowShrinkage: false,
     };
   }
-  handleOpenShrinkage = (bol: boolean) => {
+  componentDidUpdate(preProps: any) {
+    const { showShrinkage } = this.props;
+    if (preProps.showShrinkage !== showShrinkage) {
+      this.setState({
+        isShowShrinkage: showShrinkage as boolean,
+      });
+    }
+  }
+
+  handleChangeShrinkage = (isOpen: boolean) => {
     this.setState({
-      isShowShrinkage: bol,
+      isShowShrinkage: isOpen,
     });
   };
+
   render() {
     const { isShowShrinkage } = this.state;
     return (
       <div className={prefixCls()}>
-        <Odps onOpen={() => this.handleOpenShrinkage(true)} />
+        <Odps onOpen={() => this.setState({ isShowShrinkage: true })} />
         <Shrinkage isOpen={isShowShrinkage} />
       </div>
     );

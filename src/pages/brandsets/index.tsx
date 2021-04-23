@@ -1,23 +1,22 @@
-import React, { useState, useRef } from "react";
-import ActionBar from "@/components/ActionBar";
+import React, { FC, useEffect } from "react";
+import { contextConsumer } from "@/layouts/context";
 
-const Brandsets = () => {
-  const [showShrinkage, setShowShrinkage] = useState(false);
-  const actionBarRef = useRef<any>(null);
+interface IBrandsetsProps {
+  [x: string]: any;
+}
 
-  const handleChange = () => {
-    actionBarRef?.current?.handleOpenShrinkage?.(false);
+const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
+  const handleClick = () => {
+    consumer?.handleShowShrinkageChange(false);
   };
 
+  useEffect(() => {
+    consumer?.handleShowShrinkageChange(false);
+  }, []);
+
   return (
-    <div>
-      <ActionBar showShrinkage={showShrinkage} ref={actionBarRef} />
-      <div
-        style={{ width: "100%", height: "100vh", backgroundColor: "#aaa" }}
-        onClick={handleChange}
-      ></div>
-    </div>
+    <div style={{ width: "100%", height: "100vh" }} onClick={handleClick}></div>
   );
 };
 
-export default Brandsets;
+export default contextConsumer(Brandsets);
