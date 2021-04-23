@@ -1,19 +1,26 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { createPrefixClass } from "@/util/utils";
+import { contextConsumer } from "@/layouts/context";
 
-import ActionBar from "@/components/ActionBar";
 import Container from "./Container";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("library", styles);
 
-const Library = () => {
+interface ILibraryProps {
+  [x: string]: any;
+}
+
+const Library: FC<ILibraryProps> = ({ consumer }) => {
+  useEffect(() => {
+    consumer?.handleShowShrinkageChange(true);
+  }, []);
+
   return (
     <div className={prefixCls()}>
-      <ActionBar showShrinkage={true} />
       <Container />
     </div>
   );
 };
 
-export default Library;
+export default contextConsumer(Library);

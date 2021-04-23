@@ -2,6 +2,7 @@ import React, { FC, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
+import RotateAllow from "../RotateAllow";
 import { data } from "../Shrinkage/mock";
 
 const prefixCls = createPrefixClass("odps", styles);
@@ -16,10 +17,13 @@ const Odps: FC<IOdpsProps> = ({ onOpen }) => {
 
   return (
     <div className={prefixCls()}>
-      <div className={prefixCls("switch")} onClick={handleOpenClick}>
-        点击
+      <RotateAllow
+        className={prefixCls("rotate-allow")}
+        onClick={handleOpenClick}
+      />
+      <div className={prefixCls("user")}>
+        <div className={prefixCls("user-icon")}>YC</div>
       </div>
-      <div className={prefixCls("user-icon")}>哈哈</div>
       {data.map((item) => {
         const Icon = item.icon;
         return (

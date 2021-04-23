@@ -1,0 +1,78 @@
+@keyframes rotateTop {
+  0% {
+    transform: rotateZ(0);
+  }
+  50% {
+    transform: rotateZ(70deg);
+  }
+  100% {
+    transform: translateX(9px) rotateZ(45deg) translateY(1px);
+    width: 10px;
+  }
+}
+@-webkit-keyframes rotateTop {
+  0% {
+    -webkit-transform: rotateZ(0);
+  }
+  50% {
+    -webkit-transform: rotateZ(70deg);
+  }
+  100% {
+    -webkit-transform: translateX(9px) rotateZ(45deg) translateY(1px);
+    -webkit-width: 10px;
+  }
+}
+
+@keyframes rotateBottom {
+  0% {
+    transform: rotateZ(0);
+  }
+  50% {
+    transform: rotateZ(-70deg);
+  }
+  100% {
+    transform: translateX(9px) rotateZ(-45deg) translateY(-1px);
+    width: 10px;
+  }
+}
+@-webkit-keyframes rotateBottom {
+  0% {
+    -webkit-transform: rotateZ(0);
+  }
+  50% {
+    -webkit-transform: rotateZ(-70deg);
+  }
+  100% {
+    -webkit-transform: translateX(9px) rotateZ(-45deg) translateY(-1px);
+    width: 10px;
+  }
+}
+
+.dt-rotate-allow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-line {
+    width: 15px;
+    height: 2px;
+    background-color: #fff;
+    margin: 2px 0;
+  }
+  &-rotate-top {
+    -webkit-animation-name: rotateTop;
+    -webkit-animation-duration: 0.5s;
+    animation-name: rotateTop;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    // animation-iteration-count:infinite;  循环播放
+  }
+  &-rotate-bottom {
+    -webkit-animation-name: rotateBottom;
+    -webkit-animation-duration: 0.5s;
+    animation-name: rotateBottom;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    // animation-iteration-count:infinite;  循环播放
+  }
+}
