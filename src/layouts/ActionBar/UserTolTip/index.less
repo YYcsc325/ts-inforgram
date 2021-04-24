@@ -1,0 +1,66 @@
+.dt-user-tip {
+  width: 210px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #2d2d2d;
+  box-shadow: 0 10px 40px 0 rgb(0 0 0 / 50%);
+  overflow: hidden;
+  max-height: 390px;
+  color: #fff;
+
+  &-top {
+    display: flex;
+    height: 50px;
+    background-color: #656565;
+    padding: 8px 15px;
+    box-sizing: border-box;
+  }
+  &-user-icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgb(223, 208, 193);
+    font-size: 14px;
+    font-weight: initial;
+    color: rgb(101, 101, 101);
+  }
+  &-user-warp {
+    margin-left: 10px;
+  }
+  &-user-name {
+    font-size: 15px;
+  }
+  &-user-mes {
+    font-size: 9px;
+    opacity: 0.5;
+  }
+  &-bottom {
+    display: flex;
+    height: 40px;
+    padding: 8px 18px;
+    box-sizing: border-box;
+  }
+  &-bottom-bg {
+    background-color: #3195cb;
+  }
+  &-b-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #aaa;
+    text-align: center;
+    line-height: 25px;
+    font-size: 16px;
+  }
+  &-trans {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease-in-out;
+  }
+  &-b-mes {
+    line-height: 25px;
+    margin-left: 15px;
+  }
+}

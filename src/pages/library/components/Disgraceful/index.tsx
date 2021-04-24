@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Checkbox } from "antd";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
@@ -10,15 +10,21 @@ const prefixCls = createPrefixClass("container", styles);
 
 interface IDisgracefulProps {
   url: string;
+  id: string;
   checked?: boolean;
   className?: string;
   onCheck: (e: boolean) => void;
+  onEdit?: (id: string) => void;
 }
 
 const Disgraceful: FC<IDisgracefulProps> & {
   Icon: FC<IDisgracefulIconProps>;
-} = ({ url, checked, onCheck, className }) => {
+} = ({ url, checked, onCheck, className, onEdit, id }) => {
   const [isEnter, setIsEnter] = useState(false);
+
+  const handleEdit = useCallback(() => {
+    onEdit?.(id);
+  }, [onEdit]);
 
   return (
     <div className={classNames(prefixCls(), className)}>
@@ -58,7 +64,11 @@ const Disgraceful: FC<IDisgracefulProps> & {
               </DisgracefulIcon>
             </div>
           )}
-          {isEnter && <div className={prefixCls("edit")}>Edit</div>}
+          {isEnter && (
+            <div className={prefixCls("edit")} onClick={handleEdit}>
+              Edit
+            </div>
+          )}
           <div className={prefixCls("footer")}>
             <div>rvrv</div>
             <div>

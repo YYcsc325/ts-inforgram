@@ -1,7 +1,8 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Link } from "umi";
 import classNames from "classnames";
+import UserTolTip from "@/layouts/ActionBar/UserTolTip";
 
 import styles from "./index.less";
 import RotateAllow from "../RotateAllow";
@@ -15,9 +16,16 @@ interface IOdpsProps {
 }
 
 const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
+  const [isShowUser, setIsShowUser] = useState(false);
+
   const handleOpenClick = useCallback(() => {
     onOpen();
   }, [onOpen]);
+
+  document.onclick = (e) => {
+    e.stopPropagation();
+    setIsShowUser(false);
+  };
 
   return (
     <div className={prefixCls()}>
@@ -25,7 +33,7 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
         className={prefixCls("rotate-allow")}
         onClick={handleOpenClick}
       />
-      <div className={prefixCls("user")}>
+      <div className={prefixCls("user")} onClick={() => setIsShowUser(true)}>
         <div className={prefixCls("user-icon")}>YC</div>
       </div>
       {actionBarItems.map((item) => {
@@ -42,6 +50,12 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
           </Link>
         );
       })}
+      {isShowUser && (
+        <UserTolTip
+          userName={"YY小学徒 CSC小..."}
+          className={prefixCls("user-position")}
+        />
+      )}
     </div>
   );
 };

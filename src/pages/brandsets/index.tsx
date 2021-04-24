@@ -19,11 +19,7 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
     consumer?.handleShowShrinkageChange(false);
   }, []);
 
-  return (
-    <div className={prefixCls()} onClick={handleClick}>
-      brandsets
-    </div>
-  );
+  return <div className={prefixCls()} onClick={handleClick}></div>;
 };
 
 export default contextConsumer(Brandsets);
