@@ -8,28 +8,29 @@ import {
   CodeSandboxOutlined,
   MedicineBoxOutlined,
 } from "@ant-design/icons";
+import { actionBarConsts } from "@/consts";
 
 export const actionBarList = [
   {
-    id: "1",
+    id: actionBarConsts.ANALYTICS,
     icon: LineChartOutlined,
     name: "Analytics",
     link: "/analytics",
   },
   {
-    id: "2",
+    d: actionBarConsts.TEAMS,
     icon: TeamOutlined,
     name: "Manage teams",
     link: "/teams",
   },
   {
-    id: "3",
+    id: actionBarConsts.BRANDSETS,
     icon: CodeSandboxOutlined,
     name: "Branding",
     link: "/brandsets",
   },
   {
-    id: "4",
+    id: actionBarConsts.CONTENT,
     icon: LinkedinOutlined,
     name: "Content library",
     link: "/content",
@@ -38,31 +39,31 @@ export const actionBarList = [
 
 export const actionBarItems = [
   {
-    id: "1",
+    id: actionBarConsts.LIBRARY,
     icon: MedicineBoxOutlined,
     name: "Library",
     link: "/library",
   },
   {
-    id: "2",
+    id: actionBarConsts.ANALYTICS,
     icon: LineChartOutlined,
     name: "Analytics",
     link: "/analytics",
   },
   {
-    id: "3",
+    id: actionBarConsts.TEAMS,
     icon: TeamOutlined,
     name: "Manage teams",
     link: "/teams",
   },
   {
-    id: "4",
+    id: actionBarConsts.BRANDSETS,
     icon: CodeSandboxOutlined,
     name: "Branding",
     link: "/brandsets",
   },
   {
-    id: "5",
+    id: actionBarConsts.CONTENT,
     icon: LinkedinOutlined,
     name: "Content library",
     link: "/content",
