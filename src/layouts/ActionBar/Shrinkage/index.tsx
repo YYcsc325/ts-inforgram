@@ -4,6 +4,7 @@ import React, { FC, useState, useMemo } from "react";
 import { createPrefixClass } from "@/util/utils";
 import UpDownArrow from "@/components/UpDownArrow";
 import { MedicineBoxOutlined } from "@ant-design/icons";
+import UserTolTip from "@/layouts/ActionBar/UserTolTip";
 import { actionBarConsts } from "@/consts";
 
 import styles from "./index.less";
@@ -19,6 +20,12 @@ interface IShrinkageProps {
 
 const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [isShowUser, setIsShowUser] = useState(false);
+
+  document.onclick = (e) => {
+    e.stopPropagation();
+    setIsShowUser(false);
+  };
 
   const handleLibraryClick = () => {
     setVisible(!visible);
@@ -41,7 +48,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
         <span className={prefixCls("logo")}></span>
         <span className={prefixCls("upgrade")}>Upgrade</span>
       </div>
-      <div className={prefixCls("user")}>
+      <div className={prefixCls("user")} onClick={() => setIsShowUser(true)}>
         <span className={prefixCls("user-icon")}>YC</span>
         <span className={prefixCls("user-mes")}>
           <UpDownArrow type={"down"} className={prefixCls("outlined")} />
@@ -114,6 +121,12 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
         <div>Learn how to use Infogram</div>
         <div style={{ marginTop: "20px" }}>Get inspiration from examples</div>
       </div>
+      {isShowUser && (
+        <UserTolTip
+          userName={"YY小学徒 CSC小..."}
+          className={prefixCls("user-position")}
+        />
+      )}
     </div>
   );
 };

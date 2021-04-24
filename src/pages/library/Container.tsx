@@ -1,5 +1,6 @@
 import { set } from "lodash";
 import { Checkbox } from "antd";
+import { history } from "umi";
 import { createPrefixClass } from "@/util/utils";
 import React, { useState, useMemo, useCallback } from "react";
 import Drag from "@/pages/library/components/drag/index";
@@ -198,9 +199,11 @@ const Container = () => {
       <div className={prefixCls("content")}>
         {dataList.map(({ checked, url, id }) => (
           <Disgraceful
+            id={id}
             url={url}
             key={id}
             checked={checked}
+            onEdit={(jumpId) => history.push(`/edit?${jumpId}`)}
             onCheck={(checked) => {
               const item = dataList.find((item) => item.id === id);
               const index = dataList.findIndex((item) => item.id === id);
