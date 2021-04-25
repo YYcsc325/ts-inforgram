@@ -5,20 +5,22 @@ import { createPrefixClass } from "@/util/utils";
 import React, { useState, useMemo, useCallback } from "react";
 import Drag from "@/pages/library/components/drag/index";
 import {
-  UserOutlined,
-  AppstoreOutlined,
-  ContainerOutlined,
-  DatabaseOutlined,
-  DesktopOutlined,
   CopyOutlined,
+  UserOutlined,
+  TableOutlined,
   IdcardOutlined,
   DeleteOutlined,
+  DesktopOutlined,
+  AppstoreOutlined,
+  DatabaseOutlined,
+  ContainerOutlined,
   FundProjectionScreenOutlined,
 } from "@ant-design/icons";
 
 import styles from "./Container.less";
 import RotateBox from "./components/rotateBox";
 import Disgraceful from "./components/Disgraceful";
+import DropdownSearch from "./components/DropdownSearch";
 
 const prefixCls = createPrefixClass("right-silder", styles);
 
@@ -91,16 +93,23 @@ const Container = () => {
     {
       id: "1",
       checked: false,
+      name: "info_one",
+      date: "2021/01/03",
       url:
         "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     },
     {
       id: "2",
       checked: false,
+      name: "info_two",
+      date: "2021/01/04",
       url:
         "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     },
   ]);
+
+  const [tableTab, setTableTab] = useState(false);
+  const [searchValue, setSearchValue] = useState<string | undefined>();
 
   const checkedList = useMemo(() => {
     return dataList.filter((item) => item.checked).map((item) => item.id);
@@ -115,12 +124,29 @@ const Container = () => {
     return false;
   }, [dataList, checkedList]);
 
+  /** 搜索数据触发 */
+  const hanldeSearch = (val?: string) => {
+    console.log(val, "val");
+    setSearchValue(val);
+  };
+
+  /**  点击删除操作  */
   const handleDelete = useCallback(() => {
     const filterData = dataList.filter(
       (item) => !checkedList.includes(item.id)
     );
     setDataList(filterData);
   }, [dataList, checkedList]);
+
+  /** 选择数据展示切换 */
+  const handleTableChange = useCallback(() => {
+    setTableTab(!tableTab);
+  }, [tableTab]);
+
+  /** 跳转到操作页面 */
+  const handleLinkToEdit = (id: string) => {
+    history.push(`/edit?${id}`);
+  };
 
   return (
     <div className={prefixCls()}>
@@ -193,17 +219,38 @@ const Container = () => {
               </span>
             )}
           </div>
-          <div></div>
+          <div className={prefixCls("odps-right")}>
+            <div className={prefixCls("r-tab")} onClick={handleTableChange}>
+              {tableTab ? <TableOutlined /> : <AppstoreOutlined />}
+            </div>
+            <div className={prefixCls("r-search")}>
+              <DropdownSearch
+                onSearch={hanldeSearch}
+                onChange={handleLinkToEdit}
+                placeholder="Search by name or author"
+              >
+                {dataList.map(({ name, url, date, id }) => (
+                  <DropdownSearch.Option
+                    name={name}
+                    url={url}
+                    date={date}
+                    id={id}
+                  />
+                ))}
+              </DropdownSearch>
+            </div>
+          </div>
         </div>
       </div>
       <div className={prefixCls("content")}>
-        {dataList.map(({ checked, url, id }) => (
+        {dataList.map(({ checked, url, id, name }) => (
           <Disgraceful
             id={id}
+            name={name}
             url={url}
             key={id}
             checked={checked}
-            onEdit={(jumpId) => history.push(`/edit?${jumpId}`)}
+            onEdit={handleLinkToEdit}
             onCheck={(checked) => {
               const item = dataList.find((item) => item.id === id);
               const index = dataList.findIndex((item) => item.id === id);

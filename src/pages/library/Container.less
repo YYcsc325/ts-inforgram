@@ -1,6 +1,6 @@
 .dt-right-silder {
   position: fixed;
-  width: 100%;
+  width: calc(100% - 276px);
   left: 276px;
   height: 100vh;
 
@@ -57,6 +57,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 15px;
+    color: #fff;
   }
   &-odps-left {
     height: 40px;
@@ -65,9 +67,21 @@
     justify-content: flex-start;
   }
   &-odps-select {
-    font-size: 15px;
-    color: #fff;
     margin-left: 10px;
+  }
+  &-odps-right {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &-r-tab {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
   &-odps-delete {
     display: flex;
@@ -78,7 +92,6 @@
     border-radius: 4px;
     background-color: #c32f2f;
     cursor: pointer;
-    color: #fff;
     margin-left: 10px;
   }
   &-odps-delete:hover {

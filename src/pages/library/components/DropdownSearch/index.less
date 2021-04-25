@@ -1,0 +1,78 @@
+.dt-dropdown-search {
+  width: 315px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+
+  &-search-icon {
+    width: 46px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #434343;
+    border-radius: 4px 0 0 4px;
+  }
+
+  :global {
+    .ant-input {
+      color: #fff;
+      background: rgb(45, 45, 45);
+    }
+    .ant-input-affix-wrapper {
+      height: 40px;
+      background: rgb(45, 45, 45);
+      border: none;
+      box-shadow: initial;
+      outline: none;
+    }
+    .ant-input-group-addon {
+      display: none;
+    }
+    .ant-input-clear-icon {
+      color: #fff;
+    }
+  }
+}
+
+.dropdown {
+  color: #fff;
+
+  :global {
+    .ant-dropdown-menu {
+      width: 315px;
+      padding: initial;
+      background-color: #2e2e2e;
+      max-height: 50vh;
+    }
+  }
+  .option {
+    display: flex;
+    height: 45px;
+    padding: 5px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    &:hover {
+      background-color: #3195cb;
+
+      .option-date {
+        color: #fff;
+      }
+    }
+  }
+  .option-img {
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+  }
+  .option-mes {
+    margin-left: -100px;
+  }
+  .option-date {
+    color: #656565;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
