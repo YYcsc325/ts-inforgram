@@ -242,7 +242,7 @@ export function recursionInsertData(
   return list.map((item: ITreeProps<any>) => {
     const result = callBack({ ...item });
     if (item.children && item.children.length) {
-      result.children = addTreeKey(item.children, callBack);
+      result.children = recursionInsertData(item.children, callBack);
     }
     return result;
   });
