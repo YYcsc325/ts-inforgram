@@ -51,20 +51,18 @@ const DropdownSearch: FC<IDropdownSearchProps> & {
   );
   return (
     <div className={prefixCls()}>
+      <div className={prefixCls("search-icon")}>
+        <SearchOutlined />
+      </div>
       <Dropdown overlay={menu} overlayClassName={styles["dropdown"]}>
-        <div className={prefixCls("warp")}>
-          <div className={prefixCls("search-icon")}>
-            <SearchOutlined />
-          </div>
-          <Input.Search
-            allowClear
-            placeholder={placeholder}
-            onChange={handleSearch}
-            onFocus={(e) => {
-              handleSearch(e);
-            }}
-          />
-        </div>
+        <Input.Search
+          allowClear
+          placeholder={placeholder}
+          onChange={handleSearch}
+          onFocus={(e) => {
+            handleSearch(e);
+          }}
+        />
       </Dropdown>
     </div>
   );
