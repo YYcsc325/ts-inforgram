@@ -11,6 +11,7 @@ const prefixCls = createPrefixClass("container", styles);
 interface IDisgracefulProps {
   url: string;
   id: string;
+  name: string;
   checked?: boolean;
   className?: string;
   onCheck: (e: boolean) => void;
@@ -19,7 +20,7 @@ interface IDisgracefulProps {
 
 const Disgraceful: FC<IDisgracefulProps> & {
   Icon: FC<IDisgracefulIconProps>;
-} = ({ url, checked, onCheck, className, onEdit, id }) => {
+} = ({ url, checked, onCheck, className, onEdit, id, name }) => {
   const [isEnter, setIsEnter] = useState(false);
 
   const handleEdit = useCallback(() => {
@@ -70,7 +71,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
             </div>
           )}
           <div className={prefixCls("footer")}>
-            <div>rvrv</div>
+            <div>{name}</div>
             <div>
               <EditOutlined />
             </div>

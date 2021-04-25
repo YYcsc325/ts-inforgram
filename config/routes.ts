@@ -1,7 +1,7 @@
 const routes = [
   { path: "/login", component: "@/pages/login" },
   { path: "/home", component: "@/pages/home" },
-  { path: "/edit", component: "@/pages/edit" },
+  { path: "/edit/:id?", component: "@/pages/edit" },
   { path: "/demo", component: "@/pages/demo" },
   { path: "/demoContent", component: "@/pages/demoContent" },
   {
