@@ -15,20 +15,20 @@ interface IDisgracefulProps {
   checked?: boolean;
   className?: string;
   onCheck: (e: boolean) => void;
-  onEdit?: (id: string) => void;
+  onClick?: (id: string) => void;
 }
 
 const Disgraceful: FC<IDisgracefulProps> & {
   Icon: FC<IDisgracefulIconProps>;
-} = ({ url, checked, onCheck, className, onEdit, id, name }) => {
+} = ({ url, checked, onCheck, className, onClick, id, name }) => {
   const [isEnter, setIsEnter] = useState(false);
 
-  const handleEdit = useCallback(() => {
-    onEdit?.(id);
-  }, [onEdit]);
+  const handleClick = useCallback(() => {
+    onClick?.(id);
+  }, [onClick]);
 
   return (
-    <div className={classNames(prefixCls(), className)}>
+    <div className={classNames(prefixCls(), className)} onClick={handleClick}>
       <div
         className={prefixCls("disgrace-ful")}
         style={{
@@ -65,11 +65,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
               </DisgracefulIcon>
             </div>
           )}
-          {isEnter && (
-            <div className={prefixCls("edit")} onClick={handleEdit}>
-              Edit
-            </div>
-          )}
+          {isEnter && <div className={prefixCls("edit")}>Edit</div>}
           <div className={prefixCls("footer")}>
             <div>{name}</div>
             <div>
