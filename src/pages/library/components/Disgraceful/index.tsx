@@ -23,9 +23,19 @@ const Disgraceful: FC<IDisgracefulProps> & {
 } = ({ url, checked, onCheck, className, onClick, id, name }) => {
   const [isEnter, setIsEnter] = useState(false);
 
-  const handleClick = useCallback(() => {
-    onClick?.(id);
-  }, [onClick]);
+  const handleClick = useCallback(
+    (e) => {
+      if (e.target.nodeName === "INPUT") return;
+      onClick?.(id);
+    },
+    [onClick]
+  );
+  const handleCheck = useCallback(
+    (e) => {
+      onCheck?.(e.target.checked);
+    },
+    [onCheck]
+  );
 
   return (
     <div className={classNames(prefixCls(), className)} onClick={handleClick}>
@@ -49,10 +59,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
           {!isEnter && <div className={prefixCls("title")}>Public</div>}
           {(isEnter || checked) && (
             <div className={prefixCls("title-checkbox")}>
-              <Checkbox
-                onChange={(e) => onCheck(e.target.checked)}
-                checked={checked}
-              />
+              <Checkbox onChange={handleCheck} checked={checked} />
             </div>
           )}
           {isEnter && (
