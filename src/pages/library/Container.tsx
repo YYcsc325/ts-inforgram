@@ -206,6 +206,7 @@ const Container = () => {
                   name={name}
                   id={id}
                   key={id}
+                  onClick={handleLinkToEdit}
                   className={prefixCls("table-card")}
                   onCheck={(checked) => handleSelectSingle(checked, id)}
                 />
@@ -218,7 +219,7 @@ const Container = () => {
                   url={url}
                   key={id}
                   checked={checked}
-                  onEdit={handleLinkToEdit}
+                  onClick={handleLinkToEdit}
                   onCheck={(checked) => handleSelectSingle(checked, id)}
                   className={prefixCls("content-item")}
                 />

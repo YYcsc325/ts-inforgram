@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Checkbox } from "antd";
 import classNames from "classnames";
@@ -13,6 +13,7 @@ interface ITableCardProps {
   name: string;
   checked: boolean;
   className?: string;
+  onClick?: (id: string) => void;
   onCheck: (val: boolean) => void;
 }
 
@@ -20,11 +21,17 @@ const TableCard: FC<ITableCardProps> = ({
   className,
   name,
   url,
+  id,
   checked,
   onCheck,
+  onClick,
 }) => {
+  const handleClick = useCallback(() => {
+    onClick?.(id);
+  }, [onClick]);
+
   return (
-    <div className={classNames(prefixCls(), className)}>
+    <div className={classNames(prefixCls(), className)} onClick={handleClick}>
       <div className={prefixCls("left")}>
         <div className={prefixCls("checkbox")}>
           <Checkbox
