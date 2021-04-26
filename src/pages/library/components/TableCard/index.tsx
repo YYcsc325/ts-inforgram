@@ -26,18 +26,24 @@ const TableCard: FC<ITableCardProps> = ({
   onCheck,
   onClick,
 }) => {
-  const handleClick = useCallback(() => {
-    onClick?.(id);
-  }, [onClick]);
-
+  const handleClick = useCallback(
+    (e) => {
+      if (e.target.nodeName === "INPUT") return;
+      onClick?.(id);
+    },
+    [onClick]
+  );
+  const handleCheck = useCallback(
+    (e) => {
+      onCheck?.(e.target.checked);
+    },
+    [onCheck]
+  );
   return (
     <div className={classNames(prefixCls(), className)} onClick={handleClick}>
       <div className={prefixCls("left")}>
         <div className={prefixCls("checkbox")}>
-          <Checkbox
-            checked={checked}
-            onChange={(e) => onCheck?.(e.target.checked)}
-          />
+          <Checkbox checked={checked} onChange={handleCheck} />
         </div>
         <div
           className={prefixCls("url")}
