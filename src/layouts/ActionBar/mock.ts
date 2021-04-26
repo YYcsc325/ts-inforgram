@@ -18,7 +18,7 @@ export const actionBarList = [
     link: "/analytics",
   },
   {
-    d: actionBarConsts.TEAMS,
+    id: actionBarConsts.TEAMS,
     icon: TeamOutlined,
     name: "Manage teams",
     link: "/teams",

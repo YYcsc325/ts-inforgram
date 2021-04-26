@@ -1,0 +1,44 @@
+.dt-table-card {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  height: 61px;
+  padding: 7px 10px;
+  background-color: rgba(39, 39, 39, 0.9);
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  border: 2px solid transparent;
+
+  &-left {
+    display: flex;
+    align-items: center;
+  }
+  &-public {
+    width: 60px;
+    height: 20px;
+    background-color: #3195cb;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 20px;
+  }
+  &-url {
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 20px;
+  }
+  &-name {
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  &-right {
+  }
+}
+.dt-table-card:hover {
+  border-color: #3195cb;
+}

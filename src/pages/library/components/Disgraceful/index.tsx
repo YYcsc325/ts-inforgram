@@ -28,7 +28,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
   }, [onEdit]);
 
   return (
-    <div className={classNames(prefixCls(), className)}>
+    <div className={classNames(prefixCls(), className)} onClick={handleEdit}>
       <div
         className={prefixCls("disgrace-ful")}
         style={{
@@ -65,11 +65,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
               </DisgracefulIcon>
             </div>
           )}
-          {isEnter && (
-            <div className={prefixCls("edit")} onClick={handleEdit}>
-              Edit
-            </div>
-          )}
+          {isEnter && <div className={prefixCls("edit")}>Edit</div>}
           <div className={prefixCls("footer")}>
             <div>{name}</div>
             <div>

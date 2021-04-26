@@ -9,7 +9,7 @@ const prefixCls = createPrefixClass("dropdown-search", styles);
 
 interface IDropdownSearchProps {
   placeholder?: string;
-  onSearch?: (params?: string) => void;
+  onSearch?: (params: string) => void;
   onChange?: (params: string) => void;
 }
 
