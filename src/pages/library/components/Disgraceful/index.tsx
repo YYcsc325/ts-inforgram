@@ -23,15 +23,13 @@ const Disgraceful: FC<IDisgracefulProps> & {
 } = ({ url, checked, onCheck, className, onClick, id, name }) => {
   const [isEnter, setIsEnter] = useState(false);
 
-  const handleClick = useCallback(
-    (e) => {
-      if (e.target.nodeName === "INPUT") return;
-      onClick?.(id);
-    },
-    [onClick]
-  );
+  const handleClick = useCallback(() => {
+    onClick?.(id);
+  }, [onClick]);
+
   const handleCheck = useCallback(
     (e) => {
+      e.stopPropagation();
       onCheck?.(e.target.checked);
     },
     [onCheck]
@@ -59,7 +57,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
           {!isEnter && <div className={prefixCls("title")}>Public</div>}
           {(isEnter || checked) && (
             <div className={prefixCls("title-checkbox")}>
-              <Checkbox onChange={handleCheck} checked={checked} />
+              <Checkbox onClick={handleCheck} checked={checked} />
             </div>
           )}
           {isEnter && (
@@ -88,15 +86,28 @@ const Disgraceful: FC<IDisgracefulProps> & {
 interface IDisgracefulIconProps {
   className?: string;
   style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
 const DisgracefulIcon: FC<IDisgracefulIconProps> = ({
   className,
   style,
   children,
+  onClick,
 }) => {
+  const handleClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      onClick?.();
+    },
+    [onClick]
+  );
   return (
-    <div className={classNames(prefixCls("icon"), className)} style={style}>
+    <div
+      className={classNames(prefixCls("icon"), className)}
+      style={style}
+      onClick={handleClick}
+    >
       {children}
     </div>
   );
@@ -105,3 +116,33 @@ const DisgracefulIcon: FC<IDisgracefulIconProps> = ({
 Disgraceful.Icon = DisgracefulIcon;
 
 export default Disgraceful;
+
+const data = [
+  {
+    title: "中国",
+    id: "1",
+    children: [
+      {
+        title: "北京",
+        id: "1-1",
+      },
+      {
+        title: "上海",
+        id: "1-2",
+      },
+    ],
+  },
+];
+
+const option = [
+  {
+    title: "中国-北京",
+    id: "1-1",
+  },
+  {
+    title: "中国-上海",
+    id: "1-2",
+  },
+];
+
+option.find((item) => item.title);
