@@ -4,6 +4,7 @@ import { createPrefixClass } from "@/util/utils";
 import React, { FC, useState, useCallback } from "react";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
 import LazyLoadingImg from "@/components/LazyLoadingImg";
+import IconPublic from "@/pages/library/components/IconPublic";
 
 import styles from "./index.less";
 
@@ -77,7 +78,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
             <div className={prefixCls("footer")}>
               <div>{name}</div>
               <div>
-                <EditOutlined />
+                <IconPublic />
               </div>
             </div>
           </div>
