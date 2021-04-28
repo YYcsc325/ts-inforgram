@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {IRouteComponentProps, Link} from "umi";
 import styles from "./index.less";
+import MenuNav from './components/MenuNav';
 
 const Edit = ({children, ...reset}: IRouteComponentProps) => {
 
@@ -44,7 +45,9 @@ const Edit = ({children, ...reset}: IRouteComponentProps) => {
         </div>
       </div>
       <div className={styles['editContentBox']}>
-        <div className={styles['editContentLeft']}>2</div>
+        <div className={styles['editContentLeft']}>
+          <MenuNav/>
+        </div>
         <div className={styles['editContent']}>3</div>
         <div className={styles['editContentRight']}>4</div>
       </div>
