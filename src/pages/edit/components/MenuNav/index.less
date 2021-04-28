@@ -1,0 +1,106 @@
+.editMenu {
+  position: relative;
+
+  .menuIcon, .menuIconCheck {
+    font-size: 16px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 48px;
+    height: 48px;
+    overflow: hidden;
+    cursor: pointer;
+
+
+    &:hover {
+      background: rgb(85, 85, 85);
+    }
+
+    .addText, .addChart, .addMap, .addElement, .addGraphics, .addShape, .addIntegration {
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 18px 18px;
+    }
+  }
+  .viewport {
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    left: 48px;
+    width: 280px;
+    border-right: 2px solid rgb(45, 45, 45);
+    text-align: left;
+    //z-index: -1;
+    transition: left 200ms;
+
+    .viewportTitleBox {
+      position: relative;
+      background-color: rgb(45, 45, 45);
+      line-height: 48px;
+      text-align: center;
+      font-size: 13px;
+      color: #FFF;
+
+      .viewportTitleIcon {
+        top: 0;
+        right: 0;
+        position: absolute;
+        cursor: pointer;
+        width: 30px;
+        height: 100%;
+        background-image: url("https://cdn.jifo.co/js/dist/5cbf4c6c30a83a652b0fc09c45e5f56c.svg");
+        background-repeat: no-repeat;
+        background-size: 10px;
+        background-position: center center;
+      }
+    }
+
+    .viewportContent {
+      position: absolute;
+      inset: 48px 0 0;
+      background-color: rgb(45, 45, 45);
+    }
+  }
+
+  .menuIconCheck {
+    background-color: rgb(45, 45, 45);
+
+    &:hover {
+      background-color: rgb(45, 45, 45);
+    }
+  }
+
+  .addText {
+    background-image: url("https://cdn.jifo.co/js/dist/8ca21cb651789a379306ead79b68e9d2.svg");
+  }
+
+  .addChart {
+    background-image: url("https://cdn.jifo.co/js/dist/92b085299015dc42623742b1b6e984df.svg");
+  }
+
+  .addMap {
+    background-image: url("https://cdn.jifo.co/js/dist/9d22b84737774e213ee393b4bfe9e723.svg");
+  }
+
+  .addElement {
+    background-image: url("https://cdn.jifo.co/js/dist/a4322507d75fd36af7c3a56836eef00f.svg");
+  }
+
+  .addGraphics {
+    background-image: url("https://cdn.jifo.co/js/dist/4bed58c8c337548ced52410483ff0568.svg");
+  }
+
+  .addShape {
+    background-image: url("https://cdn.jifo.co/js/dist/a78b1cba0cf69cfffd4cd7988f754fa0.svg");
+  }
+
+  .addIntegration {
+    background-image: url("https://cdn.jifo.co/js/dist/eb6c88e24e50554978ac0ad7605a25a4.svg");
+  }
+
+
+}
