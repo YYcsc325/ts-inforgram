@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { createPrefixClass } from "@/util/utils";
 import classNames from "classnames";
 import { PlusOutlined } from "@ant-design/icons";
+import { Link } from "umi";
 
 import styles from "./index.less";
 
@@ -19,10 +20,10 @@ const UserTolTip: FC<IUserTolTipProps> = ({ className, userName }) => {
     <div className={classNames(prefixCls(), className)}>
       <div className={prefixCls("top")}>
         <div className={prefixCls("user-icon")}>YC</div>
-        <div className={prefixCls("user-warp")}>
+        <Link className={prefixCls("user-warp")} to="/library">
           <div className={prefixCls("user-name")}>{userName}</div>
           <div className={prefixCls("user-mes")}>Basic account</div>
-        </div>
+        </Link>
       </div>
       <div
         className={classNames(prefixCls("bottom"), {

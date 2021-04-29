@@ -127,7 +127,7 @@ const Container = () => {
                 <AppstoreOutlined />
                 <span style={{ marginLeft: "15px" }}>All projects</span>
               </div>
-              <div style={{ fontSize: "12px" }}>1 project</div>
+              <div style={{ fontSize: "12px" }}>{dataList.length} project</div>
             </div>
             <div className={prefixCls("r-title")}>
               <UserOutlined />
