@@ -10,6 +10,7 @@ import styles from "./index.less";
 const prefixCls = createPrefixClass("icon-public", styles);
 
 interface IconPublicProps {
+  [x: string]: any;
   className?: string;
   title?: string;
   position?: TooltipPlacement;

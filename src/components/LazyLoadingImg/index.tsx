@@ -23,28 +23,31 @@ const LazyLoadingImg: FC<ILazyLoadingImgProps> = ({
   ...reset
 }) => {
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const img = new Image();
-    img.src = url;
     img.onload = () => {
       setLoading(true);
     };
+    img.src = url;
   }, []);
-  const child = React.Children.only(children);
+
+  const renderChildren = () => {
+    return (
+      <div
+        className={prefixCls("ready")}
+        style={{ backgroundImage: `url(${url})` }}
+      >
+        {children}
+      </div>
+    );
+  };
+
   return (
     <div {...reset} className={classNames(prefixCls(), className)}>
-      {loading ? (
-        <div
-          className={prefixCls("ready")}
-          style={{ backgroundImage: `url(${url})` }}
-        >
-          {child}
-        </div>
-      ) : (
-        <div className={prefixCls("pedding")}>
-          <Spin indicator={antIcon}>{child}</Spin>
-        </div>
-      )}
+      <Spin indicator={antIcon} spinning={!loading}>
+        {renderChildren()}
+      </Spin>
     </div>
   );
 };
