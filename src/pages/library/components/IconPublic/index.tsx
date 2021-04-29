@@ -5,6 +5,7 @@ import { Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import { CustomModal } from "@/components";
+import Dialog from "@/pages/library/components/ModalTemplate/Dialog";
 
 import styles from "./index.less";
 
@@ -28,18 +29,14 @@ const IconPublic: FC<IconPublicProps> = ({
     const modal = CustomModal.showModal({
       footer: null,
       customModalBody: true,
+      width: 600,
       onCancel: () => {
         modal.destroy();
       },
       onOk: () => {
         modal.destroy();
       },
-      children: (
-        <div>
-          <div>奥术大师多</div>
-          <div>按时肯定会啊</div>
-        </div>
-      ),
+      children: <Dialog />,
     });
   };
 
