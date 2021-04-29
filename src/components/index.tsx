@@ -7,6 +7,7 @@ export { default as FormSwitch } from "./FormSwitch";
 export { default as FormView } from "./FormView";
 export { default as HideMore } from "./FormHideMore";
 export { default as Checkbox } from "./FormCheckBox";
-export { default as StaticModal } from "./StaticModal";
+export { default as CustomModal } from "./CustomModal";
 export { default as DatePicker } from "./FormDatePicker";
 export { default as InputNumber } from "./FormInputNumber";
+export { default as LazyLoadingImg } from "./LazyLoadingImg";

@@ -2,6 +2,7 @@ import React, { FC, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Checkbox } from "antd";
 import classNames from "classnames";
+import { LazyLoadingImg } from "@/components";
 
 import styles from "./index.less";
 
@@ -43,10 +44,7 @@ const TableCard: FC<ITableCardProps> = ({
         <div className={prefixCls("checkbox")}>
           <Checkbox checked={checked} onClick={handleCheck} />
         </div>
-        <div
-          className={prefixCls("url")}
-          style={{ backgroundImage: `url(${url})` }}
-        ></div>
+        <LazyLoadingImg className={prefixCls("url")} url={url} />
         <div className={prefixCls("public")}>Public</div>
         <div className={prefixCls("name")}>{name}</div>
       </div>

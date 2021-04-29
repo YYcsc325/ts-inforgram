@@ -3,9 +3,8 @@ import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import React, { FC, useState, useCallback } from "react";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
-import LazyLoadingImg from "@/components/LazyLoadingImg";
+import { LazyLoadingImg, CustomModal } from "@/components";
 import IconPublic from "@/pages/library/components/IconPublic";
-
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("container", styles);
@@ -36,7 +35,24 @@ const Disgraceful: FC<IDisgracefulProps> & {
     },
     [onCheck]
   );
-
+  const handleIconPublicClick = (e: any) => {
+    e.stopPropagation();
+    const modal = CustomModal.showModal({
+      footer: null,
+      onCancel: () => {
+        modal.destroy();
+      },
+      onOk: () => {
+        modal.destroy();
+      },
+      children: (
+        <div>
+          <div>奥术大师多</div>
+          <div>按时肯定会啊</div>
+        </div>
+      ),
+    });
+  };
   return (
     <LazyLoadingImg
       className={classNames(prefixCls(), className)}
@@ -78,7 +94,7 @@ const Disgraceful: FC<IDisgracefulProps> & {
             <div className={prefixCls("footer")}>
               <div>{name}</div>
               <div>
-                <IconPublic />
+                <IconPublic onClick={handleIconPublicClick} />
               </div>
             </div>
           </div>

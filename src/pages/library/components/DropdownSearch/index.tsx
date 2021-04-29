@@ -2,6 +2,7 @@ import React, { FC, useCallback, useState } from "react";
 import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
 import { SearchOutlined } from "@ant-design/icons";
+import { LazyLoadingImg } from "@/components";
 
 import styles from "./index.less";
 
@@ -81,10 +82,7 @@ const DropdownOption: FC<IDropdownOptionProps> = ({
 
   return (
     <div onClick={handleChange} className={styles.option}>
-      <div
-        className={styles["option-img"]}
-        style={{ backgroundImage: `url(${url})` }}
-      ></div>
+      <LazyLoadingImg className={styles["option-img"]} url={url} />
       <div className={styles["option-mes"]}>{name}</div>
       <div className={styles["option-date"]}>{date}</div>
     </div>

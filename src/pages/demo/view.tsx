@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button, Input } from "antd";
-import { StaticModal, FormView } from "@/components";
+import { Form, Button } from "antd";
+import { CustomModal, FormView } from "@/components";
 import { defaultConfig } from "./defaultConfig";
 
 const Index = (props = {}) => {
@@ -8,7 +8,6 @@ const Index = (props = {}) => {
   const [initialValueInput] = useState("1234");
 
   const handleSubmit = () => {
-    console.log(form, "form");
     form
       .validateFields()
       .then((values) => {
@@ -20,10 +19,20 @@ const Index = (props = {}) => {
   };
 
   const openModal = () => {
-    const modal = StaticModal.showModal({
-      destroy: () => {
+    const modal = CustomModal.showModal({
+      footer: null,
+      onCancel: () => {
         modal.destroy();
       },
+      onOk: () => {
+        modal.destroy();
+      },
+      children: (
+        <div>
+          <div>奥术大师多</div>
+          <div>按时肯定会啊</div>
+        </div>
+      ),
     });
   };
   return (
