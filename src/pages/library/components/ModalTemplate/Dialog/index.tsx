@@ -12,8 +12,11 @@ interface IDialogProps {
   onClose: () => void;
 }
 
-const Dialog: FC<IDialogProps> = () => {
+const Dialog: FC<IDialogProps> = ({ onClose }) => {
   const [title, setTitle] = useState("Publish & Share");
+  const handleClose = () => {
+    onClose?.();
+  };
   return (
     <div className={prefixCls()}>
       <div className={prefixCls("header")}>
@@ -22,7 +25,7 @@ const Dialog: FC<IDialogProps> = () => {
           Back
         </span>
         <span>{title}</span>
-        <span className={prefixCls("close")}>
+        <span className={prefixCls("close")} onClick={handleClose}>
           <CloseOutlined />
         </span>
       </div>

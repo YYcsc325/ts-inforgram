@@ -33,10 +33,7 @@ const IconPublic: FC<IconPublicProps> = ({
       onCancel: () => {
         modal.destroy();
       },
-      onOk: () => {
-        modal.destroy();
-      },
-      children: <Dialog />,
+      children: <Dialog onClose={() => modal.destroy()} />,
     });
   };
 
