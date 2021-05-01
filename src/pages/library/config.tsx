@@ -47,6 +47,7 @@ export const selectConfigure = [
   {
     id: "1",
     name: "Infographics",
+    path: "/templates",
     width: 70,
     height: 100,
     backgroundColor: "rgb(125, 109, 189)",
@@ -55,6 +56,7 @@ export const selectConfigure = [
   {
     id: "2",
     name: "Reports",
+    path: "/templates/report",
     width: 80,
     height: 100,
     backgroundColor: "rgb(113, 154, 186)",
@@ -63,6 +65,7 @@ export const selectConfigure = [
   {
     id: "3",
     name: "Slides",
+    path: "/templates/slides",
     width: 100,
     height: 70,
     backgroundColor: "rgb(183, 110, 164)",
@@ -71,6 +74,7 @@ export const selectConfigure = [
   {
     id: "4",
     name: "Dashboards",
+    path: "/templates/dashboards",
     width: 100,
     height: 70,
     backgroundColor: "rgb(133, 188, 153)",
@@ -79,6 +83,7 @@ export const selectConfigure = [
   {
     id: "5",
     name: "Social media",
+    path: "/templates/posts",
     width: 100,
     height: 80,
     backgroundColor: "rgb(77, 100, 165)",
@@ -87,6 +92,7 @@ export const selectConfigure = [
   {
     id: "6",
     name: "Posters",
+    path: "/templates/poster",
     width: 80,
     height: 100,
     backgroundColor: "rgb(156, 206, 238)",
@@ -95,6 +101,7 @@ export const selectConfigure = [
   {
     id: "7",
     name: "Social media",
+    path: "/templates/poster",
     boxStyle: {
       padding: "0 20px",
       borderLeft: "2px solid #aaa",

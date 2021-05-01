@@ -140,6 +140,7 @@ const Container = () => {
                 name={item.name}
                 style={item.boxStyle}
                 key={item.id}
+                onClick={() => history.push(item.path)}
               >
                 <RotateBox.Template
                   className={prefixCls("rotate-template")}
