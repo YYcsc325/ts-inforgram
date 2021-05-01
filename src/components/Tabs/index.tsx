@@ -1,30 +1,92 @@
-import React, { FC, useState } from "react";
-import { createPrefixClass } from "@/util/utils";
+import React, { FC, useCallback, useState, useMemo } from "react";
+import { createPrefixClass, filterChildren } from "@/util/utils";
 import classNames from "classnames";
 
 import styles from "./index.less";
 
-const prefixCls = createPrefixClass("tabs", styles);
+const prefixTabCls = createPrefixClass("tabs", styles);
+const prefixTabPaneCls = createPrefixClass("tabs-pane", styles);
 
-interface IDialogProps {
-  [x: string]: any;
+interface ITabsProps {
+  defaultActiveValue?: string;
+  activeValue?: string;
+  className?: string;
+  onChange?: (key: string) => void;
+}
+interface ITabsPaneProps {
+  tab: React.ReactNode;
+  value: string;
+  className?: string;
+  privateValue?: string;
+  onChange?: (key: string) => void;
+  children: React.ReactNode;
 }
 
-interface ITabsProps {}
-interface ITabsItemProps {}
-
 const Tabs: FC<ITabsProps> & {
-  Item: FC<ITabsItemProps>;
-} = () => {
-  return <div></div>;
+  TabPane: FC<ITabsPaneProps>;
+} = ({ className, children, defaultActiveValue, activeValue, onChange }) => {
+  const [privateValue, setPrivateValue] = useState(defaultActiveValue);
+
+  const childFilter = filterChildren(children, TabsPane);
+
+  const childFilterProps = useMemo(() => {
+    return childFilter.map((item) => item.props);
+  }, [childFilter]);
+
+  const handleChange = useCallback(
+    (value) => {
+      onChange?.(value);
+      setPrivateValue(value);
+    },
+    [onChange, setPrivateValue]
+  );
+
+  return (
+    <div className={classNames(prefixTabCls(), className)}>
+      <div className={prefixTabCls("warp")}>
+        {childFilter.map((child) =>
+          React.cloneElement(child, { onChange: handleChange, privateValue })
+        )}
+      </div>
+      <div>
+        {childFilterProps.find((item) => item.value === privateValue)?.children}
+      </div>
+    </div>
+  );
 };
 
-const TabsItem: FC<ITabsItemProps> = () => {
-  return <div></div>;
+const TabsPane: FC<ITabsPaneProps> = ({
+  tab,
+  value,
+  onChange,
+  className,
+  children,
+  privateValue,
+  ...resetProps
+}) => {
+  const handleChange = useCallback(() => {
+    onChange?.(value);
+  }, [onChange]);
+  return (
+    <div
+      {...resetProps}
+      className={classNames(
+        prefixTabPaneCls(),
+        {
+          [prefixTabPaneCls("active")]: privateValue === value,
+        },
+        className
+      )}
+      onClick={handleChange}
+    >
+      {tab}
+    </div>
+  );
 };
+
 Tabs.displayName = "Tabs";
-TabsItem.displayName = "TabsItem";
+TabsPane.displayName = "TabsPane";
 
-Tabs.Item = TabsItem;
+Tabs.TabPane = TabsPane;
 
 export default Tabs;
