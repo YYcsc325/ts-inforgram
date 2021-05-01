@@ -15,6 +15,11 @@ const routes = [
       { exact: true, path: "/analytics", component: "@/pages/analytics" },
       { exact: true, path: "/teams", component: "@/pages/team" },
       { exact: true, path: "/content", component: "@/pages/content" },
+      {
+        exact: true,
+        path: "/templates/:position?",
+        component: "@/pages/templates",
+      },
     ],
   },
   { path: "*", component: "@/pages/404" },
