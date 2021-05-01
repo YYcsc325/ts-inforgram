@@ -1,5 +1,5 @@
 import request from "@/util/request";
-import { objToQs } from "@/util/utils";
+import { stringify, parse } from "query-string";
 
 let localHost = "http://localhost:3000";
 
@@ -9,7 +9,7 @@ export interface IUserProps {
 }
 
 export async function getQueryUserData(params: IUserProps) {
-  return request(`${localHost}/inforgram/user?${objToQs(params)}`, {
+  return request(`${localHost}/inforgram/user?${stringify(params)}`, {
     method: "GET",
   });
 }

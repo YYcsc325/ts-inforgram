@@ -1,6 +1,12 @@
 import { Spin } from "antd";
 import classNames from "classnames";
-import React, { FC, useState, useEffect } from "react";
+import React, {
+  FC,
+  useState,
+  useEffect,
+  ForwardRefRenderFunction,
+  forwardRef,
+} from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { createPrefixClass } from "@/util/utils";
 
@@ -16,12 +22,10 @@ interface ILazyLoadingImgProps {
   className?: string;
 }
 
-const LazyLoadingImg: FC<ILazyLoadingImgProps> = ({
-  url,
-  className,
-  children,
-  ...reset
-}) => {
+const LazyLoadingImg: ForwardRefRenderFunction<
+  HTMLDivElement,
+  ILazyLoadingImgProps
+> = ({ url, className, children, ...reset }, ref) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,27 +33,29 @@ const LazyLoadingImg: FC<ILazyLoadingImgProps> = ({
     img.onload = () => {
       setLoading(true);
     };
+    img.onerror = () => {
+      throw new Error("Could not load image at " + url);
+    };
     img.src = url;
+    return () => {
+      img.onload = null;
+    };
   }, []);
 
-  const renderChildren = () => {
-    return (
-      <div
-        className={prefixCls("ready")}
-        style={{ backgroundImage: `url(${url})` }}
-      >
-        {children}
-      </div>
-    );
-  };
-
   return (
-    <div {...reset} className={classNames(prefixCls(), className)}>
+    <div {...reset} className={classNames(prefixCls(), className)} ref={ref}>
       <Spin indicator={antIcon} spinning={!loading}>
-        {renderChildren()}
+        <div
+          className={prefixCls("ready")}
+          style={{ backgroundImage: `url(${url})` }}
+        >
+          {children}
+        </div>
       </Spin>
     </div>
   );
 };
 
-export default LazyLoadingImg;
+LazyLoadingImg.displayName = "LazyLoadingImg";
+
+export default forwardRef(LazyLoadingImg);

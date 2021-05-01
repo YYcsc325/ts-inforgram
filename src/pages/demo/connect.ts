@@ -1,4 +1,4 @@
-import { connect } from "dva";
+import { connect } from "umi";
 
 const mapStateToProps = (state, props) => {
   return {

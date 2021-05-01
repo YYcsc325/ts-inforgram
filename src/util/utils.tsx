@@ -3,6 +3,19 @@ import { message, notification } from "antd";
 import { ArgsProps } from "antd/lib/notification/index";
 import classNames from "classnames";
 
+export const noSpace: any[] = [
+  {
+    validator(rule = [], value: any, callback: Function) {
+      if (value && value.indexOf(" ") !== -1) {
+        callback("输入不得包含空格，请重新输入");
+        return;
+      }
+      callback();
+    },
+    message: "输入不得包含空格，请重新输入",
+  },
+];
+
 export function openNotification(props: ArgsProps) {
   const { type, message, description } = props;
   if (!type) return;
@@ -33,45 +46,6 @@ export function isFunc(fn: Function) {
   return false;
 }
 
-// 将对象转成地址栏山的参数
-/**
- * @author csc
- * @param {Object} obj 需要拼接的参数对象
- * @return {String}
- * */
-export function objToQs(obj: Object) {
-  if (!obj && !Object.keys(obj).length) {
-    return "";
-  } else {
-    var arr = [];
-    for (var key in obj) {
-      arr.push(key + "=" + obj[key]);
-    }
-    return arr.join("&");
-  }
-}
-// 将地址栏上的参数转成对象
-/**
- * @author csc
- * @param {String} url url地址栏
- * @return {Object}
- */
-export function qsToObj(url: string) {
-  var qs = url.split("?")[1];
-  var arr = [];
-  var res = {};
-  if (!qs) {
-    // return res;
-  } else {
-    arr = qs.split("&");
-    for (var i = 0, len = arr.length; i < len; i++) {
-      var key = arr[i].split("=")[0];
-      var val = arr[i].split("=")[1];
-      res[key] = decodeURIComponent(val);
-    }
-  }
-  return res;
-}
 // 获取local
 export function getlocal(str) {
   try {
@@ -123,59 +97,6 @@ export function removelocal(str) {
   } catch (err) {
     console.log(err, "err");
   }
-}
-export function copyRangeText() {
-  try {
-    const range = document.createRange();
-    range.selectNode(document.getElementById("id1"));
-    const selection = window.getSelection();
-    debugger;
-    if (selection.rangeCount > 0) selection.removeAllRanges();
-    selection.addRange(range);
-
-    document.execCommand("copy");
-    // alert('复制成功')
-  } catch (e) {
-    alert("你复制个蛋");
-  }
-}
-export function copyInput() {
-  let obj = document.getElementById("input1");
-  obj.select();
-  try {
-    if (document.execCommand("Copy", "false", null)) {
-      //如果复制成功
-      alert("复制成功！");
-    } else {
-      //如果复制失败
-      alert("复制失败！");
-    }
-  } catch (e) {
-    alert("您的浏览器不支持此复制功能，请选中相应内容并使用Ctrl+C进行复制!");
-  }
-}
-export function CopyContent(props) {
-  const createRef = React.createRef();
-  return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <span ref={createRef}>{props.content}</span>
-      <a
-        href="###"
-        onClick={() => {
-          const text = createRef.current.innerText;
-          var oInput = document.createElement("input");
-          oInput.value = text;
-          document.body.appendChild(oInput);
-          oInput.select(); // 选择对象
-          document.execCommand("Copy"); // 执行浏览器复制命令
-          oInput.remove();
-          message.info("复制成功");
-        }}
-      >
-        复制
-      </a>
-    </div>
-  );
 }
 
 /**
