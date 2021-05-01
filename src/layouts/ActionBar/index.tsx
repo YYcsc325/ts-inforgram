@@ -28,8 +28,9 @@ class ActionBar extends React.Component<any, IActionBarState> {
 
   render() {
     const { isShowShrinkage } = this.state;
-    const key = window.location.hash?.split("#/docs")?.[1];
-    const selectedBarId = actionBarItems.find((item) => item.link === key)?.id;
+    const selectedBarId = actionBarItems.find(
+      (item) => item.link === window.location.pathname
+    )?.id;
 
     return (
       <div className={prefixCls()}>

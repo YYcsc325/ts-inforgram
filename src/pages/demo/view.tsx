@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button } from "antd";
+import { Form, Button, message } from "antd";
 import { CustomModal, FormView } from "@/components";
+import CopyToClipboard from "react-copy-to-clipboard";
+
 import { defaultConfig } from "./defaultConfig";
 
 const Index = (props = {}) => {
@@ -62,6 +64,16 @@ const Index = (props = {}) => {
       >
         点击打开模态框
       </Button>
+      <CopyToClipboard
+        text={"复制的内容传入到这里"}
+        onCopy={() => {
+          message.info("复制成功");
+        }}
+      >
+        <div>
+          <Button>复制</Button>
+        </div>
+      </CopyToClipboard>
     </div>
   );
 };
