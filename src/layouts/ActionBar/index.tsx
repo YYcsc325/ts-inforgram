@@ -29,7 +29,7 @@ class ActionBar extends React.Component<any, IActionBarState> {
   render() {
     const { isShowShrinkage } = this.state;
     const selectedBarId = actionBarItems.find(
-      (item) => item.link === window.location.pathname
+      (item) => item.link === window.location.href?.split?.("#")?.[1]
     )?.id;
 
     return (

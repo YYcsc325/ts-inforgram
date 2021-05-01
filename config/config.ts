@@ -41,9 +41,9 @@ export default defineConfig({
   // base: "/docs/",
   // publicPath: "/static/",
 
-  // history: {
-  //   type: "hash",
-  // },
+  history: {
+    type: "hash",
+  },
 
   // ctoken: true,
 

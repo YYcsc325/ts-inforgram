@@ -32,9 +32,13 @@ const prefixCls = createPrefixClass("rotate-box", styles);
 const RotateBox: FC<IRotateBoxProps> & {
   Icon: FC<IRotateBoxIconProps>;
   Template: FC<IRotateBoxTemplateProps>;
-} = ({ className, name, style, children }) => {
+} = ({ className, name, style, children, ...resetProps }) => {
   return (
-    <div className={classNames(prefixCls(), className)} style={style}>
+    <div
+      {...resetProps}
+      className={classNames(prefixCls(), className)}
+      style={style}
+    >
       {children}
       {name}
     </div>
