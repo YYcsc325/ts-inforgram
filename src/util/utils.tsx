@@ -106,7 +106,7 @@ export function addPageListener(cb: () => any) {
   document.addEventListener("visibilitychange", cb);
 }
 /**
- * @name
+ * @name 移除去除监听页面切换
  */
 export function removePageListener(cb: () => any) {
   document.addEventListener("visibilitychange", cb);
@@ -148,13 +148,11 @@ export function createPrefixClass(namespace: string, styles: any) {
   };
 }
 
+/** 递归插入数据 */
 interface ITreeProps<T = any> {
   [x: string]: any;
   children: Array<T>;
 }
-
-/** 递归插入数据 */
-
 export function recursionInsertData(
   list: Array<ITreeProps<any>> = [],
   callBack: (val: ITreeProps) => any
