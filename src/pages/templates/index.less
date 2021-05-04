@@ -3,4 +3,58 @@
   width: calc(100% - 50px);
   height: 100vh;
   left: 50px;
+  background: linear-gradient(328.25deg, #419bad 0%, #582e8d 100%);
+  overflow-y: auto;
+  color: #fff;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 130px;
+    padding: 0px 30px 15px 30px;
+    background: rgba(0, 0, 0, 0.4);
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+  }
+  &-header-left {
+    margin-top: 25px;
+  }
+  &-main-title {
+    font-size: 29px;
+  }
+  &-header-right {
+    margin-top: 70px;
+  }
+  &-content {
+    display: flex;
+    padding: 30px 30px;
+  }
+  &-content-left {
+    width: 250px;
+    height: max-content;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 160px;
+    font-size: 15px;
+    border-radius: 4px;
+    background: rgba(39, 39, 39, 0.6);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  &-l-item {
+    width: 250px;
+    height: 50px;
+    padding-left: 20px;
+    line-height: 50px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+  &-active {
+    background-color: #1d2742;
+    box-shadow: inset 5px 0 0 #3195cb;
+  }
 }
