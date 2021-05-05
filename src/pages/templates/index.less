@@ -17,6 +17,7 @@
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
+    z-index: 999;
   }
   &-header-left {
     margin-top: 25px;
@@ -56,5 +57,17 @@
   &-active {
     background-color: #1d2742;
     box-shadow: inset 5px 0 0 #3195cb;
+  }
+  &-content-right {
+    margin-left: 40px;
+  }
+  &-item-title {
+    font-size: 21px;
+    line-height: 24px;
+    font-weight: 500;
+    margin: 0 auto 25px;
+  }
+  &-template-card {
+    margin: 0 12px 46px 0;
   }
 }
