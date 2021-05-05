@@ -1,11 +1,12 @@
+import classNames from "classnames";
+import { templateList, templateConfig } from "@/config";
 import React, { FC, useEffect, useState } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import { BarChartOutlined } from "@ant-design/icons";
 import DropdownSearch from "@/pages/library/components/DropdownSearch";
-import classNames from "classnames";
-import { templateList } from "@/config";
 
+import TemplateCard from "./components/TemplateCard";
 import styles from "./index.less";
 
 interface ITemplatesProps {
@@ -53,7 +54,24 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
             </div>
           ))}
         </div>
-        <div className={prefixCls("content-right")}>{}</div>
+        <div className={prefixCls("content-right")}>
+          {templateConfig.map((item) => (
+            <div className={prefixCls("item-warp")}>
+              <div className={prefixCls("item-title")}>{item.title}</div>
+              <div className={prefixCls("item-card")}>
+                {item.children.map((val) => (
+                  <TemplateCard
+                    width={item.width}
+                    height={item.height}
+                    url={val.url}
+                    className={prefixCls("template-card")}
+                    title={val.name}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback } from "react";
 import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
 import { SearchOutlined } from "@ant-design/icons";

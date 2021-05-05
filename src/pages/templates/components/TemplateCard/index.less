@@ -1,0 +1,59 @@
+.dt-template-card {
+  font-size: 15px;
+  display: inline-block;
+  text-align: center;
+
+  &-lazy-img {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    &:hover {
+      border-color: #3195cb;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+  &-disgrace {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-disgrace-hover {
+    background-color: rgba(24, 77, 110, 0.9);
+    transition: all 0.2s ease-in-out;
+  }
+  &-disgrace-display {
+    visibility: hidden;
+  }
+  &-content {
+    text-align: center;
+  }
+  &-preview {
+    width: 134px;
+    height: 34px;
+    opacity: 1;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    line-height: 30px;
+  }
+  &-use {
+    width: 134px;
+    height: 34px;
+    border-radius: 4px;
+    background-color: #3494ce;
+    border-radius: 4px;
+    line-height: 30px;
+    &:hover {
+      background-color: #5fb7e5;
+    }
+  }
+  &-title {
+    font-size: 12px;
+  }
+}
