@@ -18,7 +18,7 @@ interface ITemplateCardProps {
 const TemplateCard: ForwardRefRenderFunction<
   HTMLDivElement,
   ITemplateCardProps
-> = ({ width, height, url, className, title }) => {
+> = ({ width, height, url, className, title }, ref) => {
   const [isEnter, setIsEnter] = useState(false);
   return (
     <div className={classNames(prefixCls(), className)}>

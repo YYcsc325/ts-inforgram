@@ -1,32 +1,42 @@
 .dt-templates {
-  position: fixed;
+  margin-left: 50px;
   width: calc(100% - 50px);
-  height: 100vh;
-  left: 50px;
+  min-height: 100vh;
   background: linear-gradient(328.25deg, #419bad 0%, #582e8d 100%);
-  overflow-y: auto;
   color: #fff;
 
   &-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    width: inherit;
     height: 130px;
     padding: 0px 30px 15px 30px;
     background: rgba(0, 0, 0, 0.4);
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 999;
-  }
-  &-header-left {
-    margin-top: 25px;
+    z-index: 98;
   }
   &-main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 100%;
     font-size: 29px;
+    height: 70px;
+    margin-top: 6px;
   }
-  &-header-right {
-    margin-top: 70px;
+  &-subtitle {
+    font-size: 12px;
+  }
+  &-header-close {
+    width: 34px;
+    height: 34px;
+    opacity: 0.7;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &-search {
+    float: right;
   }
   &-content {
     display: flex;
@@ -42,7 +52,6 @@
     border-radius: 4px;
     background: rgba(39, 39, 39, 0.6);
     box-sizing: border-box;
-    overflow: hidden;
   }
   &-l-item {
     width: 250px;
@@ -60,6 +69,7 @@
   }
   &-content-right {
     margin-left: 40px;
+    margin-top: 140px;
   }
   &-item-title {
     font-size: 21px;
