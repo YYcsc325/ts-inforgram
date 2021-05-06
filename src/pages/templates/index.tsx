@@ -6,6 +6,7 @@ import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import { BarChartOutlined } from "@ant-design/icons";
 import DropdownSearch from "@/pages/library/components/DropdownSearch";
+import { Link } from "umi";
 
 import TemplateCard from "./components/TemplateCard";
 import styles from "./index.less";
@@ -76,15 +77,24 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
   return (
     <div className={prefixCls()} onClick={handleWarpClick}>
       <div className={prefixCls("header")}>
-        <div className={prefixCls("header-left")}>
-          <div className={prefixCls("main-title")}>
-            <BarChartOutlined /> &nbsp;&nbsp;Infogram template library
+        <div className={prefixCls("main-title")}>
+          <div>
+            <div>
+              <BarChartOutlined /> &nbsp;&nbsp;Infogram template library
+            </div>
+            <div className={prefixCls("subtitle")}>
+              Choose a template by project type, color, or start with a blank
+              page
+            </div>
           </div>
-          <div className={prefixCls("subtitle")}>
-            Choose a template by project type, color, or start with a blank page
-          </div>
+          <Link to="/library">
+            <img
+              src="https://cdn.jifo.co/js/dist/ab2b3d6e05ae04bec125ec1499a3c032.svg"
+              className={prefixCls("header-close")}
+            />
+          </Link>
         </div>
-        <div className={prefixCls("header-right")}>
+        <div className={prefixCls("search")}>
           <DropdownSearch placeholder={"Search template"} />
         </div>
       </div>

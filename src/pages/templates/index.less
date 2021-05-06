@@ -6,9 +6,7 @@
   color: #fff;
 
   &-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    width: inherit;
     height: 130px;
     padding: 0px 30px 15px 30px;
     background: rgba(0, 0, 0, 0.4);
@@ -16,14 +14,29 @@
     top: 0;
     z-index: 98;
   }
-  &-header-left {
-    margin-top: 25px;
-  }
   &-main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 100%;
     font-size: 29px;
+    height: 70px;
+    margin-top: 6px;
   }
-  &-header-right {
-    margin-top: 70px;
+  &-subtitle {
+    font-size: 12px;
+  }
+  &-header-close {
+    width: 34px;
+    height: 34px;
+    opacity: 0.7;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &-search {
+    float: right;
   }
   &-content {
     display: flex;

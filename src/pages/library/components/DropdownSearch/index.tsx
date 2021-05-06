@@ -3,6 +3,7 @@ import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
 import { SearchOutlined } from "@ant-design/icons";
 import { LazyLoadingImg } from "@/components";
+import classNames from "classnames";
 
 import styles from "./index.less";
 
@@ -10,6 +11,7 @@ const prefixCls = createPrefixClass("dropdown-search", styles);
 
 interface IDropdownSearchProps {
   placeholder?: string;
+  className?: string;
   onSearch?: (params: string) => void;
   onChange?: (params: string) => void;
 }
@@ -24,7 +26,7 @@ interface IDropdownOptionProps {
 
 const DropdownSearch: FC<IDropdownSearchProps> & {
   Option: FC<IDropdownOptionProps>;
-} = ({ placeholder, onSearch, onChange, children }) => {
+} = ({ placeholder, onSearch, onChange, className, children }) => {
   const childArray = React.Children.toArray(children);
 
   const handleChange = useCallback(
@@ -51,7 +53,7 @@ const DropdownSearch: FC<IDropdownSearchProps> & {
     </Menu>
   );
   return (
-    <div className={prefixCls()}>
+    <div className={classNames(prefixCls(), className)}>
       <div className={prefixCls("search-icon")}>
         <SearchOutlined />
       </div>
