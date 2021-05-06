@@ -1,25 +1,25 @@
-import { templateConsts } from "@/consts";
+import { templateConsts, templateIdConsts } from "@/consts";
 
 const templateList = [
   {
     title: templateConsts.INFOGRAPHICS,
-    path: "#infographics",
+    id: templateIdConsts.Infographics,
   },
   {
     title: templateConsts.REPORTS,
-    path: "#reports",
+    id: templateIdConsts.report,
   },
   {
     title: templateConsts.SLIDES,
-    path: "#slides",
+    id: templateIdConsts.slides,
   },
   {
     title: templateConsts.DASHBOARDS,
-    path: "#dashboards",
+    id: templateIdConsts.dashboards,
   },
   {
     title: templateConsts.POSTEERS,
-    path: "#posters",
+    id: templateIdConsts.poster,
   },
 ];
 

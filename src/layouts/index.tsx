@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
 import { Layout } from "antd";
-import { IRouteComponentProps } from "umi";
 import ActionBar from "./ActionBar";
 import { createPrefixClass } from "@/util/utils";
 
@@ -9,22 +8,15 @@ import styles from "./index.less";
 
 const prefixCls = createPrefixClass("layout", styles);
 
-interface PageProps extends IRouteComponentProps {}
+interface PageProps {}
 
-const BasicLayOut: FC<PageProps> = ({
-  children,
-  location,
-}: IRouteComponentProps) => {
+const BasicLayOut: FC<PageProps> = ({ children }) => {
   const actionBarRef = useRef<any>(null);
 
   /** 是否展开用户信息 */
   const handleShowShrinkageChange = (check: boolean) => {
     actionBarRef?.current?.handleChangeShrinkage(check);
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   return (
     <Layout className={prefixCls()}>

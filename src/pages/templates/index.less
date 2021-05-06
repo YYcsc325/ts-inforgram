@@ -1,10 +1,8 @@
 .dt-templates {
-  position: fixed;
+  margin-left: 50px;
   width: calc(100% - 50px);
-  height: 100vh;
-  left: 50px;
+  min-height: 100vh;
   background: linear-gradient(328.25deg, #419bad 0%, #582e8d 100%);
-  overflow-y: auto;
   color: #fff;
 
   &-header {
@@ -14,10 +12,9 @@
     height: 130px;
     padding: 0px 30px 15px 30px;
     background: rgba(0, 0, 0, 0.4);
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 999;
+    z-index: 98;
   }
   &-header-left {
     margin-top: 25px;
@@ -42,7 +39,6 @@
     border-radius: 4px;
     background: rgba(39, 39, 39, 0.6);
     box-sizing: border-box;
-    overflow: hidden;
   }
   &-l-item {
     width: 250px;
@@ -60,6 +56,7 @@
   }
   &-content-right {
     margin-left: 40px;
+    margin-top: 140px;
   }
   &-item-title {
     font-size: 21px;
