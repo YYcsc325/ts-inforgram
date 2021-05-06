@@ -1,8 +1,7 @@
 .dt-right-silder {
-  position: fixed;
   width: calc(100% - 276px);
-  left: 276px;
-  height: 100vh;
+  margin-left: 276px;
+  min-height: 100vh;
 
   &-header {
     padding: 0 25px;
@@ -100,12 +99,14 @@
   &-content {
     padding: 0 25px;
     margin-top: 25px;
+    height: calc(100vh - 282px);
+    overflow: auto;
   }
   &-content-item {
     margin-right: 20px;
   }
   &-table-card {
-    margin-top: 20px;
+    margin-bottom: 20px;
   }
   &-empty {
     margin-top: 100px;
