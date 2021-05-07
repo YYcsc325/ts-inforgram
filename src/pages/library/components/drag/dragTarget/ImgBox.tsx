@@ -19,10 +19,10 @@ interface IImgBoxProps {
 }
 
 let uid = 1;
-const ImgBox: FC<IImgBoxProps> = ({ name, url, type }) => {
+const ImgBox: FC<IImgBoxProps> = ({ name, url, type, ...reset }) => {
   const [{ isDragging }, drag] = useDrag({
     type: dragConsts.box,
-    item: { name, type, url, id: ++uid },
+    item: { ...reset, name, type, url, id: ++uid },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {

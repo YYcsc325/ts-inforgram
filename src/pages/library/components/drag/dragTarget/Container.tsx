@@ -22,6 +22,11 @@ const Container = memo(function Container() {
       name: "第三章图",
       type: "dragImg",
     },
+    {
+      name: "第四张图",
+      type: "DragHTag",
+      text: "Type something",
+    },
   ];
 
   return (
