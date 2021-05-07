@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
+import { DragHTag } from "@/components";
 
 import styles from "./index.less";
 
@@ -19,7 +20,11 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
     consumer?.handleShowShrinkageChange(false);
   }, []);
 
-  return <div className={prefixCls()} onClick={handleClick}></div>;
+  return (
+    <div className={prefixCls()} onClick={handleClick}>
+      <DragHTag text={"Type something"} />
+    </div>
+  );
 };
 
 export default contextConsumer(Brandsets);

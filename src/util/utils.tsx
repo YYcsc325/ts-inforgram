@@ -166,3 +166,49 @@ export function recursionInsertData(
     return result;
   });
 }
+
+export const isArray =
+  Array.isArray ||
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === "[object Array]";
+  };
+
+export function isPlainObject(obj: any) {
+  return Object.prototype.toString.call(obj) === "[object Object]";
+}
+
+export function isString(str: any) {
+  return Object.prototype.toString.call(str) === "[object String]";
+}
+
+export function isPromise(e: any) {
+  return e instanceof Promise;
+}
+
+export function isFunction(func: any) {
+  return Object.prototype.toString.call(func) === "[object Function]";
+}
+
+export function isEmptyObject(obj: any) {
+  if (!isPlainObject(obj)) {
+    return false;
+  }
+  return !Object.keys(obj).length;
+}
+
+export function isParseJSON(str: string) {
+  try {
+    return !!JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+}
+
+export function isUndefined(o: any) {
+  if (!arguments.length) return false;
+  return typeof o === "undefined";
+}
+
+export function isNull(o: any) {
+  return o === null;
+}

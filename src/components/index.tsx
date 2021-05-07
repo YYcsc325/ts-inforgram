@@ -11,4 +11,5 @@ export { default as CustomModal } from "./CustomModal";
 export { default as DatePicker } from "./FormDatePicker";
 export { default as InputNumber } from "./FormInputNumber";
 export { default as LazyLoadingImg } from "./LazyLoadingImg";
+export { default as DragHTag } from "./DragComponents/DragHTag";
 export { default as Tabs } from "./Tabs";
