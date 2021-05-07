@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, ForwardRefRenderFunction } from "react";
 import { useDrop } from "react-dnd";
 import { dragConsts } from "@/consts";
 import ScalableBox from "@/pages/library/components/drag/components/ScalableBox";
@@ -13,7 +13,13 @@ import "./index.less";
  * @param {*} props
  * @param {*} ref
  */
-const Dustbin = (props = {}, ref: React.RefObject<HTMLDivElement>) => {
+
+interface IDustbinProps {}
+
+const Dustbin: ForwardRefRenderFunction<HTMLDivElement, IDustbinProps> = (
+  props,
+  ref
+) => {
   const [list, setList] = useState<Array<{ id: string; type: string }>>([]);
 
   // 放下拖拽元素的触发的事件

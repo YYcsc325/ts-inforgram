@@ -3,7 +3,6 @@ import { history } from "umi";
 import { createPrefixClass } from "@/util/utils";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import React, { useState, useMemo, useCallback } from "react";
-// import Drag from "@/pages/library/components/drag/index";
 import {
   UserOutlined,
   TableOutlined,
