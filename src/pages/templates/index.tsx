@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { templateIdConsts } from "@/consts";
-import { templateList, templateConfig } from "@/config";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import { templateConfig } from "@/config";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import { BarChartOutlined } from "@ant-design/icons";
@@ -22,16 +22,23 @@ const prefixCls = createPrefixClass("templates", styles);
 const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
   const { position } = match.params || {};
 
+  const [searchVal, setSearchVal] = useState("");
   const [activeItem, setActiveItem] = useState(position);
   const [initialPosition, setInitialPosition] = useState<templateIds>([]);
 
-  const handleWarpClick = () => {
-    consumer?.handleShowShrinkageChange(false);
-  };
-  useEffect(() => {
-    consumer?.handleShowShrinkageChange(false);
-  }, []);
+  /** 总数据 */
+  const [dataList] = useState(templateConfig);
+  /** 过滤数据 */
+  const [filterDataList, setFilterDataList] = useState<typeof templateConfig>(
+    []
+  );
+  /** 所有子集数据（拍平后的数据） */
+  /** 真正渲染的数据 */
+  const renderData = useMemo(() => {
+    return searchVal ? filterDataList : dataList;
+  }, [searchVal, filterDataList, dataList]);
 
+  /** 滚动方法 */
   const scrollById = (id: string, positionList: templateIds) => {
     const scroll =
       positionList.find((item: any) => item.key === id)?.value || 0;
@@ -44,6 +51,7 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
     }
   };
 
+  /** 选择侧边进行滚动 */
   const handleSilderClick = useCallback(
     (id) => {
       scrollById(id, initialPosition);
@@ -59,6 +67,12 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
     }));
     setInitialPosition(list);
     scrollById(activeItem, list);
+  }, [renderData]);
+
+  /** 搜索数据触发 */
+  const hanldeSearch = useCallback((str: string) => {
+    setSearchVal(str);
+    setFilterDataList(filterSearchData(dataList, str));
   }, []);
 
   // useEffect(() => {
@@ -73,6 +87,13 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
   //     }
   //   };
   // }, [initialPosition]);
+
+  const handleWarpClick = () => {
+    consumer?.handleShowShrinkageChange(false);
+  };
+  useEffect(() => {
+    consumer?.handleShowShrinkageChange(false);
+  }, []);
 
   return (
     <div className={prefixCls()} onClick={handleWarpClick}>
@@ -95,15 +116,21 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
           </Link>
         </div>
         <div className={prefixCls("search")}>
-          <DropdownSearch placeholder={"Search template"} />
+          <DropdownSearch
+            placeholder={"Search template"}
+            onSearch={hanldeSearch}
+          />
         </div>
       </div>
       <div className={prefixCls("content")}>
         <div className={prefixCls("content-left")}>
-          {templateList.map((item) => (
+          {dataList.map((item) => (
             <div
               className={classNames(prefixCls("l-item"), {
                 [prefixCls("active")]: item.id === activeItem,
+                [prefixCls("event")]: !renderData
+                  .map((item) => item.title)
+                  .includes(item.title),
               })}
               onClick={() => handleSilderClick(item.id)}
               key={item.title}
@@ -113,7 +140,7 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
           ))}
         </div>
         <div className={prefixCls("content-right")}>
-          {templateConfig.map((item) => (
+          {renderData.map((item) => (
             <div className={prefixCls("item-warp")} key={item.title}>
               <div className={prefixCls("item-title")} id={item.id}>
                 {item.title}
@@ -137,5 +164,25 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
     </div>
   );
 };
+
+function filterSearchData(list: any = [], str: string) {
+  return list
+    .map((item: any) => {
+      if (item.children && item.children.length) {
+        const filterList = item.children.filter(
+          (tag: any) =>
+            (tag.name || tag.id).toLowerCase().indexOf(str.toLowerCase()) >= 0
+        );
+        if (filterList.length) {
+          return { ...item, children: filterList };
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    })
+    .filter(Boolean);
+}
 
 export default contextConsumer(Templates);
