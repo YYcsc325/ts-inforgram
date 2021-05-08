@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-
+import { DragBox } from "@/components";
 import styles from "./index.less";
 
 interface ITeamProps {
@@ -21,7 +21,8 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick}>
-      team
+      <DragBox left={100} top={100}></DragBox>
+      <DragBox left={200} top={200}></DragBox>
     </div>
   );
 };
