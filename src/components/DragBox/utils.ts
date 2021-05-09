@@ -42,7 +42,7 @@ export function transformScale(direction: any, oriPos: any, e: any) {
       // style.height -= offsetY;
       // style.top += offsetY;
 
-      style.width = style.width - (offsetX + offsetY);
+      style.width = style.width + (offsetX + offsetY);
       style.height = style.height - (offsetX + offsetY);
       style.top += offsetY + offsetX;
       break;
@@ -70,7 +70,7 @@ export function transformScale(direction: any, oriPos: any, e: any) {
       // style.left += offsetX;
 
       style.width = style.width + (offsetX + offsetY);
-      style.height = style.height + (offsetX + offsetY);
+      style.height = style.height - (offsetX + offsetY);
       style.left += offsetX + offsetY;
       break;
     // 旋转
