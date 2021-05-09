@@ -21,47 +21,57 @@ export function transformScale(direction: any, oriPos: any, e: any) {
     // 东 -> 右
     case "e":
       style.width += offsetX;
-      style.height = style.height + offsetX;
       return style;
     // 西 -> 左
     case "w":
       style.width -= offsetX;
-      style.height = style.height - offsetX;
       style.left += offsetX;
       return style;
     // 南 -> 下
     case "s":
-      style.width = style.width + offsetY;
       style.height += offsetY;
       return style;
     // 北 -> 上
     case "n":
-      style.width = style.width - offsetY;
       style.height -= offsetY;
       style.top += offsetY;
       break;
     // 东北 -> 右上角 // 未完成
     case "ne":
-      style.width += offsetX;
-      style.height -= offsetY;
-      style.top += offsetY;
+      // style.width += offsetX;
+      // style.height -= offsetY;
+      // style.top += offsetY;
+
+      style.width = style.width - (offsetX + offsetY);
+      style.height = style.height - (offsetX + offsetY);
+      style.top += offsetY + offsetX;
       break;
     // 西北 -> 左上角 // 未完成
     case "nw":
-      style.width -= offsetX;
-      style.height -= offsetY;
-      style.left += offsetX;
-      style.top += offsetY;
+      // style.width -= offsetX;
+      // style.height -= offsetY;
+      // style.left += offsetX;
+      // style.top += offsetY;
+
+      style.width = style.width - (offsetX + offsetY);
+      style.height = style.height - (offsetX + offsetY);
+      style.left += offsetX + offsetY;
+      style.top += offsetX + offsetY;
       break;
     // 东南 -> 右下角
     case "se":
       style.width = style.width + (offsetX + offsetY);
       style.height = style.height + (offsetX + offsetY);
       break;
-    // 西南 -> 左下角
+    // 西南 -> 左下角 // 未完成
     case "sw":
+      // style.width -= offsetX;
+      // style.height += offsetY;
+      // style.left += offsetX;
+
       style.width = style.width + (offsetX + offsetY);
       style.height = style.height + (offsetX + offsetY);
+      style.left += offsetX + offsetY;
       break;
     // 旋转
     case "rotate":
@@ -157,3 +167,29 @@ export function transform(direction: any, oriPos: any, e: any) {
   }
   return style;
 }
+
+// 上 下 左 右 等比例缩放
+// // 东
+// case "e":
+//   // 向右拖拽添加宽度
+//   style.width += offsetX;
+//   style.height = style.height + offsetX;
+//   return style;
+// // 西
+// case "w":
+//   // 增加宽度、位置同步左移
+//   style.width -= offsetX;
+//   style.height = style.height - offsetX;
+//   style.left += offsetX;
+//   return style;
+// // 南
+// case "s":
+//   style.height += offsetY;
+//   style.width = style.width + offsetY;
+//   return style;
+// // 北
+// case "n":
+//   style.height -= offsetY;
+//   style.width = style.width - offsetY;
+//   style.top += offsetY;
+//   break;

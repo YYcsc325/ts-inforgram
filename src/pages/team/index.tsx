@@ -18,7 +18,7 @@ const config = [
     top: 100,
     width: 173,
     height: 129,
-    url: "https://graphics.jifo.co/flags_lipis/us.svg",
+    url: "https://img.pic88.com/16056469798640.jpg",
     scale: true,
   },
   {
@@ -61,7 +61,7 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
           onClick={handleItemClick}
           clicked={clickedId === item.id}
         >
-          <ImgBox url={item.url} scale={item.scale}></ImgBox>
+          <ImgBox url={item.url}></ImgBox>
         </DragBox>
       ))}
       {/* <DragBox
