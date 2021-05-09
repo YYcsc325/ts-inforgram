@@ -40,13 +40,13 @@ export function transformScale(direction: any, oriPos: any, e: any) {
       style.height -= offsetY;
       style.top += offsetY;
       break;
-    // 东北 -> 右上角
+    // 东北 -> 右上角 // 未完成
     case "ne":
       style.width += offsetX;
       style.height -= offsetY;
       style.top += offsetY;
       break;
-    // 西北 -> 左上角
+    // 西北 -> 左上角 // 未完成
     case "nw":
       style.width -= offsetX;
       style.height -= offsetY;
@@ -62,7 +62,6 @@ export function transformScale(direction: any, oriPos: any, e: any) {
     case "sw":
       style.width = style.width + (offsetX + offsetY);
       style.height = style.height + (offsetX + offsetY);
-      style.left = offsetX;
       break;
     // 旋转
     case "rotate":
@@ -72,7 +71,7 @@ export function transformScale(direction: any, oriPos: any, e: any) {
       // 当前的鼠标坐标
       const x1 = e.clientX;
       const y1 = e.clientY;
-      // 运用高中的三角函数
+      // 三角函数
       style.transform = `rotate(${
         Math.atan2(y1 - y, x1 - x) * (180 / Math.PI) - 90
       }deg)`;
@@ -100,45 +99,43 @@ export function transform(direction: any, oriPos: any, e: any) {
       style.top = top;
       style.left = left;
       break;
-    // 东
+    // 东 -> 右
     case "e":
-      // 向右拖拽添加宽度
       style.width += offsetX;
       return style;
-    // 西
+    // 西 -> 左
     case "w":
-      // 增加宽度、位置同步左移
       style.width -= offsetX;
       style.left += offsetX;
       return style;
-    // 南
+    // 南 -> 下
     case "s":
       style.height += offsetY;
       return style;
-    // 北
+    // 北 -> 上
     case "n":
       style.height -= offsetY;
       style.top += offsetY;
       break;
-    // 东北
+    // 东北 -> 右上角
     case "ne":
       style.width += offsetX;
       style.height -= offsetY;
       style.top += offsetY;
       break;
-    // 西北
+    // 西北 -> 左上角
     case "nw":
       style.width -= offsetX;
       style.height -= offsetY;
       style.left += offsetX;
       style.top += offsetY;
       break;
-    // 东南
+    // 东南 -> 右下角
     case "se":
       style.width += offsetX;
       style.height += offsetY;
       break;
-    // 西南
+    // 西南 -> 左下角
     case "sw":
       style.width -= offsetX;
       style.height += offsetY;

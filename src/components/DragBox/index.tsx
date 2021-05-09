@@ -80,6 +80,7 @@ const DragBox: FC<IDragBoxProps> = ({
       ? transformScale(direction.current, oriPos.current, e)
       : transform(direction.current, oriPos.current, e);
     setStyle(newStyle);
+    console.log(newStyle, "newStyle");
   }, []);
 
   // 鼠标被抬起
