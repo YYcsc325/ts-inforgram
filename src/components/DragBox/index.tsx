@@ -49,6 +49,7 @@ const DragBox: FC<IDragBoxProps> = ({
    * @param cY 鼠标的y轴位置
    */
 
+  const targetDragArea = useRef<any>(null);
   const oriPos = useRef({ top, left, cX: 0, cY: 0 });
   /** 鼠标是否按下 */
   const isDown = useRef(false);
@@ -60,40 +61,40 @@ const DragBox: FC<IDragBoxProps> = ({
     (dir, e) => {
       // 阻止事件冒泡
       e.stopPropagation();
+      // 阻止默认行为
       e.preventDefault();
       // 保存拖拽事件方向。
       direction.current = dir;
       isDown.current = true;
-      // 然后鼠标坐标是 clientX 相对于可视化区域
-      const cY = e.clientY;
-      const cX = e.clientX;
-      oriPos.current = { ...style, cX, cY };
+      oriPos.current = { ...style, cX: e.clientX, cY: e.clientY };
+      // 注册事件
+      targetDragArea?.current?.addEventListener?.("mousemove", onMouseMove);
+      targetDragArea?.current?.addEventListener?.("mouseup", onMouseUp);
     },
     [style]
   );
   // 鼠标移动
   const onMouseMove = useCallback((e) => {
-    // 判断鼠标是否按住
     e.stopPropagation();
+    // 判断鼠标是否按住
     if (!isDown.current) return;
     const newStyle = scale
       ? transformScale(direction.current, oriPos.current, e)
       : transform(direction.current, oriPos.current, e);
     setStyle(newStyle);
-    console.log(newStyle, "newStyle");
   }, []);
 
   // 鼠标被抬起
   const onMouseUp = useCallback((e) => {
     e.stopPropagation();
     isDown.current = false;
+    // 取消注册事件
+    targetDragArea.current?.removeEventListener?.("mousemove", onMouseMove);
+    targetDragArea.current?.removeEventListener?.("mouseup", onMouseUp);
   }, []);
 
   useEffect(() => {
-    // 指定拖拽区域
-    const targetCom = document.getElementById(warpComponentId);
-    targetCom?.addEventListener?.("mousemove", onMouseMove);
-    targetCom?.addEventListener?.("mouseup", onMouseUp);
+    targetDragArea.current = document.getElementById(warpComponentId);
   }, []);
 
   const handleClick = useCallback(
