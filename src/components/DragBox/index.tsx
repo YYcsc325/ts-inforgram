@@ -4,7 +4,7 @@ import { createPrefixClass } from "@/util/utils";
 import { RedoOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
-import { transform } from "./utils";
+import { transform, transformScale } from "./utils";
 
 const prefixCls = createPrefixClass("dragable", styles);
 
@@ -13,26 +13,32 @@ const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 interface IDragBoxProps {
   left: number;
   top: number;
+  width?: number;
+  height?: number;
   warpComponentId: string;
   clicked: boolean;
   id: string;
   onClick?: (params: string) => void;
+  scale?: boolean;
 }
 
 const DragBox: FC<IDragBoxProps> = ({
   id,
+  scale,
   clicked,
   warpComponentId,
   left = 100,
   top = 100,
+  width = 100,
+  height = 100,
   onClick,
   children,
 }) => {
   const [style, setStyle] = useState({
     left,
     top,
-    width: 100,
-    height: 100,
+    width,
+    height,
   });
 
   /**
@@ -70,7 +76,10 @@ const DragBox: FC<IDragBoxProps> = ({
     // 判断鼠标是否按住
     e.stopPropagation();
     if (!isDown.current) return;
-    setStyle(transform(direction, oriPos, e));
+    const newStyle = scale
+      ? transformScale(direction.current, oriPos.current, e)
+      : transform(direction.current, oriPos.current, e);
+    setStyle(newStyle);
   }, []);
 
   // 鼠标被抬起
