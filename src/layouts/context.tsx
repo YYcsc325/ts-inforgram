@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 
-export interface IConversionProviderValue<T = any> {
+export interface ILayOutProviderValue<T = any> {
   value?: T;
 }
 
-export const LayoutContext = React.createContext<IConversionProviderValue>({});
+export const LayoutContext = React.createContext<ILayOutProviderValue>({});
 
-export const ContextProvider: React.FC<IConversionProviderValue> = ({
+export const ContextProvider: React.FC<ILayOutProviderValue> = ({
   value,
   children,
 }) => {
