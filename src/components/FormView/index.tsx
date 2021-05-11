@@ -2,9 +2,9 @@ import React, { FC, useCallback, useMemo } from "react";
 import { Form } from "antd";
 import { processingObj } from "@/util/utils";
 
-import mapUi from "./mapUi";
+import config from "./config";
 
-interface IFormProps {
+export interface IFormProps {
   form: any;
   className?: string;
   config?: any;
@@ -33,7 +33,7 @@ const FormView: FC<IFormProps> = ({
             connect,
             component,
           }: any = {}) => {
-            let Element: any = mapUi[type] || component;
+            let Element: any = config[type] || component;
             if (typeof isShow === "function") {
               isShow = isShow({ form, ...stateProps });
             }
