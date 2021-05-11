@@ -1,4 +1,4 @@
-export { default as Spin } from "./Spin";
+export { default as Spin } from "./DtSpin";
 export { default as FormTree } from "./FormTree";
 export { default as FormRadio } from "./FormRadio";
 export { default as FormInput } from "./FormInput";
