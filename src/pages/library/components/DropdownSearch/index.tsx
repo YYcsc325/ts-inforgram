@@ -1,4 +1,9 @@
-import React, { FC, useCallback } from "react";
+import React, {
+  FC,
+  useCallback,
+  ForwardRefRenderFunction,
+  forwardRef,
+} from "react";
 import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
 import { SearchOutlined } from "@ant-design/icons";
@@ -24,9 +29,10 @@ interface IDropdownOptionProps {
   onChange?: (params: string) => void;
 }
 
-const DropdownSearch: FC<IDropdownSearchProps> & {
-  Option: FC<IDropdownOptionProps>;
-} = ({ placeholder, onSearch, onChange, className, children }) => {
+const DropdownSearch: ForwardRefRenderFunction<
+  HTMLDivElement,
+  IDropdownSearchProps
+> = ({ placeholder, onSearch, onChange, className, children }, ref) => {
   const childArray = React.Children.toArray(children);
 
   const handleChange = useCallback(
@@ -53,7 +59,7 @@ const DropdownSearch: FC<IDropdownSearchProps> & {
     </Menu>
   );
   return (
-    <div className={classNames(prefixCls(), className)}>
+    <div className={classNames(prefixCls(), className)} ref={ref}>
       <div className={prefixCls("search-icon")}>
         <SearchOutlined />
       </div>
@@ -71,19 +77,16 @@ const DropdownSearch: FC<IDropdownSearchProps> & {
   );
 };
 
-const DropdownOption: FC<IDropdownOptionProps> = ({
-  id,
-  name,
-  url,
-  date,
-  onChange,
-}) => {
+const DropdownOption: FC<IDropdownOptionProps> = (
+  { id, name, url, date, onChange },
+  ref
+) => {
   const handleChange = () => {
     onChange?.(id);
   };
 
   return (
-    <div onClick={handleChange} className={styles.option}>
+    <div onClick={handleChange} className={styles.option} ref={ref}>
       <LazyLoadingImg className={styles["option-img"]} url={url} />
       <div className={styles["option-mes"]}>{name}</div>
       <div className={styles["option-date"]}>{date}</div>
@@ -94,6 +97,12 @@ const DropdownOption: FC<IDropdownOptionProps> = ({
 DropdownSearch.displayName = "DropdownSearch";
 DropdownOption.displayName = "DropdownOption";
 
-DropdownSearch.Option = DropdownOption;
+const ForwardDropdownSearch = forwardRef(DropdownSearch);
 
-export default DropdownSearch;
+const DrowdownSearchComponent = ForwardDropdownSearch as typeof ForwardDropdownSearch & {
+  Option: FC<IDropdownOptionProps>;
+};
+
+DrowdownSearchComponent.Option = DropdownOption;
+
+export default DrowdownSearchComponent;
