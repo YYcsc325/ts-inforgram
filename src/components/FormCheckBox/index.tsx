@@ -1,9 +1,13 @@
 import { Checkbox } from "antd";
-import React, { forwardRef } from "react";
+import { CheckboxGroupProps } from "antd/lib/checkbox";
+import React, { forwardRef, ForwardRefRenderFunction } from "react";
 
 const CheckboxGroup = Checkbox.Group;
 
-const FormCheckbox = (props = {}, ref: any) => {
+const FormCheckbox: ForwardRefRenderFunction<
+  HTMLDivElement,
+  CheckboxGroupProps
+> = (props = {}, ref: any) => {
   return <CheckboxGroup {...props} ref={ref} />;
 };
 export default forwardRef(FormCheckbox);

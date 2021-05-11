@@ -1,5 +1,5 @@
 import { DatePicker } from "antd";
-import React, { forwardRef } from "react";
+import React, { forwardRef, ForwardRefRenderFunction } from "react";
 
 const mapUi = {
   datePicker: DatePicker,
@@ -8,14 +8,18 @@ const mapUi = {
   monthPicker: DatePicker.MonthPicker,
 };
 
-interface DataPickerProps {
-  type: string;
+type DatePickerConst = typeof DatePicker;
+
+interface DataPickerProps extends DatePickerConst {
+  type: "datePicker" | "weekPicker" | "rangePicker" | "monthPicker";
 }
 
-const FormDatePicker = (props: DataPickerProps, ref: any) => {
-  const { type, ...reset } = props;
-  const Element = mapUi[type];
-  if (!Element) console.warn(`type: ${type}传入有误`);
-  return Element && <Element {...reset} />;
+const FormDatePicker: ForwardRefRenderFunction<
+  HTMLDivElement,
+  DataPickerProps
+> = (props: DataPickerProps, ref: any) => {
+  const Element = mapUi[props?.type];
+  if (!Element) console.warn(`type: ${props?.type}传入有误`);
+  return Element && <Element {...props} ref={ref} />;
 };
 export default forwardRef(FormDatePicker);
