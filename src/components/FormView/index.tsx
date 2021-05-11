@@ -34,11 +34,15 @@ const FormView: FC<IFormProps> = ({
             component,
           }: any = {}) => {
             let Element: any = config[type] || component;
+
             if (typeof isShow === "function") {
               isShow = isShow({ form, ...stateProps });
             }
+
             if (!Element || !isShow) return;
+
             let RenderElement = Element;
+
             let FormItem = function ({
               children,
               formItemProp,
