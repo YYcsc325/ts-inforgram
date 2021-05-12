@@ -1,9 +1,9 @@
-import { fetch } from "dva";
 import { notification } from "antd";
 import { isPlainObject } from "@/util/utils";
-import { stringify } from "query-string";
+import { stringify } from "qs";
+import { request } from "umi";
 
-const codeMessage = {
+const codeMessage: any = {
   200: "服务器成功返回请求的数据",
   201: "新建或修改数据成功。",
   202: "一个请求已经进入后台排队（异步任务）",
@@ -22,24 +22,25 @@ const codeMessage = {
 };
 
 function parseJSON(response: any) {
-  return response.json();
+  // return response.json();
+  return response;
 }
 export function checkStatus(response: any) {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.code >= 200 && response.code < 300) {
     return response;
   }
-  const errortext: any = codeMessage[response.status] || response.statusText;
+  const errortext: any = codeMessage[response.code] || response.msg;
   notification.error({
-    message: `请求错误 ${response.status}: ${response.url}`,
+    message: `请求错误 ${response.code}: ${response.url}`,
     description: errortext,
   });
-  const error = new Error(errortext);
-  error.name = response.status;
+  const error: any = new Error(errortext);
+  error.name = response.code;
   error.response = response;
   throw error;
 }
 
-const lastRequestTime = {};
+const lastRequestTime: any = {};
 
 /**
  * Requests a URL, returning a promise.
@@ -48,7 +49,7 @@ const lastRequestTime = {};
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, options) {
+export default function dtRequest(url: string, options: any) {
   const defaultOptions = {
     credentials: "include",
     timeout: 5 * 1000 * 60, // 请求2分钟后超时
@@ -59,19 +60,22 @@ export default function request(url, options) {
   let realURL = url;
 
   if (newOptions.postType === "form") {
-    // TODO
     newOptions.headers = {
       Accept: "application/json",
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       ...newOptions.headers,
     };
     newOptions.body = stringify(newOptions.body, { indices: false });
-  } else if (newOptions.method === "GET" && isPlainObject(newOptions.query)) {
+  }
+
+  if (newOptions.method === "GET" && isPlainObject(newOptions.query)) {
     realURL =
       realURL +
       (realURL.includes("?") ? "" : "?") +
       stringify(newOptions.query);
-  } else if (newOptions.method === "POST" || newOptions.method === "PUT") {
+  }
+
+  if (newOptions.method === "POST" || newOptions.method === "PUT") {
     newOptions.headers = {
       Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
@@ -83,8 +87,9 @@ export default function request(url, options) {
   if (options.isNeedQue) {
     lastRequestTime[url.split("?")[0] + newOptions.method] = currentTime;
   }
-  return fetch(url, options)
-    .then((res) => {
+
+  return request(realURL, newOptions)
+    .then((res: any) => {
       if (
         options.isNeedQue &&
         lastRequestTime[url.split("?")[0] + newOptions.method] > currentTime
@@ -96,6 +101,6 @@ export default function request(url, options) {
     })
     .then(checkStatus)
     .then(parseJSON)
-    .then((data) => data)
-    .catch((err) => err);
+    .then((data: any) => data)
+    .catch((err: any) => err);
 }

@@ -10,11 +10,11 @@ const prefixCls = createPrefixClass("login", styles);
 
 class Index extends Component<any> {
   render() {
-    const { loginLoading = false, history } = this.props;
+    const { userInfoLoading = false, history } = this.props;
 
     return (
       <div className={prefixCls()}>
-        <DtSpin spinning={loginLoading}>
+        <DtSpin spinning={userInfoLoading}>
           <LeftComponent />
           <RightComponent history={history} />
         </DtSpin>

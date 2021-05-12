@@ -1,20 +1,23 @@
 import request from "@/util/request";
-import { stringify, parse } from "query-string";
-
-let localHost = "http://localhost:3000";
+import { PREFIX } from "@/consts";
 
 export interface IUserProps {
   email: string;
   passWord: string;
 }
 
-export async function getQueryUserData(params: IUserProps) {
-  return request(`${localHost}/inforgram/user?${stringify(params)}`, {
-    method: "GET",
-  });
+export interface IUserResponse {
+  email: string;
+  code: string;
 }
-export async function postQueryUserData({ ...params }) {
-  return request(`${localHost}/inforgram/user`, {
+
+export async function getQueryUserData(
+  params: IUserProps
+): Promise<IUserResponse> {
+  return request(`${PREFIX}/inforgram/user.json`, { ...params });
+}
+export async function postQueryUserData({ ...params }): Promise<IUserResponse> {
+  return request(`${PREFIX}/inforgram/user.json`, {
     method: "POST",
     body: {
       ...params,

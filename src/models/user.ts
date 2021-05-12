@@ -1,9 +1,15 @@
-import { getQueryUserData } from "@/service/user";
+import { getQueryUserData, IUserResponse } from "@/service/user";
 import { Model } from "dva";
+
+const initialState = {
+  userInfo: <IUserResponse>{},
+};
+
+type initialStateTypeOf = typeof initialState;
 
 const userModel: Model = {
   namespace: "user",
-  state: {},
+  state: initialState,
   effects: {
     *fetchUserList({ payload }, { call, put, select }) {
       let response = [];
@@ -13,21 +19,19 @@ const userModel: Model = {
         throw err;
       }
       yield put({
-        type: "updateIn",
-        payload: response.result,
+        type: "updateState",
+        updatePath: "userInfo",
+        payload: { ...response.result, code: response.code },
       });
       return response;
     },
   },
   reducers: {
-    updateIn(state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      };
+    updateState(state: initialStateTypeOf, { payload, updatePath }: any) {
+      return { ...state, [updatePath]: { ...payload } };
     },
     clearState() {
-      return {};
+      return initialState;
     },
   },
   subscriptions: {
