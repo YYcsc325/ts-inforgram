@@ -54,18 +54,26 @@ export default function dtRequest(url: string, options: any) {
     credentials: "include",
     timeout: 5 * 1000 * 60, // 请求2分钟后超时
   };
-  const method = (options.method || "GET").toUpperCase();
-  const newOptions: any = { ...defaultOptions, ...options, method };
-  const currentTime = new Date().getTime();
+
   let realURL = url;
+  let newOptions: any = {
+    ...defaultOptions,
+    ...options,
+    method: (options.method || "GET").toUpperCase(),
+  };
+
+  const currentTime = new Date().getTime();
 
   if (newOptions.postType === "form") {
-    newOptions.headers = {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-      ...newOptions.headers,
+    newOptions = {
+      ...newOptions,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+        ...newOptions.headers,
+      },
+      body: stringify(newOptions.body, { indices: false }),
     };
-    newOptions.body = stringify(newOptions.body, { indices: false });
   }
 
   if (newOptions.method === "GET" && isPlainObject(newOptions.query)) {
@@ -76,15 +84,18 @@ export default function dtRequest(url: string, options: any) {
   }
 
   if (newOptions.method === "POST" || newOptions.method === "PUT") {
-    newOptions.headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json; charset=utf-8",
-      ...newOptions.headers,
+    newOptions = {
+      ...newOptions,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json; charset=utf-8",
+        ...newOptions.headers,
+      },
+      body: JSON.stringify(newOptions.body),
     };
-    newOptions.body = JSON.stringify(newOptions.body);
   }
 
-  if (options.isNeedQue) {
+  if (newOptions.isNeedQue) {
     lastRequestTime[url.split("?")[0] + newOptions.method] = currentTime;
   }
 
