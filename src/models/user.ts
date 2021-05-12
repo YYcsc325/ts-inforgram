@@ -2,7 +2,7 @@ import { getQueryUserData, IUserResponse } from "@/service/user";
 import { Model } from "dva";
 
 const initialState = {
-  userInfo: <IUserResponse>{},
+  userinfo: <IUserResponse>{},
 };
 
 type initialStateTypeOf = typeof initialState;
@@ -20,7 +20,7 @@ const userModel: Model = {
       }
       yield put({
         type: "updateState",
-        updatePath: "userInfo",
+        updatePath: "userinfo",
         payload: { ...response.result, code: response.code },
       });
       return response;
