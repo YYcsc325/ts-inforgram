@@ -7,9 +7,11 @@ const loginAction = ({ payload }: any) => ({
   payload,
 });
 
-const mapStateToProps = ({ adloading }: any) => {
+// 这里的any类型其实就是每个model的state类型
+const mapStateToProps = ({ loading, user }: any) => {
   return {
-    loginLoading: get(adloading, ["user", "inforgram", "user"], false),
+    userinfo: get(user, ["userinfo"], {}),
+    userinfoloading: get(loading, ["effects", "user/fetchUserList"], false),
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {

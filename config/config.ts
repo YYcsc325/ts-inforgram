@@ -38,20 +38,21 @@ export default defineConfig({
   metas: [{ name: "description", content: "Welcome come to inforgram" }],
   routes,
 
-  // base: "/docs/",
-  // publicPath: "/static/",
-
   history: {
     type: "hash",
   },
 
+  proxy: {
+    "/dt": {
+      target,
+      changeOrigin: true,
+      pathRewrite: { "^/dt": "" },
+    },
+  },
+
+  // base: "/docs/",
+  // publicPath: "/static/",
   // ctoken: true,
-
-  // proxy: {
-  //   "/ad/portal": { target },
-  //   "/cms/repos": { target },
-  // },
-
   // chainWebpack(chain) {
   //   chain.plugin('sensitive').use(CaseSensitivePathsWebpackPlugin, []);
   // },

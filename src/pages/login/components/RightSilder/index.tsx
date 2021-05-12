@@ -20,14 +20,13 @@ const RightComponent = connect(({ dispatchLogin, history }: any) => {
       .then(async (values) => {
         if (dispatchLogin) {
           let res = await dispatchLogin(values);
-          if (res.code === 200) {
-            const { email, password, login } = res.result || {};
+          if (res?.code === 200) {
+            const { email } = res?.result || {};
             Cookies.set(
               "userLogin",
               {
                 email,
-                password,
-                login,
+                login: true,
               },
               { expires: 1 }
             );
