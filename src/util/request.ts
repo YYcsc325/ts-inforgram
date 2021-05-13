@@ -98,7 +98,6 @@ export default function dtRequest(url: string, options: any) {
   if (newOptions.isNeedQue) {
     lastRequestTime[url.split("?")[0] + newOptions.method] = currentTime;
   }
-
   return request(realURL, newOptions)
     .then((res: any) => {
       if (

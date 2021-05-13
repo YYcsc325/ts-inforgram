@@ -3,6 +3,7 @@ import React, {
   useCallback,
   ForwardRefRenderFunction,
   forwardRef,
+  PropsWithChildren,
 } from "react";
 import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
@@ -31,7 +32,7 @@ interface IDropdownOptionProps {
 
 const DropdownSearch: ForwardRefRenderFunction<
   HTMLDivElement,
-  IDropdownSearchProps
+  PropsWithChildren<IDropdownSearchProps>
 > = ({ placeholder, onSearch, onChange, className, children }, ref) => {
   const childArray = React.Children.toArray(children);
 
@@ -99,9 +100,10 @@ DropdownOption.displayName = "DropdownOption";
 
 const ForwardDropdownSearch = forwardRef(DropdownSearch);
 
-const DrowdownSearchComponent = ForwardDropdownSearch as typeof ForwardDropdownSearch & {
-  Option: FC<IDropdownOptionProps>;
-};
+const DrowdownSearchComponent =
+  ForwardDropdownSearch as typeof ForwardDropdownSearch & {
+    Option: FC<IDropdownOptionProps>;
+  };
 
 DrowdownSearchComponent.Option = DropdownOption;
 
