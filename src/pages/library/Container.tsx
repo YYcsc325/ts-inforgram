@@ -104,7 +104,7 @@ const Container = () => {
 
   /** 跳转到操作页面 */
   const handleLinkToEdit = (id: string) => {
-    history.push(`/edit?${id}`);
+    history.push(`/edit/${id}`);
   };
 
   const indeterminate = useMemo(() => {

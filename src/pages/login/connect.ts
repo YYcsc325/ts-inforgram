@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export type ILoginMapProps = ReturnType<typeof mapStateToProps> &
+export type IConnectProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 export default connect(mapStateToProps, mapDispatchToProps);

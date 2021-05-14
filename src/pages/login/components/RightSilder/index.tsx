@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form } from "antd";
 import Cookies from "js-cookie";
+import { stringify } from "qs";
+import { withRouter } from "umi";
 
 import { FormView } from "@/components";
 import { openNotification } from "@/util/utils";
@@ -14,36 +16,30 @@ import styles from "./index.less";
 const RightComponent = connect(({ dispatchLogin, history }: any) => {
   const [form] = Form.useForm();
   const [isChecked, setIsChecked] = useState(false);
+
   const handleSubmit = () => {
     form
       .validateFields()
       .then(async (values) => {
-        if (dispatchLogin) {
-          let res = await dispatchLogin(values);
-          if (res?.code === 200) {
-            const { email } = res?.result || {};
-            Cookies.set(
-              "userLogin",
-              {
-                email,
-                login: true,
-              },
-              { expires: 1 }
-            );
-            history.replace("/library");
-          } else {
-            openNotification({
-              type: "warning",
-              message: "email or password error",
-              description: "邮箱或者密码输入错误，请从新确认!",
-            });
-          }
+        let { code, result, isLogin } = await dispatchLogin(values);
+        if (code == 200 && isLogin) {
+          Cookies.set("userLogin", stringify({ ...result, login: isLogin }), {
+            expires: 1,
+          });
+          history.push("/library");
+        } else {
+          openNotification({
+            type: "warning",
+            message: "email or password error",
+            description: "邮箱或者密码输入错误，请从新确认!",
+          });
         }
       })
       .catch((err: any) => {
         console.log(err);
       });
   };
+
   return (
     <div className={styles["form_wrapper"]}>
       <div className={styles["form_container"]}>
@@ -81,4 +77,4 @@ const RightComponent = connect(({ dispatchLogin, history }: any) => {
     </div>
   );
 });
-export default RightComponent;
+export default withRouter(RightComponent);
