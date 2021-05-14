@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import DtSpin from "@/components/DtSpin";
 import { createPrefixClass } from "@/util/utils";
+import { Spin } from "antd";
 
 import LeftComponent from "./components/LeftSilder";
 import RightComponent from "./components/RightSilder";
 import styles from "./index.less";
+import { IConnectProps } from "./connect";
 
 const prefixCls = createPrefixClass("login", styles);
-
-class Index extends Component<any> {
+class Index extends Component<IConnectProps> {
   render() {
-    const { userinfoloading = false, history } = this.props;
+    const { userinfoloading = false } = this.props;
 
     return (
       <div className={prefixCls()}>
-        <DtSpin spinning={userinfoloading}>
+        <Spin spinning={userinfoloading} tip={"Loading..."}>
           <LeftComponent />
-          <RightComponent history={history} />
-        </DtSpin>
+          <RightComponent />
+        </Spin>
       </div>
     );
   }

@@ -1,37 +1,17 @@
 import React from "react";
 import { Checkbox } from "antd";
-import Cookies from "js-cookie";
-
+import { IConfigItem } from "@/components/FormView";
 import connect from "@/pages/login/connect";
 import styles from "./index.less";
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 24 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 24 },
-  },
-};
-function jsonParse(strObj: string) {
-  try {
-    return JSON.parse(strObj);
-  } catch (e) {
-    console.log(e);
-    return {};
-  }
-}
 
 export interface ConfigProps {
   form?: object;
   handleSubmit?: () => void;
-  setIsChecked?: () => void;
+  setIsChecked?: (params: any) => void;
   [x: string]: any;
 }
 
-export const loginConfig = [
+export const loginConfig: IConfigItem[] = [
   {
     type: "Input",
     connect,
@@ -51,9 +31,6 @@ export const loginConfig = [
     type: "Input",
     connect,
     isShow: () => true,
-    style: {
-      height: "40px",
-    },
     formItemProps: {
       name: "passWord",
       label: "Password:",
@@ -80,7 +57,7 @@ export const loginTextConfig = [
             <Checkbox
               checked={isChecked}
               onChange={(e) => {
-                setIsChecked(e.target.checked);
+                setIsChecked?.(e.target.checked);
               }}
             >
               Remember me
@@ -102,7 +79,7 @@ export const loginTextConfig = [
         <div
           className={styles["loginStyle"]}
           onClick={() => {
-            handleSubmit();
+            handleSubmit?.();
           }}
         >
           Log in

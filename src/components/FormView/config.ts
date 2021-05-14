@@ -1,3 +1,5 @@
+import React from "react";
+
 import FormInput from "@/components/FormInput";
 import FormSelect from "@/components/FormSelect";
 import FormSwitch from "@/components/FormSwitch";
@@ -19,5 +21,13 @@ const mapUi = {
   Checkbox: FormCheckbox,
   Tree: FormTree,
 };
+
+type IMapUi = keyof typeof mapUi;
+
+type SingleComponent<T> = React.FC<T>;
+
+type IComponentList<T> = { [P in IMapUi]: SingleComponent<T> };
+
+export { IMapUi, IComponentList };
 
 export default mapUi;

@@ -14,13 +14,13 @@ export interface IUserResponse {
 export async function getQueryUserData(
   params: IUserProps
 ): Promise<IUserResponse> {
-  return request(`${PREFIX}/inforgram/user.json`, { ...params });
+  return request(`${PREFIX}/inforgram/user.json`, { params });
 }
-export async function postQueryUserData({ ...params }): Promise<IUserResponse> {
+export async function postQueryUserData(
+  data: IUserProps
+): Promise<IUserResponse> {
   return request(`${PREFIX}/inforgram/user.json`, {
     method: "POST",
-    body: {
-      ...params,
-    },
+    data,
   });
 }
