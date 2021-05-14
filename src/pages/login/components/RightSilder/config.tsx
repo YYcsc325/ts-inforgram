@@ -43,12 +43,11 @@ export const loginConfig: IConfigItem[] = [
     },
   },
 ];
-export const loginTextConfig = [
+export const loginTextConfig: IConfigItem[] = [
   {
-    type: "custom",
     isShow: () => true,
     formItemProps: {
-      key: "customCheckBox",
+      name: "customCheckBox",
     },
     component: ({ isChecked, setIsChecked }: ConfigProps) => {
       return (
@@ -69,10 +68,9 @@ export const loginTextConfig = [
     },
   },
   {
-    type: "custom",
-    isShow: () => true,
+    isShow: (form, stateProps) => true,
     formItemProps: {
-      key: "customSubmit",
+      name: "customSubmit",
     },
     component: ({ handleSubmit }: ConfigProps) => {
       return (
@@ -88,10 +86,9 @@ export const loginTextConfig = [
     },
   },
   {
-    type: "custom",
     isShow: () => true,
     formItemProps: {
-      key: "customSubmitText",
+      name: "customSubmitText",
     },
     component: () => {
       return (

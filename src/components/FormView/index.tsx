@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { useCallback } from "react";
 import { FormInstance } from "antd/lib/form/Form";
 import { Form } from "antd";
 import { processingObj } from "@/util/utils";
@@ -7,33 +7,33 @@ import mapConfig, { IMapUi } from "./config";
 
 type Items = { name: string; label?: React.ReactNode; [x: string]: any };
 
-export interface IConfigItem<T = any, U = any> {
+export interface IConfigItem<T = any, P = any> {
   type?: IMapUi;
-  isShow?: (params: { form: FormInstance; [x: string]: any }) => boolean;
+  isShow?: (form: FormInstance, stateProps?: T) => boolean;
   formItemProps: Items;
   itemProps?: any;
-  connect?: <T = any>(params: React.FC<T>) => React.FC;
-  component?: React.FC;
+  connect?: any;
+  component?: React.FC<T & P>;
 }
-export interface IFormProps<T = any, U = any> {
+export interface IFormProps<T = any, P = any> {
   form: FormInstance;
   className?: string;
-  config?: Array<IConfigItem<T, U>>;
+  config?: Array<IConfigItem<T, P>>;
   formProps?: any;
-  stateProps?: any;
+  stateProps?: T;
   onChange?: (val: any) => void;
 }
 
 /** 泛型动态传入state跟connectProps的类型， 返回给当前callBack的事件入参中 */
 
-const FormView: FC<IFormProps> = function <T, U>({
+const FormView = <T, P>({
   form,
   className,
   config,
-  formProps = {},
-  stateProps = {},
-  onChange = () => {},
-}: React.PropsWithChildren<IFormProps<T, U>>) {
+  formProps,
+  stateProps,
+  onChange,
+}: React.PropsWithChildren<IFormProps<T, P>>) => {
   return (
     <Form {...formProps} className={className} form={form}>
       {(config || [])
@@ -48,10 +48,7 @@ const FormView: FC<IFormProps> = function <T, U>({
               return;
             }
             /** 配置是否展示 */
-            if (
-              typeof isShow === "function" &&
-              !isShow?.({ form, ...stateProps })
-            ) {
+            if (typeof isShow === "function" && !isShow?.(form, stateProps)) {
               return;
             }
 
@@ -77,7 +74,7 @@ const FormView: FC<IFormProps> = function <T, U>({
             const ItemCom = (props: any) => {
               const handleChange = useCallback(
                 (...args) => {
-                  const args1 = args.concat([{ ...stateProps }, { ...props }]);
+                  const args1 = args.concat([{ ...props }, { ...stateProps }]);
                   // 配置层组件的onChange
                   props.onChange?.(...args1);
                   // 最外层组件的FormView的onChange

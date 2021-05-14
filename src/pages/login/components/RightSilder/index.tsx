@@ -6,7 +6,7 @@ import { withRouter } from "umi";
 
 import { FormView } from "@/components";
 import { openNotification } from "@/util/utils";
-import connect from "@/pages/login/connect";
+import connect, { IConnectProps } from "@/pages/login/connect";
 
 import RedicretComponent from "./Redicret";
 import { loginConfig, loginTextConfig } from "./config";
@@ -54,7 +54,12 @@ const RightComponent = connect(({ dispatchLogin, history }: any) => {
           <div className={styles["ls_text"]}>or use your email:</div>
         </div>
         <div>
-          <FormView
+          <FormView<
+            {
+              handleSubmit: typeof handleSubmit;
+            },
+            IConnectProps
+          >
             form={form}
             config={loginConfig}
             formProps={{
