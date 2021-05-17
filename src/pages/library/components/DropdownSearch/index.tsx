@@ -78,16 +78,19 @@ const DropdownSearch: ForwardRefRenderFunction<
   );
 };
 
-const DropdownOption: FC<IDropdownOptionProps> = (
-  { id, name, url, date, onChange },
-  ref
-) => {
+const DropdownOption: FC<IDropdownOptionProps> = ({
+  id,
+  name,
+  url,
+  date,
+  onChange,
+}) => {
   const handleChange = () => {
     onChange?.(id);
   };
 
   return (
-    <div onClick={handleChange} className={styles.option} ref={ref}>
+    <div onClick={handleChange} className={styles.option}>
       <LazyLoadingImg className={styles["option-img"]} url={url} />
       <div className={styles["option-mes"]}>{name}</div>
       <div className={styles["option-date"]}>{date}</div>

@@ -39,7 +39,7 @@ const FormView = <T, P>({
       {(config || [])
         .map(
           ({ type, isShow, formItemProps, itemProps, connect, component }) => {
-            let Element = mapConfig[type] || component;
+            let Element = type ? mapConfig[type] : component;
 
             if (!Element) {
               console.warn(

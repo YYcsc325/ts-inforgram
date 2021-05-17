@@ -4,13 +4,6 @@ import { IConfigItem } from "@/components/FormView";
 import connect from "@/pages/login/connect";
 import styles from "./index.less";
 
-export interface ConfigProps {
-  form?: object;
-  handleSubmit?: () => void;
-  setIsChecked?: (params: any) => void;
-  [x: string]: any;
-}
-
 export const loginConfig: IConfigItem[] = [
   {
     type: "Input",
@@ -49,7 +42,7 @@ export const loginTextConfig: IConfigItem[] = [
     formItemProps: {
       name: "customCheckBox",
     },
-    component: ({ isChecked, setIsChecked }: ConfigProps) => {
+    component: ({ isChecked, setIsChecked }) => {
       return (
         <div className={styles["selectCheckBox"]}>
           <span style={{ float: "left" }}>
@@ -72,7 +65,7 @@ export const loginTextConfig: IConfigItem[] = [
     formItemProps: {
       name: "customSubmit",
     },
-    component: ({ handleSubmit }: ConfigProps) => {
+    component: ({ handleSubmit }) => {
       return (
         <div
           className={styles["loginStyle"]}

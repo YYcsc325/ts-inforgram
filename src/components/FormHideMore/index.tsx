@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 
-class HideMore extends Component {
-  constructor(props) {
+export interface IHideMoreProps {
+  text?: React.ReactNode;
+  hide?: boolean;
+  changeKeys: string[];
+  changeHide: (params: string[]) => void;
+}
+interface IHideMoreState {
+  hide: boolean;
+}
+
+class HideMore extends Component<IHideMoreProps, IHideMoreState> {
+  constructor(props: IHideMoreProps) {
     super(props);
     this.state = {
       hide: props.hide === false ? false : true,
