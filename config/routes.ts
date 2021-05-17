@@ -24,5 +24,20 @@ const routes = [
   },
   { path: "*", component: "@/pages/404" },
 ];
+// 二级路由配置方式
+// {
+//   path: 'adraccount',
+//   routes: [
+//     { path: '/adraccount', redirect: 'info/list' },
+//     {
+//       path: 'info/list',
+//       component: 'adAccount/Master/index',
+//     },
+//     {
+//       path: 'intelligence/update',
+//       component: 'adAccount/Intelligence/index',
+//     },
+//   ],
+// },
 
 export default routes;
