@@ -26,7 +26,10 @@ export function useUpdate(callback: Function) {
     } else isMounted.current = true;
   });
 }
-
+/**
+ * @param v 缓存值
+ * @returns
+ */
 export function usePrevious(v: any) {
   const cache = useRef();
 
@@ -36,7 +39,13 @@ export function usePrevious(v: any) {
 
   return cache.current;
 }
-
+/**
+ * @param actionSimpleClick 单击事件
+ * @param actionDoubleClick 双击事件
+ * @param delay 延迟事件
+ * @returns
+ * @desc 用时间延迟区分是单击还是双击事件
+ */
 export function useSingleAndDoubleClick(
   actionSimpleClick: Function,
   actionDoubleClick: Function,

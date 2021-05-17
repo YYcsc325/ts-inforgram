@@ -1,7 +1,18 @@
 import { Radio } from "antd";
-import React, { forwardRef } from "react";
+import React, { forwardRef, ForwardRefRenderFunction } from "react";
+import { RadioGroupProps } from "antd/lib/radio/interface";
 
-const mapUi = {
+const mapUi: {
+  radio: React.FC<RadioGroupProps>;
+  radioButton: React.FC<{
+    options?: Array<{
+      value: any;
+      disabled?: boolean;
+      label: React.ReactNode;
+      [x: string]: any;
+    }>;
+  }>;
+} = {
   radio: Radio.Group,
   radioButton: (props) => {
     const { options = [], ...reset } = props;
@@ -9,9 +20,9 @@ const mapUi = {
       <Radio.Group {...reset}>
         {options.map((item) => (
           <Radio.Button
-            value={item.value}
-            disabled={item.disabled || false}
-            key={item.value}
+            value={item?.value}
+            disabled={item?.disabled || false}
+            key={item?.value}
           >
             {item.label}
           </Radio.Button>
@@ -21,13 +32,22 @@ const mapUi = {
   },
 };
 
-const FormRadio = (props = {}, ref) => {
+export interface IFormRadioProps {
+  type: keyof typeof mapUi;
+}
+
+const FormRadio: ForwardRefRenderFunction<any, IFormRadioProps> = (
+  props,
+  ref
+) => {
   const { type, ...reset } = props;
   const Element = mapUi[type];
-  if (!Element)
-    console.warn(
-      `type: ${type}传入有误 -- 参考文档https://yuque.antfin.com/pbu5vq/dv6i3b/sioied#36mq0`
-    );
-  return Element && <Element {...reset} />;
+
+  if (!Element) {
+    console.warn(`type: ${type}传入有误`);
+    return null;
+  }
+
+  return <Element {...reset} />;
 };
 export default forwardRef(FormRadio);

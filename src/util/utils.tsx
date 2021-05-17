@@ -25,14 +25,14 @@ export function openNotification(props: ArgsProps) {
   });
 }
 
-export function processingObj(item = {}, todo, injectProps) {
+export function processingObj(item: any = {}, todo: string, injectProps: any) {
   const newItem = { ...item };
   for (const key in item) {
     if (isFunc(item[key]) && Object.prototype.hasOwnProperty.call(item, key)) {
       if (todo === "calling") {
-        newItem[key] = item[key].call(null, injectProps);
+        newItem[key] = item?.[key]?.call(null, injectProps);
       } else if (todo === "bindding") {
-        newItem[key] = item[key].bind(null, injectProps);
+        newItem[key] = item?.[key]?.bind(null, injectProps);
       } else {
         newItem[key] = item[key];
       }
@@ -47,7 +47,7 @@ export function isFunc(fn: Function) {
 }
 
 // 获取local
-export function getlocal(str) {
+export function getlocal(str: string) {
   try {
     if (window) {
       if (
@@ -56,7 +56,7 @@ export function getlocal(str) {
         window.localStorage instanceof Storage
       ) {
         const local_message =
-          JSON.parse(window.localStorage.getItem(str)) || {};
+          JSON.parse(window?.localStorage?.getItem?.(str) as string) || {};
         return local_message;
       }
     }
@@ -66,7 +66,7 @@ export function getlocal(str) {
 }
 
 //设置
-export function setlocal(str, obj) {
+export function setlocal(str: string, obj: any) {
   try {
     if (window) {
       if (
@@ -83,7 +83,7 @@ export function setlocal(str, obj) {
 }
 
 //删除
-export function removelocal(str) {
+export function removelocal(str: string) {
   try {
     if (window) {
       if (
