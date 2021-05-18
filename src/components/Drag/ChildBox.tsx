@@ -26,22 +26,22 @@ export interface IDragBoxProps {
   width?: number;
   height?: number;
   warpComponentId: string;
-  clicked: boolean;
   id: string;
-  onClick?: (params: string) => void;
   scale?: boolean;
+  [x: string]: any;
 }
 
 const DragBox: FC<IDragBoxProps> = ({
   id,
   scale,
   clicked,
+  containerId,
   warpComponentId,
   left = 100,
   top = 100,
   width = 100,
   height = 100,
-  onClick,
+  handleChildClick,
   children,
 }) => {
   const [style, setStyle] = useState({
@@ -105,15 +105,17 @@ const DragBox: FC<IDragBoxProps> = ({
   }, []);
 
   useEffect(() => {
-    targetDragArea.current = document.getElementById(warpComponentId);
+    targetDragArea.current = document.getElementById(
+      containerId || warpComponentId
+    );
   }, []);
 
   const handleClick = useCallback(
     (e) => {
       e.stopPropagation();
-      onClick?.(id);
+      handleChildClick?.(id);
     },
-    [onClick]
+    [handleChildClick]
   );
 
   return (

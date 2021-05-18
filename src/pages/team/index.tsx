@@ -31,20 +31,13 @@ const config = [
 ];
 
 const Team: FC<ITeamProps> = ({ consumer }) => {
-  const [clickedId, setClickedId] = useState("");
-
   const handleClick = () => {
     consumer?.handleShowShrinkageChange(false);
-    setClickedId("");
   };
 
   useEffect(() => {
     consumer?.handleShowShrinkageChange(false);
   }, []);
-
-  const handleItemClick = (id: string) => {
-    setClickedId(id);
-  };
 
   return (
     <div id={"team"} className={prefixCls()} onClick={handleClick}>
@@ -59,8 +52,6 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
             width={item.width}
             height={item.height}
             warpComponentId="team"
-            onClick={handleItemClick}
-            clicked={clickedId === item.id}
           >
             <ImgBox url={item.url}></ImgBox>
           </DragContainer.Box>
