@@ -11,6 +11,16 @@ const prefixCls = createPrefixClass("draggable", styles);
 
 const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 
+// 东 - 右:  e
+// 南 - 下:  s
+// 西 - 左:  w
+// 北 - 上:  n
+
+// 西北 - 左上: nw
+// 东北 - 右上: ne
+// 西南 - 左下: sw
+// 东南 - 右下: se
+
 export interface IDragBoxWarpProps {
   warpComponentId: string;
   left?: number;
@@ -83,8 +93,8 @@ const DragBoxWarp: FC<IDragBoxWarpProps> = ({
       const initailStyle = getComputedStyle(childrenWarpStyle?.current as any);
       setStyle({
         ...style,
-        width: Number(initailStyle.width.replaceAll("px", "")),
-        height: Number(initailStyle.height.replaceAll("px", "")),
+        width: Number(initailStyle.width.replace("px", "")),
+        height: Number(initailStyle.height.replace("px", "")),
       });
     }
   }, []);
@@ -96,7 +106,7 @@ const DragBoxWarp: FC<IDragBoxWarpProps> = ({
       top: data.y,
     });
   };
-  console.log(style, ";style");
+
   return (
     <Draggable
       position={{ x: style.left, y: style.top }}
@@ -136,13 +146,3 @@ const DragBoxWarp: FC<IDragBoxWarpProps> = ({
 };
 
 export default DragBoxWarp;
-
-// 东 - 右:  e
-// 南 - 下:  s
-// 西 - 左:  w
-// 北 - 上:  n
-
-// 西北 - 左上: nw
-// 东北 - 右上: ne
-// 西南 - 左下: sw
-// 东南 - 右下: se
