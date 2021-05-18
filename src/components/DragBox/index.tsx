@@ -10,6 +10,16 @@ const prefixCls = createPrefixClass("dragable", styles);
 
 const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 
+// 东 - 右:  e
+// 南 - 下:  s
+// 西 - 左:  w
+// 北 - 上:  n
+
+// 西北 - 左上: nw
+// 东北 - 右上: ne
+// 西南 - 左下: sw
+// 东南 - 右下: se
+
 interface IDragBoxProps {
   left: number;
   top: number;
