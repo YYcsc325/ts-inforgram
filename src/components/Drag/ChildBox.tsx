@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { RedoOutlined } from "@ant-design/icons";
 
-import styles from "./index.less";
+import styles from "./ChildBox.less";
 import { transform, transformScale } from "./utils";
 
 const prefixCls = createPrefixClass("dragable", styles);
@@ -20,28 +20,28 @@ const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 // 西南 - 左下: sw
 // 东南 - 右下: se
 
-interface IDragBoxProps {
+export interface IDragBoxProps {
   left: number;
   top: number;
   width?: number;
   height?: number;
   warpComponentId: string;
-  clicked: boolean;
   id: string;
-  onClick?: (params: string) => void;
   scale?: boolean;
+  [x: string]: any;
 }
 
 const DragBox: FC<IDragBoxProps> = ({
   id,
   scale,
   clicked,
+  containerId,
   warpComponentId,
   left = 100,
   top = 100,
   width = 100,
   height = 100,
-  onClick,
+  handleChildClick,
   children,
 }) => {
   const [style, setStyle] = useState({
@@ -58,9 +58,9 @@ const DragBox: FC<IDragBoxProps> = ({
    * @param cX 鼠标的x轴位置
    * @param cY 鼠标的y轴位置
    */
-
-  const targetDragArea = useRef<any>(null);
   const oriPos = useRef({ top, left, cX: 0, cY: 0 });
+  /** 拖拽元素目标区域 */
+  const targetDragArea = useRef<any>(null);
   /** 鼠标是否按下 */
   const isDown = useRef(false);
   /** 记录鼠标按下位置 */
@@ -83,6 +83,7 @@ const DragBox: FC<IDragBoxProps> = ({
     },
     [style]
   );
+
   // 鼠标移动
   const onMouseMove = useCallback((e) => {
     e.stopPropagation();
@@ -104,15 +105,17 @@ const DragBox: FC<IDragBoxProps> = ({
   }, []);
 
   useEffect(() => {
-    targetDragArea.current = document.getElementById(warpComponentId);
+    targetDragArea.current = document.getElementById(
+      containerId || warpComponentId
+    );
   }, []);
 
   const handleClick = useCallback(
     (e) => {
       e.stopPropagation();
-      onClick?.(id);
+      handleChildClick?.(id);
     },
-    [onClick]
+    [handleChildClick]
   );
 
   return (
@@ -147,5 +150,7 @@ const DragBox: FC<IDragBoxProps> = ({
     </div>
   );
 };
+
+DragBox.displayName = "DragBox";
 
 export default DragBox;

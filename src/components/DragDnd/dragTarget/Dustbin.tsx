@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, ForwardRefRenderFunction } from "react";
 import { useDrop } from "react-dnd";
 import { dragConsts } from "@/consts";
-import ScalableBox from "@/pages/library/components/drag/components/ScalableBox";
+import ScalableBox from "../components/ScalableBox";
 
 import { DragConextCache } from "../DragContext/index";
 import DragRnd from "../dragRnd/index";

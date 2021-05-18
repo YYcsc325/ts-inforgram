@@ -10,4 +10,4 @@ export { default as DatePicker } from "./FormDatePicker";
 export { default as LazyLoadingImg } from "./LazyLoadingImg";
 export { default as DragHTag } from "./DragComponents/DragHTag";
 export { default as Tabs } from "./Tabs";
-export { default as DragBox } from "./DragBox";
+export { default as DragContainer } from "./Drag";

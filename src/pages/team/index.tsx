@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import { DragBox, DragHTag } from "@/components";
+import { DragContainer, DragHTag } from "@/components";
 import ImgBox from "@/components/DragComponents/dragImg";
 import styles from "./index.less";
 
@@ -31,53 +31,32 @@ const config = [
 ];
 
 const Team: FC<ITeamProps> = ({ consumer }) => {
-  const [clickedId, setClickedId] = useState("");
-
   const handleClick = () => {
     consumer?.handleShowShrinkageChange(false);
-    setClickedId("");
   };
 
   useEffect(() => {
     consumer?.handleShowShrinkageChange(false);
   }, []);
 
-  const handleItemClick = (id: string) => {
-    setClickedId(id);
-  };
-
   return (
     <div id={"team"} className={prefixCls()} onClick={handleClick}>
-      {config.map((item) => (
-        <DragBox
-          key={item.id}
-          id={item.id}
-          scale={item.scale}
-          left={item.left}
-          top={item.top}
-          width={item.width}
-          height={item.height}
-          warpComponentId="team"
-          onClick={handleItemClick}
-          clicked={clickedId === item.id}
-        >
-          <ImgBox url={item.url}></ImgBox>
-        </DragBox>
-      ))}
-      {/* <DragBox
-        key="3"
-        id="3"
-        scale
-        left={400}
-        top={400}
-        width={100}
-        height={30}
-        warpComponentId="team"
-        clicked={clickedId === "3"}
-        onClick={handleItemClick}
-      >
-        <DragHTag text={"Type something"} />
-      </DragBox> */}
+      <DragContainer style={{ width: "800px", height: "800px" }}>
+        {config.map((item) => (
+          <DragContainer.Box
+            key={item.id}
+            id={item.id}
+            scale={item.scale}
+            left={item.left}
+            top={item.top}
+            width={item.width}
+            height={item.height}
+            warpComponentId="team"
+          >
+            <ImgBox url={item.url}></ImgBox>
+          </DragContainer.Box>
+        ))}
+      </DragContainer>
     </div>
   );
 };

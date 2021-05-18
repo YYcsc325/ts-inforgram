@@ -1,8 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import { DragHTag } from "@/components";
-import Drag from "@/pages/library/components/drag/index";
 
 import styles from "./index.less";
 
@@ -23,8 +21,7 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick}>
-      <DragHTag text={"Type something"} />
-      <Drag></Drag>
+      brandsets
     </div>
   );
 };
