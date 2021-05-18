@@ -7,8 +7,7 @@ import "./index.less";
 const Container = memo(function Container() {
   let imgList = [
     {
-      url:
-        "https://img.pic88.com/preview/2020/08/01/15963058111043319.jpg!s640",
+      url: "https://img.pic88.com/preview/2020/08/01/15963058111043319.jpg!s640",
       name: "第一张图",
       type: "dragImg",
     },

@@ -15,7 +15,7 @@ export const defaultConfig = [
   {
     type: "Input",
     connect,
-    isShow: (props) => {
+    isShow: () => {
       return true;
     },
     formItemProps: {
@@ -37,7 +37,7 @@ export const defaultConfig = [
   },
   {
     connect,
-    isShow: (props) => {
+    isShow: () => {
       return true;
     },
     formItemProps: {
@@ -60,7 +60,7 @@ export const defaultConfig = [
   {
     type: "Input",
     connect,
-    isShow: ({ form }) => {
+    isShow: (form) => {
       if (form.getFieldValue("input") === 1) {
         return true;
       }

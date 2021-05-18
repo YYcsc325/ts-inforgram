@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Form, Button, message } from "antd";
 import { CustomModal, FormView } from "@/components";
 import CopyToClipboard from "react-copy-to-clipboard";
-
+import { DragHTag } from "@/components";
+import Drag from "@/components/DragDnd";
 import { defaultConfig } from "./defaultConfig";
 
 const Index = (props = {}) => {
@@ -74,6 +75,8 @@ const Index = (props = {}) => {
           <Button>复制</Button>
         </div>
       </CopyToClipboard>
+      <DragHTag text={"Type something"} />
+      <Drag></Drag>
     </div>
   );
 };
