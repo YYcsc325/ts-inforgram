@@ -21,18 +21,32 @@ const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 // 西南 - 左下: sw
 // 东南 - 右下: se
 
+type IDragEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
+type IDragData = { left: number; top: number; width: number; height: number };
+
 export interface IDragBoxProps {
   id: string; // 唯一标识
   scale?: boolean; // 是否开启等比例缩放
-  defaultPostion?: { left: number; top: number };
-  defaultStyle?: { width: number; height: number };
-  width?: number;
-  height?: number;
+  defaultPostion?: Pick<IDragData, "left" | "top">;
+  defaultStyle?: Pick<IDragData, "width" | "height">;
+  onDrag?: (e: IDragEvent, id: string, data: IDragData) => void;
+  onStart?: (e: IDragEvent, id: string, data: IDragData) => void;
+  onEnd?: (e: IDragEvent, id: string, data: IDragData) => void;
   [x: string]: any;
 }
 
 const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
-  { id, scale, defaultStyle, defaultPostion, onDrag, children, ...reset },
+  {
+    id,
+    scale,
+    defaultStyle,
+    defaultPostion,
+    onStart,
+    onDrag,
+    onEnd,
+    children,
+    ...reset
+  },
   ref
 ) => {
   const { clicked, dragArea } = useDragHookContext();
@@ -76,6 +90,7 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
       direction.current = dir;
       isDown.current = true;
       oriPos.current = { ...style, cX: e.clientX, cY: e.clientY };
+      onStart?.(e, id, style);
       // 在目标拖拽区域注册事件
       targetArea?.addEventListener?.("mousemove", onMouseMove);
       targetArea?.addEventListener?.("mouseup", onMouseUp);
@@ -103,11 +118,12 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
     (e) => {
       e.stopPropagation();
       isDown.current = false;
+      onEnd?.(e, id, style);
       // 取消注册事件
       targetArea?.removeEventListener?.("mousemove", onMouseMove);
       targetArea?.removeEventListener?.("mouseup", onMouseUp);
     },
-    [targetArea]
+    [style, targetArea]
   );
 
   return (
