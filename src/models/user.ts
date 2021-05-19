@@ -1,5 +1,5 @@
 import { getQueryUserData, IUserResponse } from "@/service/user";
-import { Model } from "dva";
+import { Reducer } from "umi";
 
 const initialState = {
   userinfo: <IUserResponse>{},
@@ -7,7 +7,22 @@ const initialState = {
 
 type initialStateTypeOf = typeof initialState;
 
-const userModel: Model = {
+type IUserModel = {
+  namespace: string;
+  state: initialStateTypeOf;
+  effects: {
+    fetchUserList: Reducer<any>;
+  };
+  reducers: {
+    updateState: Reducer<any>;
+    clearState: Reducer<any>;
+  };
+  subscriptions: {
+    setup: Reducer<any>;
+  };
+};
+
+const userModel: IUserModel = {
   namespace: "user",
   state: initialState,
   effects: {
@@ -27,7 +42,7 @@ const userModel: Model = {
     },
   },
   reducers: {
-    updateState(state: initialStateTypeOf, { payload, updatePath }: any) {
+    updateState(state, { payload, updatePath }: any) {
       return { ...state, [updatePath]: { ...payload } };
     },
     clearState() {

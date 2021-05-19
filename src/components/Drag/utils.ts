@@ -185,3 +185,17 @@ export function transform(direction: any, oriPos: any, e: any) {
   }
   return style;
 }
+
+/**
+ * @name 初始化数据
+ */
+
+export function initailPos(childList: any = []) {
+  let newPos: any = {};
+  childList
+    .map((item: any) => item.props)
+    .forEach((item: any) => {
+      newPos[item.id] = item;
+    });
+  return newPos;
+}

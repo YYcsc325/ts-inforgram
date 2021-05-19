@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import DragBoxWarp from "@/components/Draggble";
 
 import styles from "./index.less";
 
@@ -22,9 +21,7 @@ const Content: FC<IContentProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick} id="container">
-      <DragBoxWarp warpComponentId="container">
-        <div>这里是需要拖拽的目标</div>
-      </DragBoxWarp>
+      Content
     </div>
   );
 };

@@ -14,18 +14,15 @@ const prefixCls = createPrefixClass("team", styles);
 const config = [
   {
     id: "1",
-    left: 100,
-    top: 100,
-    width: 173,
-    height: 129,
-    url: "https://img.pic88.com/16056469798640.jpg",
+    defaultPostion: { left: 100, top: 100 },
+    defaultStyle: { width: 100, height: 100 },
+    url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     scale: true,
   },
   {
     id: "2",
-    left: 200,
-    top: 200,
-    url: "https://img.pic88.com/16056469798640.jpg",
+    defaultPostion: { left: 200, top: 200 },
+    url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     scale: false,
   },
 ];
@@ -47,11 +44,8 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
             key={item.id}
             id={item.id}
             scale={item.scale}
-            left={item.left}
-            top={item.top}
-            width={item.width}
-            height={item.height}
-            warpComponentId="team"
+            defaultPostion={item.defaultPostion}
+            defaultStyle={item.defaultStyle}
           >
             <ImgBox url={item.url}></ImgBox>
           </DragContainer.Box>

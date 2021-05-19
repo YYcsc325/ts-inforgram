@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button, message } from "antd";
-import { CustomModal, FormView } from "@/components";
 import CopyToClipboard from "react-copy-to-clipboard";
+
+import { CustomModal, FormView } from "@/components";
 import { DragHTag } from "@/components";
 import Drag from "@/components/DragDnd";
+import DragBoxWarp from "@/components/Draggble";
+
 import { defaultConfig } from "./defaultConfig";
 
 const Index = (props = {}) => {
@@ -77,6 +80,9 @@ const Index = (props = {}) => {
       </CopyToClipboard>
       <DragHTag text={"Type something"} />
       <Drag></Drag>
+      <DragBoxWarp warpComponentId="container">
+        <div>这里是需要拖拽的目标</div>
+      </DragBoxWarp>
     </div>
   );
 };

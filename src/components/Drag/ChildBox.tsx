@@ -1,9 +1,10 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, forwardRef, useRef, useState } from "react";
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { RedoOutlined } from "@ant-design/icons";
 
 import styles from "./ChildBox.less";
+import { useDragHookContext } from "./context";
 import { transform, transformScale } from "./utils";
 
 const prefixCls = createPrefixClass("dragable", styles);
@@ -20,35 +21,49 @@ const points = ["e", "w", "s", "n", "ne", "nw", "se", "sw"];
 // 西南 - 左下: sw
 // 东南 - 右下: se
 
+type IDragEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
+type IDragData = { left: number; top: number; width: number; height: number };
+
 export interface IDragBoxProps {
-  left: number;
-  top: number;
-  width?: number;
-  height?: number;
-  warpComponentId: string;
-  id: string;
-  scale?: boolean;
+  id: string; // 唯一标识
+  scale?: boolean; // 是否开启等比例缩放
+  defaultPostion?: Pick<IDragData, "left" | "top">;
+  defaultStyle?: Pick<IDragData, "width" | "height">;
+  onDrag?: (e: IDragEvent, id: string, data: IDragData) => void;
+  onStart?: (e: IDragEvent, id: string, data: IDragData) => void;
+  onEnd?: (e: IDragEvent, id: string, data: IDragData) => void;
   [x: string]: any;
 }
 
-const DragBox: FC<IDragBoxProps> = ({
-  id,
-  scale,
-  clicked,
-  containerId,
-  warpComponentId,
-  left = 100,
-  top = 100,
-  width = 100,
-  height = 100,
-  handleChildClick,
-  children,
-}) => {
+const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
+  {
+    id,
+    scale,
+    defaultStyle,
+    defaultPostion,
+    onStart,
+    onDrag,
+    onEnd,
+    children,
+    ...reset
+  },
+  ref
+) => {
+  const { clicked, dragArea } = useDragHookContext();
+  const targetArea = dragArea || document;
+  const isClicked = clicked === id;
+
+  const [defaultPrivatePos] = useState(() => ({
+    left: defaultPostion?.left ?? 0,
+    top: defaultPostion?.top ?? 0,
+  }));
+  const [defaultPrivateStyle] = useState(() => ({
+    width: defaultStyle?.width ?? 100,
+    height: defaultStyle?.height ?? 100,
+  }));
   const [style, setStyle] = useState({
-    left,
-    top,
-    width,
-    height,
+    ...defaultPrivateStyle,
+    ...defaultPrivatePos,
   });
 
   /**
@@ -58,9 +73,7 @@ const DragBox: FC<IDragBoxProps> = ({
    * @param cX 鼠标的x轴位置
    * @param cY 鼠标的y轴位置
    */
-  const oriPos = useRef({ top, left, cX: 0, cY: 0 });
-  /** 拖拽元素目标区域 */
-  const targetDragArea = useRef<any>(null);
+  const oriPos = useRef({ ...defaultPrivatePos, cX: 0, cY: 0 });
   /** 鼠标是否按下 */
   const isDown = useRef(false);
   /** 记录鼠标按下位置 */
@@ -77,57 +90,54 @@ const DragBox: FC<IDragBoxProps> = ({
       direction.current = dir;
       isDown.current = true;
       oriPos.current = { ...style, cX: e.clientX, cY: e.clientY };
-      // 注册事件
-      targetDragArea?.current?.addEventListener?.("mousemove", onMouseMove);
-      targetDragArea?.current?.addEventListener?.("mouseup", onMouseUp);
+      onStart?.(e, id, style);
+      // 在目标拖拽区域注册事件
+      targetArea?.addEventListener?.("mousemove", onMouseMove);
+      targetArea?.addEventListener?.("mouseup", onMouseUp);
     },
-    [style]
+    [style, targetArea]
   );
 
   // 鼠标移动
-  const onMouseMove = useCallback((e) => {
-    e.stopPropagation();
-    // 判断鼠标是否按住
-    if (!isDown.current) return;
-    const newStyle = scale
-      ? transformScale(direction.current, oriPos.current, e)
-      : transform(direction.current, oriPos.current, e);
-    setStyle(newStyle);
-  }, []);
-
-  // 鼠标被抬起
-  const onMouseUp = useCallback((e) => {
-    e.stopPropagation();
-    isDown.current = false;
-    // 取消注册事件
-    targetDragArea.current?.removeEventListener?.("mousemove", onMouseMove);
-    targetDragArea.current?.removeEventListener?.("mouseup", onMouseUp);
-  }, []);
-
-  useEffect(() => {
-    targetDragArea.current = document.getElementById(
-      containerId || warpComponentId
-    );
-  }, []);
-
-  const handleClick = useCallback(
+  const onMouseMove = useCallback(
     (e) => {
       e.stopPropagation();
-      handleChildClick?.(id);
+      // 判断鼠标是否按住
+      if (!isDown.current) return;
+      const newStyle = scale
+        ? transformScale(direction.current, oriPos.current, e)
+        : transform(direction.current, oriPos.current, e);
+      setStyle(newStyle);
+      onDrag?.(e, id, newStyle);
     },
-    [handleChildClick]
+    [onDrag]
+  );
+
+  // 鼠标被抬起
+  const onMouseUp = useCallback(
+    (e) => {
+      e.stopPropagation();
+      isDown.current = false;
+      onEnd?.(e, id, style);
+      // 取消注册事件
+      targetArea?.removeEventListener?.("mousemove", onMouseMove);
+      targetArea?.removeEventListener?.("mouseup", onMouseUp);
+    },
+    [style, targetArea]
   );
 
   return (
     <div
+      {...reset}
+      ref={ref}
+      data-id={id}
       style={style}
       className={classNames(prefixCls(), {
-        [prefixCls("clicked")]: clicked,
+        [prefixCls("clicked")]: isClicked,
       })}
       onMouseDown={(e) => onMouseDown("move", e)}
-      onClick={handleClick}
     >
-      {clicked &&
+      {isClicked &&
         points.map((item) => (
           <div
             className={classNames(
@@ -138,7 +148,7 @@ const DragBox: FC<IDragBoxProps> = ({
             onMouseDown={(e) => onMouseDown(item, e)}
           ></div>
         ))}
-      {clicked && (
+      {isClicked && (
         <div
           className={classNames(prefixCls("rotate"))}
           onMouseDown={(e) => onMouseDown("rotate", e)}
@@ -153,4 +163,4 @@ const DragBox: FC<IDragBoxProps> = ({
 
 DragBox.displayName = "DragBox";
 
-export default DragBox;
+export default forwardRef(DragBox);
