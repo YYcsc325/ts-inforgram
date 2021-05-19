@@ -25,7 +25,7 @@ export const ContextConsumer: React.FC = ({ children }) => {
   );
 };
 
-export const useDragHookContext = () => {
+export const useDragHookContext = (): any => {
   return useContext(DragContext);
 };
 
