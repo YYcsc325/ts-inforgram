@@ -90,7 +90,7 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
       direction.current = dir;
       isDown.current = true;
       oriPos.current = { ...style, cX: e.clientX, cY: e.clientY };
-      onStart?.(e, id, style);
+      reset._onStart?.(e, id, style);
       // 在目标拖拽区域注册事件
       targetArea?.addEventListener?.("mousemove", onMouseMove);
       targetArea?.addEventListener?.("mouseup", onMouseUp);
@@ -107,8 +107,8 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
       const newStyle = scale
         ? transformScale(direction.current, oriPos.current, e)
         : transform(direction.current, oriPos.current, e);
-      setStyle(newStyle);
-      onDrag?.(e, id, newStyle);
+      const { x, y } = reset._onDrag?.(newStyle.left, newStyle.top);
+      setStyle({ ...newStyle, left: x, top: y });
     },
     [onDrag]
   );
@@ -118,7 +118,7 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
     (e) => {
       e.stopPropagation();
       isDown.current = false;
-      onEnd?.(e, id, style);
+      reset._onEnd?.(e, id, style);
       // 取消注册事件
       targetArea?.removeEventListener?.("mousemove", onMouseMove);
       targetArea?.removeEventListener?.("mouseup", onMouseUp);
@@ -130,8 +130,12 @@ const DragBox: React.ForwardRefRenderFunction<HTMLDivElement, IDragBoxProps> = (
     <div
       {...reset}
       ref={ref}
-      data-id={id}
       style={style}
+      data-id={id}
+      data-x={style.left}
+      data-y={style.top}
+      data-width={style.width}
+      data-heght={style.height}
       className={classNames(prefixCls(), {
         [prefixCls("clicked")]: isClicked,
       })}

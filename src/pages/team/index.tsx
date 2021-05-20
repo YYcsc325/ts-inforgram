@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import { DragContainer, DragHTag } from "@/components";
+import { FncDrag } from "@/components";
 import ImgBox from "@/components/DragComponents/dragImg";
 import styles from "./index.less";
 
@@ -38,9 +38,9 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
 
   return (
     <div id={"team"} className={prefixCls()} onClick={handleClick}>
-      <DragContainer style={{ width: "800px", height: "800px" }}>
+      <FncDrag style={{ width: "800px", height: "800px" }}>
         {config.map((item) => (
-          <DragContainer.Box
+          <FncDrag.Box
             key={item.id}
             id={item.id}
             scale={item.scale}
@@ -48,9 +48,9 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
             defaultStyle={item.defaultStyle}
           >
             <ImgBox url={item.url}></ImgBox>
-          </DragContainer.Box>
+          </FncDrag.Box>
         ))}
-      </DragContainer>
+      </FncDrag>
     </div>
   );
 };
