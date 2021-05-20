@@ -1,17 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 
-export interface ILayOutProviderValue<T = any> {
+export interface IDragProviderValue<T = any> {
   value?: T;
 }
 
-export const LayoutContext = React.createContext<ILayOutProviderValue>({});
+export const CalssDragContext = React.createContext<IDragProviderValue>({});
 
-export const ContextProvider: React.FC<ILayOutProviderValue> = ({
+export const ContextProvider: React.FC<IDragProviderValue> = ({
   value,
   children,
 }) => {
   return (
-    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+    <CalssDragContext.Provider value={value}>
+      {children}
+    </CalssDragContext.Provider>
   );
 };
 
@@ -19,16 +21,12 @@ export const ContextConsumer: React.FC = ({ children }) => {
   const Child = React.Children.only<any>(children);
 
   return (
-    <LayoutContext.Consumer>
+    <CalssDragContext.Consumer>
       {(v) => {
         return React.cloneElement(Child, v);
       }}
-    </LayoutContext.Consumer>
+    </CalssDragContext.Consumer>
   );
-};
-
-export const useLayoutHookContext = (): any => {
-  return useContext(LayoutContext);
 };
 
 export const contextConsumer = (Component: any) => {
@@ -37,11 +35,11 @@ export const contextConsumer = (Component: any) => {
   }
   return function (props = {}) {
     return (
-      <LayoutContext.Consumer>
+      <CalssDragContext.Consumer>
         {(v = {}) => {
           return <Component {...{ consumer: v, ...props }} />;
         }}
-      </LayoutContext.Consumer>
+      </CalssDragContext.Consumer>
     );
   };
 };

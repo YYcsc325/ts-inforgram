@@ -186,16 +186,41 @@ export function transform(direction: any, oriPos: any, e: any) {
   return style;
 }
 
-/**
- * @name 初始化数据
- */
-
-export function initailPos(childList: any = []) {
-  let newPos: any = {};
-  childList
-    .map((item: any) => item.props)
-    .forEach((item: any) => {
-      newPos[item.id] = item;
-    });
-  return newPos;
+export function unique(array: any, compare = (a: any, b: any) => a === b) {
+  const result = [];
+  for (let i = 0, len = array.length; i < len; i++) {
+    const current = array[i];
+    if (result.findIndex((v) => compare(v, current)) === -1) {
+      result.push(current);
+    }
+  }
+  return result;
 }
+
+export const checkArrayWithPush = (target: any, key: string, value: any) => {
+  if (Array.isArray(target[key])) {
+    target[key].push(value);
+  } else {
+    target[key] = [value];
+  }
+};
+
+export const createCoreData = (
+  { node, deltaX, deltaY }: any,
+  { originX, originY, x, y }: any
+) => {
+  return {
+    node,
+    deltaY,
+    deltaX,
+    originX: originX || x,
+    originY: originY || y,
+    x,
+    y,
+  };
+};
+
+export const getMaxDistance = (arr: any = []) => {
+  const num = arr.sort((a: number, b: number) => a - b);
+  return num[num.length - 1] - num[0];
+};

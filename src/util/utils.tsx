@@ -148,20 +148,20 @@ export function createPrefixClass(namespace: string, styles: any) {
   };
 }
 
-/** 递归插入数据 */
-interface ITreeProps<T = any> {
+/** 递归修改数据 */
+interface IListItem<T = any> {
   [x: string]: any;
-  children: Array<T>;
 }
-export function recursionInsertData(
-  list: Array<ITreeProps<any>> = [],
-  callBack: (val: ITreeProps) => any
+
+export function recursionLoop<T>(
+  list: Array<IListItem<T>> = [],
+  callBack: (val: IListItem<T>) => IListItem<T>
 ) {
-  if (typeof callBack !== "function") return list;
-  return list.map((item: ITreeProps<any>) => {
-    const result = callBack({ ...item });
-    if (item.children && item.children.length) {
-      result.children = recursionInsertData(item.children, callBack);
+  if (!isFunction(callBack)) return list;
+  return list.map((item: any) => {
+    const result = { ...item, ...callBack({ ...item }) };
+    if (item?.children?.length) {
+      result.children = recursionLoop(item.children, callBack);
     }
     return result;
   });
