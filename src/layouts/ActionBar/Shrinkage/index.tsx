@@ -23,7 +23,6 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
   const [isShowUser, setIsShowUser] = useState(false);
 
   document.onclick = (e) => {
-    e.stopPropagation();
     setIsShowUser(false);
   };
 

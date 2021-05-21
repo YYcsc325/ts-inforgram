@@ -23,7 +23,6 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
   }, [onOpen]);
 
   document.onclick = (e) => {
-    e.stopPropagation();
     setIsShowUser(false);
   };
 

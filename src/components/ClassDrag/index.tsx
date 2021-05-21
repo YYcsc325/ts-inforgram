@@ -1,14 +1,10 @@
 import React, { Component, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { createPrefixClass, filterChildren } from "@/util/utils";
-import ChildBox from "@/components/FncDrag/ChildBox";
-import {
-  unique,
-  checkArrayWithPush,
-  getMaxDistance,
-} from "@/components/FncDrag/utils";
 
+import ChildBox from "./ChildBox";
 import { ContextProvider } from "./context";
+import { unique, checkArrayWithPush, getMaxDistance } from "./utils";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("drag-container", styles);
@@ -23,8 +19,7 @@ interface IClassDragProps {
 type IClassDragPropsWithChildren = PropsWithChildren<IClassDragProps>;
 
 interface IClassDragState {
-  clicked?: string;
-  // childList: any;
+  clickId?: string;
   vLines: string[];
   hLines: string[];
   indices: string[];
@@ -34,40 +29,46 @@ class ClassDrag extends Component<
   IClassDragPropsWithChildren,
   IClassDragState
 > {
-  static Box = ChildBox;
+  static Box: any = ChildBox;
   nodeRef: any = null;
   $children: any = [];
 
   constructor(props: IClassDragPropsWithChildren) {
     super(props);
     this.state = {
-      clicked: undefined,
+      clickId: undefined,
       vLines: [],
       hLines: [],
       indices: [],
-      // childList: filterChildren(props.children, ChildBox) || [],
     };
   }
 
-  // componentDidUpdate(preProps: IClassDragPropsWithChildren) {
-  //   if (preProps.children !== this.props.children) {
-  //     this.setState({
-  //       childList: filterChildren(this.props.children, ChildBox) || [],
-  //     });
-  //   }
-  // }
+  privateClick = () => {
+    this.setState({
+      clickId: "",
+    });
+  };
+
+  componentDidMount() {
+    // 捕获阶段先行执行，有点问题，临时方案
+    document.addEventListener("click", this.privateClick, true);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("click", this.privateClick, true);
+  }
 
   /** 存储当前组件的ref */
   handleRoot = (node: any) => {
     this.nodeRef = node;
   };
 
-  handleChildClick = (e: any, props: any) => {
+  handleChildClick = (e: any, props: any = {}) => {
     e.stopPropagation();
     this.setState({
-      clicked: props.id,
+      clickId: props.id,
     });
   };
+
   // 拖拽初始时 计算出所有元素的坐标信息，存储于childPos
   handleChildStart = () => {
     this.$children = filterChildren(this.props.children, ChildBox).map(
@@ -206,13 +207,8 @@ class ClassDrag extends Component<
 
     compares.forEach((compare: any) => {
       validDirections.forEach((dire: any) => {
-        const { near, dist, value, origin, length } = this.calcPosValuesSingle(
-          values,
-          dire,
-          target,
-          compare,
-          key
-        );
+        const { near, dist, value, origin, length }: any =
+          this.calcPosValuesSingle(values, dire, target, compare, key);
         if (near) {
           checkArrayWithPush(results, dist, {
             i: compare.i,
@@ -313,14 +309,15 @@ class ClassDrag extends Component<
   };
 
   /** 渲染children */
-  childRender = () => {
+  renderChildren = () => {
     const childList = filterChildren(this.props.children, ChildBox);
     return childList.map((child, index) =>
       React.cloneElement(child, {
+        // @ts-ignore
         _onDrag: this.handleChildDrag(index),
         _onStart: this.handleChildStart,
         _onEnd: this.handleChildEnd,
-        onClick: (e: any) => this.handleChildClick(e, child.props),
+        _onClick: (e: any) => this.handleChildClick(e, child.props),
       })
     );
   };
@@ -372,15 +369,15 @@ class ClassDrag extends Component<
 
   render() {
     const { className, style } = this.props;
-    const { clicked } = this.state;
+    const { clickId } = this.state;
     return (
-      <ContextProvider value={{ clicked, dragArea: this.nodeRef }}>
+      <ContextProvider value={{ _clickId: clickId, _dragArea: this.nodeRef }}>
         <div
           style={style}
           className={classNames(prefixCls(), className)}
           ref={this.handleRoot}
         >
-          {this.childRender()}
+          {this.renderChildren()}
           {this.renderGuideLine()}
         </div>
       </ContextProvider>
