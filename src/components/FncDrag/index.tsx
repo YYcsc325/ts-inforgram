@@ -177,7 +177,7 @@ const DragContainer: FC<IDragContainerProps> & {
 
     compares.forEach((compare: any) => {
       validDirections.forEach((dire: any) => {
-        const { near, dist, value, origin, length } = calcPosValuesSingle(
+        const { near, dist, value, origin, length }: any = calcPosValuesSingle(
           values,
           dire,
           target,

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { createPrefixClass } from "@/util/utils";
 import classNames from "classnames";
 import { Tooltip } from "antd";
@@ -24,7 +24,9 @@ const IconPublic: FC<IconPublicProps> = ({
   title = "Public",
   ...reset
 }) => {
-  const handleIconPublicClick = (e: any) => {
+  const handleIconPublicClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     e.stopPropagation();
     const modal = CustomModal.showModal({
       footer: null,
@@ -36,7 +38,6 @@ const IconPublic: FC<IconPublicProps> = ({
       children: <Dialog onClose={() => modal.destroy()} />,
     });
   };
-
   return (
     <div
       {...reset}

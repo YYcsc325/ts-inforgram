@@ -3,6 +3,7 @@ import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import { FncDrag } from "@/components";
 import ImgBox from "@/components/DragComponents/dragImg";
+
 import styles from "./index.less";
 
 interface ITeamProps {
@@ -22,6 +23,12 @@ const config = [
   {
     id: "2",
     defaultPostion: { left: 200, top: 200 },
+    url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+    scale: false,
+  },
+  {
+    id: "3",
+    defaultPostion: { left: 300, top: 400 },
     url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     scale: false,
   },

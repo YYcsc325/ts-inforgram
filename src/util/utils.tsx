@@ -148,20 +148,22 @@ export function createPrefixClass(namespace: string, styles: any) {
   };
 }
 
-/** 递归修改数据 */
-interface IListItem<T = any> {
-  [x: string]: any;
-}
+/** 递归重写数据 */
+/** 还存在问题是children的类型如何定义 */
 
-export function recursionLoop<T>(
-  list: Array<IListItem<T>> = [],
-  callBack: (val: IListItem<T>) => IListItem<T>
+type IListItemProps<T = any> = {
+  [P in keyof T]: T[P];
+};
+
+export function recursiveLoop<T = any>(
+  list: Array<IListItemProps<T>> = [],
+  callBack: (val: IListItemProps<T>) => IListItemProps<T>
 ) {
   if (!isFunction(callBack)) return list;
   return list.map((item: any) => {
     const result = { ...item, ...callBack({ ...item }) };
     if (item?.children?.length) {
-      result.children = recursionLoop(item.children, callBack);
+      result.children = recursiveLoop(item?.children, callBack);
     }
     return result;
   });
@@ -211,4 +213,16 @@ export function isUndefined(o: any) {
 
 export function isNull(o: any) {
   return o === null;
+}
+/** 计算字符串长度，包括英文跟中文字符 */
+export function getBLen(str: any) {
+  if (str == null) return 0;
+  if (typeof str !== "string") {
+    str += "";
+  }
+  return str.replace(/[^\x00-\xff]/g, "01").length;
+}
+/** 判断是不是整数 */
+export function isInteger(num: number) {
+  return num % 1 === 0;
 }
