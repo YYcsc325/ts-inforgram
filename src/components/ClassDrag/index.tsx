@@ -51,10 +51,10 @@ class ClassDrag extends Component<
 
   componentDidMount() {
     // 捕获阶段先行执行，有点问题，临时方案
-    document.addEventListener("click", this.privateClick, true);
+    document.addEventListener("click", this.privateClick);
   }
   componentWillUnmount() {
-    document.removeEventListener("click", this.privateClick, true);
+    document.removeEventListener("click", this.privateClick);
   }
 
   /** 存储当前组件的ref */
@@ -63,7 +63,7 @@ class ClassDrag extends Component<
   };
 
   handleChildClick = (e: any, props: any = {}) => {
-    e.stopPropagation();
+    event?.stopImmediatePropagation();
     this.setState({
       clickId: props.id,
     });
