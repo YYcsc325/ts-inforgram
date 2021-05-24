@@ -1,6 +1,6 @@
 import { Link } from "umi";
 import classNames from "classnames";
-import React, { FC, useState, useMemo } from "react";
+import React, { FC, useState, useMemo, useEffect } from "react";
 import { createPrefixClass } from "@/util/utils";
 import UpDownArrow from "@/components/UpDownArrow";
 import { MedicineBoxOutlined } from "@ant-design/icons";
@@ -22,9 +22,16 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [isShowUser, setIsShowUser] = useState(false);
 
-  document.onclick = (e) => {
+  const handleIsShowUser = () => {
     setIsShowUser(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleIsShowUser);
+    return () => {
+      document.removeEventListener("click", handleIsShowUser);
+    };
+  }, []);
 
   const handleLibraryClick = () => {
     setVisible(!visible);

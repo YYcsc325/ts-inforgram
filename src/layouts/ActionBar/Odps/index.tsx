@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useState, useEffect } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Link } from "umi";
 import classNames from "classnames";
@@ -22,9 +22,16 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
     onOpen();
   }, [onOpen]);
 
-  document.onclick = (e) => {
+  const handleIsShowUser = () => {
     setIsShowUser(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleIsShowUser);
+    return () => {
+      document.removeEventListener("click", handleIsShowUser);
+    };
+  }, []);
 
   return (
     <div className={prefixCls()}>

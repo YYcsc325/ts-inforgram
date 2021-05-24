@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { useSingleAndDoubleClick } from "@/util/useHook";
@@ -22,11 +22,17 @@ const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
 
   const handleClick = useSingleAndDoubleClick(() => {}, doubleClick);
 
-  document.onclick = (e: any) => {
-    if (e.target !== targetRef.current) {
-      setEdit(false);
-    }
+  const setEditFlag = () => {
+    setEdit(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", setEditFlag);
+    return () => {
+      document.removeEventListener("click", setEditFlag);
+    };
+  }, []);
+
   return (
     <h1
       ref={targetRef}
