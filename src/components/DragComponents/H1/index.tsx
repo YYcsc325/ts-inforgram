@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { useSingleAndDoubleClick } from "@/util/useHook";
@@ -14,24 +14,25 @@ interface IDragHTagProps {
 
 const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
   const [edit, setEdit] = useState(false);
-  const [clicked, setClicked] = useState(false);
   const targetRef = useRef(null);
 
-  const simpleClick = () => {
-    setClicked(true);
-  };
   const doubleClick = () => {
     setEdit(true);
   };
 
-  const handleClick = useSingleAndDoubleClick(simpleClick, doubleClick);
+  const handleClick = useSingleAndDoubleClick(() => {}, doubleClick);
 
-  document.onclick = (e: any) => {
-    if (e.target !== targetRef.current) {
-      setClicked(false);
-      setEdit(false);
-    }
+  const setEditFlag = () => {
+    setEdit(false);
   };
+
+  useEffect(() => {
+    document.addEventListener("click", setEditFlag);
+    return () => {
+      document.removeEventListener("click", setEditFlag);
+    };
+  }, []);
+
   return (
     <h1
       ref={targetRef}
@@ -40,7 +41,6 @@ const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
       className={classNames(
         prefixCls(),
         {
-          [prefixCls("clicked")]: clicked,
           [prefixCls("edit")]: edit,
         },
         className

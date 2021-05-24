@@ -2,7 +2,7 @@ import { Checkbox } from "antd";
 import { history } from "umi";
 import { createPrefixClass } from "@/util/utils";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import {
   UserOutlined,
   TableOutlined,
@@ -16,19 +16,24 @@ import RotateBox from "./components/rotateBox";
 import Disgraceful from "./components/Disgraceful";
 import DropdownSearch from "./components/DropdownSearch";
 import TableCard from "./components/TableCard";
+import connect from "./connect";
 import { initailDataList, selectConfigure } from "./config";
 
 const prefixCls = createPrefixClass("right-silder", styles);
 
-const Container = () => {
+const Container = connect(({ projectList = [] }: any) => {
   const [searchVal, setSearchVal] = useState("");
   const [tableTab, setTableTab] = useState(false);
   /** 总数据 */
-  const [dataList, setDataList] = useState(initailDataList);
+  const [dataList, setDataList] = useState<typeof initailDataList>(projectList);
   /** 过滤数据 */
   const [filterDataList, setFilterDataList] = useState<typeof initailDataList>(
     []
   );
+
+  useEffect(() => {
+    setDataList(projectList);
+  }, [projectList]);
 
   /** 真正渲染的数据 */
   const renderList = useMemo(() => {
@@ -232,6 +237,6 @@ const Container = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Container;

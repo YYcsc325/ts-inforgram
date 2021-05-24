@@ -1,4 +1,11 @@
-import React, { FC, CSSProperties, useState, useCallback, useRef } from "react";
+import React, {
+  FC,
+  CSSProperties,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react";
 import classNames from "classnames";
 import { createPrefixClass, filterChildren } from "@/util/utils";
 
@@ -330,9 +337,16 @@ const DragContainer: FC<IDragContainerProps> & {
     );
   };
 
-  document.onclick = (e) => {
-    handleChildClick(e, {});
+  const setHandleChildClicked = () => {
+    setClicked("");
   };
+
+  useEffect(() => {
+    document.addEventListener("click", setHandleChildClicked);
+    return () => {
+      document.removeEventListener("click", setHandleChildClicked);
+    };
+  }, []);
 
   return (
     <ContextProvider value={{ clicked, dragArea: dragAreaRef.current }}>

@@ -2,7 +2,7 @@ import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import ClassDrag from "@/components/ClassDrag";
-import ImgBox from "@/components/DragComponents/dragImg";
+import ImgBox from "@/components/DragComponents/Img";
 
 import styles from "./index.less";
 

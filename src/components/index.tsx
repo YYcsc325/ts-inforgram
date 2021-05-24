@@ -8,6 +8,6 @@ export { default as Checkbox } from "./FormCheckBox";
 export { default as CustomModal } from "./CustomModal";
 export { default as DatePicker } from "./FormDatePicker";
 export { default as LazyLoadingImg } from "./LazyLoadingImg";
-export { default as DragHTag } from "./DragComponents/DragHTag";
+export { default as DragHTag } from "./DragComponents/H1";
 export { default as Tabs } from "./Tabs";
 export { default as FncDrag } from "./FncDrag";
