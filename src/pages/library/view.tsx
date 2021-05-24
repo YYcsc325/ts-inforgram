@@ -3,17 +3,19 @@ import { createPrefixClass } from "@/util/utils";
 import { contextConsumer } from "@/layouts/context";
 
 import Container from "./Container";
+import { IConnectProps } from "./connect";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("library", styles);
 
-interface ILibraryProps {
+interface ILibraryProps extends IConnectProps {
   [x: string]: any;
 }
 
-const Library: FC<ILibraryProps> = ({ consumer }) => {
+const Library: FC<ILibraryProps> = ({ consumer, dispatchProjectList }) => {
   useEffect(() => {
     consumer?.handleShowShrinkageChange(true);
+    dispatchProjectList();
   }, []);
 
   return (

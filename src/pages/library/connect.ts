@@ -1,11 +1,23 @@
 import { connect, Dispatch } from "umi";
+import { get } from "lodash";
 
-// 这里的any类型其实就是每个model的state类型
-const mapStateToProps = ({ loading, user }: any) => {
-  return {};
+const queryProjectList = ({ payload }: any) => ({
+  type: "library/fetchProjectList",
+  payload,
+});
+
+const mapStateToProps = ({ library }: any) => {
+  return {
+    projectList: get(library, ["projectList"], []),
+  };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {};
+  return {
+    /** 获取library项目列表数据 */
+    dispatchProjectList() {
+      return dispatch(queryProjectList({}));
+    },
+  };
 };
 
 export type IConnectProps = ReturnType<typeof mapStateToProps> &
