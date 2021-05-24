@@ -1,7 +1,8 @@
 .editMenu {
   position: relative;
 
-  .menuIcon, .menuIconCheck {
+  .menuIcon,
+  .menuIconCheck {
     font-size: 16px;
     display: flex;
     -webkit-box-pack: center;
@@ -13,12 +14,17 @@
     overflow: hidden;
     cursor: pointer;
 
-
     &:hover {
       background: rgb(85, 85, 85);
     }
 
-    .addText, .addChart, .addMap, .addElement, .addGraphics, .addShape, .addIntegration {
+    .addText,
+    .addChart,
+    .addMap,
+    .addElement,
+    .addGraphics,
+    .addShape,
+    .addIntegration {
       width: 100%;
       height: 100%;
       background-repeat: no-repeat;
@@ -28,6 +34,7 @@
   }
   .viewport {
     position: fixed;
+    z-index: 1;
     top: 80px;
     bottom: 0;
     left: 48px;
@@ -43,7 +50,7 @@
       line-height: 48px;
       text-align: center;
       font-size: 13px;
-      color: #FFF;
+      color: #fff;
 
       .viewportTitleIcon {
         top: 0;
@@ -101,6 +108,4 @@
   .addIntegration {
     background-image: url("https://cdn.jifo.co/js/dist/eb6c88e24e50554978ac0ad7605a25a4.svg");
   }
-
-
 }

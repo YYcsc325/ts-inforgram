@@ -10,7 +10,7 @@ import { IConnectProps } from "./connect";
 const prefixCls = createPrefixClass("login", styles);
 class Index extends Component<IConnectProps> {
   render() {
-    const { userinfoloading = false } = this.props;
+    const { userinfoloading } = this.props;
 
     return (
       <div className={prefixCls()}>

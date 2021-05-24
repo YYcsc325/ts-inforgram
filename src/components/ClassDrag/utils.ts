@@ -172,7 +172,7 @@ export function transform(direction: any, oriPos: any, e: any) {
       style.left += offsetX;
       break;
     // 拖拽移动
-    case "rotate":
+    case ROTATE:
       // 先计算下元素的中心点, x，y 作为坐标原点
       const x = style.width / 2 + style.left;
       const y = style.height / 2 + style.top;

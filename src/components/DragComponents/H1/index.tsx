@@ -14,21 +14,16 @@ interface IDragHTagProps {
 
 const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
   const [edit, setEdit] = useState(false);
-  const [clicked, setClicked] = useState(false);
   const targetRef = useRef(null);
 
-  const simpleClick = () => {
-    setClicked(true);
-  };
   const doubleClick = () => {
     setEdit(true);
   };
 
-  const handleClick = useSingleAndDoubleClick(simpleClick, doubleClick);
+  const handleClick = useSingleAndDoubleClick(() => {}, doubleClick);
 
   document.onclick = (e: any) => {
     if (e.target !== targetRef.current) {
-      setClicked(false);
       setEdit(false);
     }
   };
@@ -40,7 +35,6 @@ const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
       className={classNames(
         prefixCls(),
         {
-          [prefixCls("clicked")]: clicked,
           [prefixCls("edit")]: edit,
         },
         className
