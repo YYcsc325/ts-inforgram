@@ -3,6 +3,9 @@ import { createPrefixClass } from "@/util/utils";
 import { Link } from "umi";
 import classNames from "classnames";
 import UserTolTip from "@/layouts/ActionBar/UserTolTip";
+import Cookies from "js-cookie";
+import { parse } from "qs";
+import { ellipsis } from "@/util/utils";
 
 import styles from "./index.less";
 import RotateAllow from "../RotateAllow";
@@ -17,9 +20,12 @@ interface IOdpsProps {
 
 const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
   const [isShowUser, setIsShowUser] = useState(false);
+  const userName = ellipsis(
+    parse(Cookies.get("userLogin") as string)?.name as string
+  );
 
   const handleOpenClick = useCallback(() => {
-    onOpen();
+    onOpen?.();
   }, [onOpen]);
 
   const handleIsShowUser = () => {
@@ -39,7 +45,13 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
         className={prefixCls("rotate-allow")}
         onClick={handleOpenClick}
       />
-      <div className={prefixCls("user")} onClick={() => setIsShowUser(true)}>
+      <div
+        className={prefixCls("user")}
+        onClick={() => {
+          event?.stopImmediatePropagation();
+          setIsShowUser(true);
+        }}
+      >
         <div className={prefixCls("user-icon")}>YC</div>
       </div>
       {actionBarItems.map((item) => {
@@ -58,7 +70,7 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
       })}
       {isShowUser && (
         <UserTolTip
-          userName={"YY小学徒 CSC小..."}
+          userName={userName}
           className={prefixCls("user-position")}
         />
       )}
