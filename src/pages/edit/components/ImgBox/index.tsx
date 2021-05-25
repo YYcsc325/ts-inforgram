@@ -3,13 +3,9 @@ import { useDrag } from "react-dnd";
 import { dragConsts } from "@/consts";
 
 const style = {
-  border: "1px dashed gray",
-  backgroundColor: "white",
-  padding: "0.5rem 1rem",
-  marginRight: "1.5rem",
-  marginBottom: "1.5rem",
+  width: "125px",
+  height: "125px",
   cursor: "move",
-  float: "left",
 };
 
 interface IImgBoxProps {
@@ -38,7 +34,7 @@ const ImgBox: FC<IImgBoxProps> = ({ name, url, type, ...reset }) => {
 
   return (
     <div ref={drag} style={{ ...style, opacity } as React.CSSProperties}>
-      {name}
+      <img src={url} alt="" style={{ width: "inherit", height: "inherit" }} />
     </div>
   );
 };

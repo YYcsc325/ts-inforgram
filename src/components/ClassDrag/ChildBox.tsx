@@ -3,6 +3,8 @@ import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { RedoOutlined } from "@ant-design/icons";
 import { dragAllowConsts } from "@/consts";
+import DragImg from "@/components/DragComponents/Img";
+import { loadImg } from "@/util/utils";
 
 import styles from "./ChildBox.less";
 import { transform, transformScale } from "./utils";
@@ -16,7 +18,13 @@ const points = [E, W, S, N, NE, NW, SE, SW];
 
 type IDragEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
-type IDragData = { left: number; top: number; width: number; height: number };
+type IDragData = {
+  left: number;
+  top: number;
+  width?: number;
+  height?: number;
+  transform?: string;
+};
 
 type handleDrag = (e: IDragEvent, id: string, data: IDragData) => void;
 
@@ -24,7 +32,6 @@ export interface IDragBoxProps {
   id: string; // 唯一标识
   scale?: boolean; // 是否开启等比例缩放
   defaultPostion?: Pick<IDragData, "left" | "top">;
-  defaultStyle?: Pick<IDragData, "width" | "height">;
   onDrag?: handleDrag;
   onStart?: handleDrag;
   onEnd?: handleDrag;
@@ -40,9 +47,10 @@ class ClassChildBox extends Component<
   IDragBoxPropsWithChildren,
   IDragBoxState
 > {
+  $node: any = null;
   $direction: any = "";
   $isDown: boolean = false;
-  oriPos: any = {};
+  $oriPos: any = {};
 
   constructor(props: IDragBoxPropsWithChildren) {
     super(props);
@@ -51,10 +59,6 @@ class ClassChildBox extends Component<
         ...{
           left: props?.defaultPostion?.left ?? 0,
           top: props?.defaultPostion?.top ?? 0,
-        },
-        ...{
-          width: props?.defaultStyle?.width ?? 100,
-          height: props?.defaultStyle?.height ?? 100,
         },
       },
       targetArea: props._dragArea || document,
@@ -72,7 +76,7 @@ class ClassChildBox extends Component<
     // 保存拖拽事件方向。
     this.$direction = dir;
     this.$isDown = true;
-    this.oriPos = { ...style, cX: e.clientX, cY: e.clientY };
+    this.$oriPos = { ...style, cX: e.clientX, cY: e.clientY };
 
     this.props._onStart?.(e, id, style);
     // 在目标拖拽区域注册事件
@@ -89,9 +93,11 @@ class ClassChildBox extends Component<
     if (!this.$isDown) return;
 
     const newStyle = scale
-      ? transformScale(this.$direction, this.oriPos, e)
-      : transform(this.$direction, this.oriPos, e);
+      ? transformScale(this.$direction, this.$oriPos, e)
+      : transform(this.$direction, this.$oriPos, e);
     const { x, y } = this.props._onDrag?.(newStyle.left, newStyle.top);
+    // 还得计算transForm的scale的值
+
     this.setState({
       style: { ...newStyle, left: x, top: y },
     });
@@ -118,10 +124,39 @@ class ClassChildBox extends Component<
       });
     }
   }
+
+  /** 获取ref */
+  handlePrivateRef = (node: any) => {
+    this.$node = node;
+  };
+
+  handleChildStyle = () => {
+    const { style } = this.state;
+    const childNode = getComputedStyle(this.$node.childNodes[0]);
+    this.setState({
+      style: {
+        ...style,
+        width: Number(childNode.width.replace(/px/g, "")),
+        height: Number(childNode.height.replace(/px/g, "")),
+      },
+    });
+  };
+
+  componentDidMount() {
+    // 获取子元素默认width跟height
+    const { type, props }: any = this.props.children;
+    if (type === DragImg) {
+      loadImg(props.url, this.handleChildStyle);
+    } else {
+      this.handleChildStyle();
+    }
+  }
+
   render() {
     const { children, id, consumer } = this.props;
     const { style } = this.state;
     const isClicked = consumer?._clickId === id;
+    const child = React.Children.only(children) as any;
     return (
       <div
         style={style}
@@ -130,6 +165,7 @@ class ClassChildBox extends Component<
         data-y={style.top}
         data-width={style.width}
         data-heght={style.height}
+        ref={this.handlePrivateRef}
         className={classNames(prefixCls(), {
           [prefixCls("clicked")]: isClicked,
         })}
@@ -158,7 +194,7 @@ class ClassChildBox extends Component<
             <RedoOutlined style={{ color: "#3494ce" }} />
           </div>
         )}
-        {children}
+        {React.cloneElement(child, { ...style, id })}
       </div>
     );
   }

@@ -1,5 +1,5 @@
-import React, { ComponentType, Children, ReactElement, ReactNode } from "react";
-import { message, notification } from "antd";
+import { ComponentType, Children, ReactElement, ReactNode } from "react";
+import { notification } from "antd";
 import { ArgsProps } from "antd/lib/notification/index";
 import classNames from "classnames";
 
@@ -25,6 +25,14 @@ export function openNotification(props: ArgsProps) {
   });
 }
 
+export function loadImg(url: string, callback: Function) {
+  var img = new Image();
+  img.src = url;
+  img.onload = () => {
+    callback?.();
+  };
+}
+
 export function processingObj(item: any = {}, todo: string, injectProps: any) {
   const newItem = { ...item };
   for (const key in item) {
@@ -44,59 +52,6 @@ export function processingObj(item: any = {}, todo: string, injectProps: any) {
 export function isFunc(fn: Function) {
   if (typeof fn === "function") return true;
   return false;
-}
-
-// 获取local
-export function getlocal(str: string) {
-  try {
-    if (window) {
-      if (
-        window.Storage &&
-        window.localStorage &&
-        window.localStorage instanceof Storage
-      ) {
-        const local_message =
-          JSON.parse(window?.localStorage?.getItem?.(str) as string) || {};
-        return local_message;
-      }
-    }
-  } catch (err) {
-    console.log(err, "err");
-  }
-}
-
-//设置
-export function setlocal(str: string, obj: any) {
-  try {
-    if (window) {
-      if (
-        window.Storage &&
-        window.localStorage &&
-        window.localStorage instanceof Storage
-      ) {
-        localStorage.setItem(str, JSON.stringify(obj));
-      }
-    }
-  } catch (err) {
-    console.log(err, "err");
-  }
-}
-
-//删除
-export function removelocal(str: string) {
-  try {
-    if (window) {
-      if (
-        window.Storage &&
-        window.localStorage &&
-        window.localStorage instanceof Storage
-      ) {
-        localStorage.removeItem(str);
-      }
-    }
-  } catch (err) {
-    console.log(err, "err");
-  }
 }
 
 /**

@@ -1,7 +1,7 @@
+import ClassDrag from "@/components/ClassDrag";
 import React, { useMemo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
-import ClassDrag from "@/components/ClassDrag";
 import { dragConsts } from "@/consts";
 import { getDragComponent } from "@/components/DragComponents";
 
@@ -13,15 +13,14 @@ const config = [
   {
     id: "key1",
     type: "Img",
-    defaultPostion: { left: 100, top: 100 },
-    defaultStyle: { width: 100, height: 100 },
+    defaultPostion: { left: 200, top: 200 },
     url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     scale: true,
   },
   {
     id: "key2",
     type: "Img",
-    defaultPostion: { left: 200, top: 200 },
+    defaultPostion: { left: 300, top: 300 },
     url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     scale: false,
   },
@@ -61,7 +60,6 @@ const EditContent = () => {
               id={item.id}
               scale={item.scale}
               defaultPostion={item.defaultPostion}
-              defaultStyle={item.defaultStyle}
             >
               <Element {...item} />
             </ClassDrag.Box>
