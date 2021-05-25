@@ -2,23 +2,12 @@ import React, { FC } from "react";
 
 interface DragImgProps {
   url: string;
-  scale?: boolean; // 是否需要等比例缩放展示图片
+  width: number;
+  height: number;
 }
 
-const DragImg: FC<DragImgProps> = ({ url, scale = false }) => {
-  return scale ? (
-    <div
-      style={{
-        width: "inherit",
-        height: "inherit",
-        backgroundImage: `url(${url})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
-    ></div>
-  ) : (
-    <img style={{ width: "inherit", height: "inherit" }} src={url} />
-  );
+const DragImg: FC<DragImgProps> = ({ url, width, height }) => {
+  return <img src={url} style={{ width, height }} />;
 };
 
 export default DragImg;

@@ -2,6 +2,7 @@ import React, { useState, forwardRef, ForwardRefRenderFunction } from "react";
 import { useDrop } from "react-dnd";
 import { dragConsts } from "@/consts";
 import ScalableBox from "../components/ScalableBox";
+import { getDragComponent } from "@/components/DragComponents";
 
 import { DragConextCache } from "../DragContext/index";
 import DragRnd from "../dragRnd/index";
@@ -59,12 +60,3 @@ const Dustbin: ForwardRefRenderFunction<HTMLDivElement, IDustbinProps> = (
   );
 };
 export default forwardRef(Dustbin);
-
-function getDragComponent(type: any) {
-  try {
-    const component = require(`@/components/DragComponents/${type}`).default;
-    return component;
-  } catch (err) {
-    return () => {};
-  }
-}
