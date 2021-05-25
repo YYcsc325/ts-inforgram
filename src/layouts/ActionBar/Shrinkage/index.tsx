@@ -6,6 +6,9 @@ import UpDownArrow from "@/components/UpDownArrow";
 import { MedicineBoxOutlined } from "@ant-design/icons";
 import UserTolTip from "@/layouts/ActionBar/UserTolTip";
 import { actionBarConsts } from "@/consts";
+import Cookies from "js-cookie";
+import { parse } from "qs";
+import { ellipsis } from "@/util/utils";
 
 import styles from "./index.less";
 import LabelTitle from "../LabelTitle";
@@ -21,6 +24,9 @@ interface IShrinkageProps {
 const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [isShowUser, setIsShowUser] = useState(false);
+  const userName = ellipsis(
+    parse(Cookies.get("userLogin") as string)?.name as string
+  );
 
   const handleIsShowUser = () => {
     setIsShowUser(false);
@@ -54,11 +60,17 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
         <span className={prefixCls("logo")}></span>
         <span className={prefixCls("upgrade")}>Upgrade</span>
       </div>
-      <div className={prefixCls("user")} onClick={() => setIsShowUser(true)}>
+      <div
+        className={prefixCls("user")}
+        onClick={() => {
+          event?.stopImmediatePropagation();
+          setIsShowUser(true);
+        }}
+      >
         <span className={prefixCls("user-icon")}>YC</span>
         <span className={prefixCls("user-mes")}>
           <UpDownArrow type={"down"} className={prefixCls("outlined")} />
-          <div className={prefixCls("username")}>YY小学徒 CSC...</div>
+          <div className={prefixCls("username")}>{userName}</div>
           <div className={prefixCls("mes")}>Basic account</div>
         </span>
       </div>
@@ -129,7 +141,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
       </div>
       {isShowUser && (
         <UserTolTip
-          userName={"YY小学徒 CSC小..."}
+          userName={userName}
           className={prefixCls("user-position")}
         />
       )}

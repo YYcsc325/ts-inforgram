@@ -177,6 +177,13 @@ export function getBLen(str: any) {
   }
   return str.replace(/[^\x00-\xff]/g, "01").length;
 }
+
+/** 是否展示省略号 */
+export function ellipsis(str: string, num: number = 10) {
+  if (getBLen(str) > num) return str.slice(0, 8) + "...";
+  return str;
+}
+
 /** 判断是不是整数 */
 export function isInteger(num: number) {
   return num % 1 === 0;
