@@ -23,7 +23,7 @@ interface ILineChartProps {
 }
 
 class LineChart extends Component<ILineChartProps> {
-  chart: any;
+  $chart: any;
 
   componentDidMount() {
     const { id, width = 300, height = 300 } = this.props;
@@ -32,7 +32,7 @@ class LineChart extends Component<ILineChartProps> {
       width,
       height,
     });
-    this.chart = chart;
+    this.$chart = chart;
     chart.data(data);
 
     // Step 3: 创建图形语法，绘制柱状图
@@ -40,6 +40,15 @@ class LineChart extends Component<ILineChartProps> {
 
     // Step 4: 渲染图表
     chart.render();
+  }
+
+  componentDidUpdate(preProps: ILineChartProps) {
+    if (
+      preProps.width !== this.props.width ||
+      preProps.height !== this.props.height
+    ) {
+      this.$chart.changeSize(this.props.width, this.props.height);
+    }
   }
 
   render() {
