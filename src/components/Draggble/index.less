@@ -1,62 +1,6 @@
 .dt-draggable {
+  cursor: move;
   display: inline-block;
-  cursor: default;
-
-  &-rotate {
-    cursor: pointer;
-    position: absolute;
-    left: 50%;
-    top: 110%;
-    z-index: 4;
-    transform: translateX(-3px);
-    user-select: none; // 注意禁止鼠标选中控制点元素，不然拖拽事件可能会因此被中断
-  }
-  &-control-point {
-    position: absolute;
-    display: inline-block;
-    background: #fff;
-    border: 1px solid #fff;
-    background-color: #3494ce;
-    padding: 4px;
-    margin-top: -4px;
-    margin-left: -4px;
-    user-select: none; // 注意禁止鼠标选中控制点元素，不然拖拽事件可能会因此被中断
-  }
-  &-point-e {
-    cursor: ew-resize;
-    left: 100%;
-    top: 50%;
-  }
-  &-point-n {
-    cursor: ns-resize;
-    left: 50%;
-  }
-  &-point-s {
-    cursor: ns-resize;
-    left: 50%;
-    top: 100%;
-  }
-  &-point-w {
-    cursor: ew-resize;
-    top: 50%;
-    left: 0;
-  }
-  &-point-ne {
-    cursor: nesw-resize;
-    left: 100%;
-  }
-  &-point-nw {
-    cursor: nwse-resize;
-    left: 0;
-  }
-  &-point-se {
-    cursor: nwse-resize;
-    left: 100%;
-    top: 100%;
-  }
-  &-point-sw {
-    cursor: nesw-resize;
-    top: 100%;
-    left: 0;
-  }
+  padding: 10px;
+  border: 1px dotted #3494ce;
 }

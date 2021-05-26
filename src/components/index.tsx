@@ -11,3 +11,4 @@ export { default as LazyLoadingImg } from "./LazyLoadingImg";
 export { default as DragHTag } from "./DragComponents/H1";
 export { default as Tabs } from "./Tabs";
 export { default as FncDrag } from "./FncDrag";
+export { default as Steps } from "./Steps";
