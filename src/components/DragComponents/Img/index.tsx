@@ -7,7 +7,13 @@ interface DragImgProps {
 }
 
 const DragImg: FC<DragImgProps> = ({ url, width, height }) => {
-  return <img src={url} style={{ width, height }} />;
+  return (
+    <img
+      src={url}
+      style={{ width, height }}
+      onMouseDown={(e) => e.preventDefault()}
+    />
+  );
 };
 
 export default DragImg;

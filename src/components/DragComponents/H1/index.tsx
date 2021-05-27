@@ -10,19 +10,23 @@ const prefixCls = createPrefixClass("h-tag", styles);
 interface IDragHTagProps {
   text: string;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
-const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
+const DragHTag: FC<IDragHTagProps> = ({ text, className, width, height }) => {
   const [edit, setEdit] = useState(false);
-  const targetRef = useRef(null);
+  const targetRef: any = useRef(null);
 
   const doubleClick = () => {
     setEdit(true);
+    targetRef?.current?.onfocus?.();
   };
 
   const handleClick = useSingleAndDoubleClick(() => {}, doubleClick);
 
-  const setEditFlag = () => {
+  const setEditFlag = (e: any) => {
+    if (e.target === targetRef.current) return;
     setEdit(false);
   };
 
@@ -32,7 +36,6 @@ const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
       document.removeEventListener("click", setEditFlag);
     };
   }, []);
-
   return (
     <h1
       ref={targetRef}
@@ -46,6 +49,10 @@ const DragHTag: FC<IDragHTagProps> = ({ text, className }) => {
         className
       )}
       onClick={handleClick}
+      style={{ width, height }}
+      onMouseDown={(e) => {
+        edit && e.stopPropagation();
+      }}
     >
       {text}
     </h1>

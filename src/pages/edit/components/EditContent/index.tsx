@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
 import { getDragComponent } from "@/components/DragComponents";
+import classNames from "classnames";
 
 import styles from "./index.less";
 
@@ -51,7 +52,11 @@ const EditContent = () => {
 
   return (
     <div className={prefixCls()} ref={drop}>
-      <ClassDrag className={prefixCls("edit-page")}>
+      <ClassDrag
+        className={classNames(prefixCls("edit-page"), {
+          [prefixCls("isover")]: isOver,
+        })}
+      >
         {list.map((item) => {
           const Element = getDragComponent(item.type as string);
           return (

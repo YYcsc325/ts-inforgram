@@ -71,8 +71,6 @@ class ClassChildBox extends Component<
     const { targetArea, style } = this.state;
     // 阻止事件冒泡
     e.stopPropagation();
-    // 阻止默认行为
-    e.preventDefault();
     // 保存拖拽事件方向。
     this.$direction = dir;
     this.$isDown = true;

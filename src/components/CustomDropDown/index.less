@@ -1,0 +1,30 @@
+.dt-dropdown {
+  top: 40px;
+  color: #fff;
+
+  :global {
+    .ant-dropdown-menu {
+      width: 210px;
+      padding: 0 10px;
+      margin-top: 10px;
+      background-color: #2e2e2e;
+      border-radius: 4px;
+    }
+  }
+  &-menu-item {
+    display: flex;
+    justify-content: flex-start;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer;
+  }
+  &-item-title {
+    color: rgb(55, 150, 201);
+    margin-left: 20px;
+    font-size: 13px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
