@@ -4,11 +4,11 @@ import { createPrefixClass } from "@/util/utils";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import {
-  UserOutlined,
   TableOutlined,
   DeleteOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
+import LogOut from "@/layouts/LogOut";
 
 import Empty from "./components/Empty";
 import styles from "./Container.less";
@@ -134,7 +134,7 @@ const Container = connect(({ projectList = [] }: any) => {
               <div style={{ fontSize: "12px" }}>{dataList.length} project</div>
             </div>
             <div className={prefixCls("r-title")}>
-              <UserOutlined />
+              <LogOut />
             </div>
           </div>
           <div className={prefixCls("select")}>

@@ -18,6 +18,9 @@ export const loginConfig: IConfigItem[] = [
       style: {
         height: "40px",
       },
+      onPressEnter: () => {
+        console.log("asdasd");
+      },
     },
   },
   {
@@ -33,6 +36,7 @@ export const loginConfig: IConfigItem[] = [
       style: {
         height: "40px",
       },
+      onPressEnter: () => {},
     },
   },
 ];
