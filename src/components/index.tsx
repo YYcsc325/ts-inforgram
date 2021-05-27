@@ -13,3 +13,4 @@ export { default as Tabs } from "./Tabs";
 export { default as FncDrag } from "./FncDrag";
 export { default as Steps } from "./Steps";
 export { default as CustomDropDown } from "./CustomDropDown";
+export { default as Ellipsis } from "./Ellipsis";

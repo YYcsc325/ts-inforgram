@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, message } from "antd";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-import { CustomModal, FormView, Steps } from "@/components";
-import { DragHTag } from "@/components";
+import { CustomModal, FormView, Steps, DragHTag, Ellipsis } from "@/components";
 import Drag from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
 
@@ -108,6 +107,20 @@ const ComponentList = [
     description: "DragRnd自由缩放拖拽 组件演示",
     Component: () => {
       return <Drag></Drag>;
+    },
+  },
+  {
+    type: "Ellipsis",
+    description: "Ellipsis多行省略组件",
+    Component: () => {
+      return (
+        <div style={{ width: "200px", height: "50px" }}>
+          <Ellipsis
+            text="这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据"
+            isShowTips={true}
+          ></Ellipsis>
+        </div>
+      );
     },
   },
 ];
