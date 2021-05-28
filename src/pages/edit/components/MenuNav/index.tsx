@@ -52,8 +52,14 @@ const EditMenuNav: React.FC<IEditMenuNavProps> = ({ children, ...reset }) => {
             />
           </div>
           <div className={styles["viewportContent"]}>
-            {(renderList[viewportItem.key] || []).map((item) => (
-              <ImgBox {...item} key={item.name}></ImgBox>
+            {(renderList[viewportItem.key] || []).map((item, index: number) => (
+              <ImgBox
+                {...item}
+                key={item.name}
+                className={classNames(styles["mb"], {
+                  [styles["ml"]]: index / 2 !== 0,
+                })}
+              ></ImgBox>
             ))}
           </div>
         </div>

@@ -150,11 +150,28 @@ class ClassChildBox extends Component<
     }
   }
 
+  /** 单击事件 */
+  handleSingleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.props._onClick?.(e);
+    this.props.onClick?.(e);
+  };
+
+  /** 双击事件 */
+  handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.props._onDoubleClick?.(e);
+    this.props.onDoubleClick?.(e);
+  };
+
   render() {
     const { children, id, consumer } = this.props;
+    const { _singleClickId, _doubleClickId } = consumer;
     const { style } = this.state;
-    const isClicked = consumer?._clickId === id;
+
+    const isSingleClicked = _singleClickId === id;
+    const isDoubleClicked = _doubleClickId === id;
+
     const child = React.Children.only(children) as any;
+
     return (
       <div
         style={style}
@@ -165,15 +182,13 @@ class ClassChildBox extends Component<
         data-heght={style.height}
         ref={this.handlePrivateRef}
         className={classNames(prefixCls(), {
-          [prefixCls("clicked")]: isClicked,
+          [prefixCls("clicked")]: isSingleClicked,
         })}
-        onMouseDown={(e) => this.onMouseDown(MOVE, e)}
-        onClick={(e) => {
-          this.props._onClick?.(e);
-          this.props.onClick?.(e);
-        }}
+        onMouseDown={this.onMouseDown.bind(this, MOVE)}
+        onClick={this.handleSingleClick}
+        onDoubleClick={this.handleDoubleClick}
       >
-        {isClicked &&
+        {isDoubleClicked &&
           points.map((item) => (
             <div
               className={classNames(
@@ -181,13 +196,13 @@ class ClassChildBox extends Component<
                 prefixCls(`point-${item}`)
               )}
               key={item}
-              onMouseDown={(e) => this.onMouseDown(item, e)}
+              onMouseDown={this.onMouseDown.bind(this, item)}
             ></div>
           ))}
-        {isClicked && (
+        {isDoubleClicked && (
           <div
             className={classNames(prefixCls("rotate"))}
-            onMouseDown={(e) => this.onMouseDown(ROTATE, e)}
+            onMouseDown={this.onMouseDown.bind(this, ROTATE)}
           >
             <RedoOutlined style={{ color: "#3494ce" }} />
           </div>

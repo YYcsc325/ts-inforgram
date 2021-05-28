@@ -19,7 +19,8 @@ interface IClassDragProps {
 type IClassDragPropsWithChildren = PropsWithChildren<IClassDragProps>;
 
 interface IClassDragState {
-  clickId?: string;
+  singleClickId?: string;
+  doubleClickId?: string;
   vLines: string[];
   hLines: string[];
   indices: string[];
@@ -36,7 +37,8 @@ class ClassDrag extends Component<
   constructor(props: IClassDragPropsWithChildren) {
     super(props);
     this.state = {
-      clickId: undefined,
+      singleClickId: undefined,
+      doubleClickId: undefined,
       vLines: [],
       hLines: [],
       indices: [],
@@ -45,7 +47,8 @@ class ClassDrag extends Component<
 
   privateClick = () => {
     this.setState({
-      clickId: "",
+      singleClickId: "",
+      doubleClickId: "",
     });
   };
 
@@ -65,7 +68,14 @@ class ClassDrag extends Component<
   handleChildClick = (e: any, props: any = {}) => {
     event?.stopImmediatePropagation();
     this.setState({
-      clickId: props.id,
+      singleClickId: props.id,
+    });
+  };
+
+  handleChildDoubleClick = (e: any, props: any = {}) => {
+    event?.stopImmediatePropagation();
+    this.setState({
+      doubleClickId: props.id,
     });
   };
 
@@ -318,6 +328,7 @@ class ClassDrag extends Component<
         _onStart: this.handleChildStart,
         _onEnd: this.handleChildEnd,
         _onClick: (e: any) => this.handleChildClick(e, child.props),
+        _onDoubleClick: (e: any) => this.handleChildDoubleClick(e, child.props),
       })
     );
   };
@@ -369,9 +380,15 @@ class ClassDrag extends Component<
 
   render() {
     const { className, style } = this.props;
-    const { clickId } = this.state;
+    const { singleClickId, doubleClickId } = this.state;
     return (
-      <ContextProvider value={{ _clickId: clickId, _dragArea: this.nodeRef }}>
+      <ContextProvider
+        value={{
+          _singleClickId: singleClickId,
+          _doubleClickId: doubleClickId,
+          _dragArea: this.nodeRef,
+        }}
+      >
         <div
           style={style}
           className={classNames(prefixCls(), className)}

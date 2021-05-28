@@ -1,21 +1,23 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useDrag } from "react-dnd";
 import { dragConsts } from "@/consts";
+import { createPrefixClass } from "@/util/utils";
+import classNames from "classnames";
 
-const style = {
-  width: "125px",
-  height: "125px",
-  cursor: "move",
-};
+import styles from "./index.less";
 
+const prefixCls = createPrefixClass("target-box", styles);
 interface IImgBoxProps {
   name: string;
   url: string;
   type: string;
+  className?: string;
 }
 
 let uid = 1;
-const ImgBox: FC<IImgBoxProps> = ({ name, url, type, ...reset }) => {
+const ImgBox: FC<IImgBoxProps> = ({ name, url, type, className, ...reset }) => {
+  const [isEnter, setIsEnter] = useState(false);
+
   const [{ isDragging }, drag] = useDrag({
     type: dragConsts.box,
     item: { ...reset, name, type, url, id: ++uid },
@@ -33,8 +35,26 @@ const ImgBox: FC<IImgBoxProps> = ({ name, url, type, ...reset }) => {
   const opacity = isDragging ? 0.4 : 1;
 
   return (
-    <div ref={drag} style={{ ...style, opacity } as React.CSSProperties}>
-      <img src={url} alt="" style={{ width: "inherit", height: "inherit" }} />
+    <div
+      ref={drag}
+      style={{ opacity } as React.CSSProperties}
+      className={classNames(prefixCls(), className)}
+      onMouseEnter={() => {
+        setIsEnter(true);
+      }}
+      onMouseLeave={() => {
+        setIsEnter(false);
+      }}
+    >
+      <div
+        className={classNames(prefixCls("disgrace"), {
+          [prefixCls("disgrace-hover")]: isEnter,
+          [prefixCls("disgrace-display")]: !isEnter,
+        })}
+      >
+        <div className={prefixCls("insert")}>Insert</div>
+      </div>
+      <img src={url} alt="" className={prefixCls("img")} />
     </div>
   );
 };
