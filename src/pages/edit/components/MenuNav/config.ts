@@ -40,15 +40,21 @@ export const renderList = {
   text: [
     {
       url: "https://cdn.jifo.co/js/dist/44e7133bff8ab2e162e7051990c05910.jpg",
-      name: "第四张图",
+      name: "Title",
       type: "H1",
       text: "Type something",
+    },
+    {
+      url: "https://cdn.jifo.co/js/dist/c1cd049fa426e4f3fd087e14e17905df.jpg",
+      name: "SubTitle",
+      type: "H1",
+      text: "Write something",
     },
   ],
   chart: [
     {
       url: "https://cdn.jifo.co/js/dist/d52f1500ee0f63614752457d0b11c11a.jpg",
-      name: "第二章图",
+      name: "Line",
       type: "LineChart",
     },
   ],

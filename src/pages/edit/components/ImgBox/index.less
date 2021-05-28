@@ -1,0 +1,44 @@
+.dt-target-box {
+  display: inline-block;
+  cursor: move;
+  overflow: hidden;
+  color: #2d2d2d;
+  width: 125px;
+  height: 125px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  position: relative;
+  &-disgrace {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-disgrace-hover {
+    background-color: rgba(24, 77, 110, 0.8);
+    transition: all 0.2s ease-in-out;
+  }
+  &-disgrace-display {
+    visibility: hidden;
+  }
+  &-insert {
+    width: 82px;
+    height: 30px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+  }
+  &-img {
+    width: 125px;
+    height: 125px;
+  }
+}
+.dt-target-box:hover {
+  border-color: #3494ce;
+}
