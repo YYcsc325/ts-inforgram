@@ -1,29 +1,20 @@
-import React, { FC, useState } from "react";
-import { Link, Redirect } from "umi";
+import React, { useState } from "react";
+import { Link, Redirect, IRouteComponentProps } from "umi";
 import Cookies from "js-cookie";
 import { parse } from "qs";
-import H from "history";
 import { DndProvider } from "react-dnd";
-import { RouteComponentProps } from "react-router";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
 import styles from "./index.less";
 import MenuNav from "./components/MenuNav";
 import EditContent from "./components/EditContent";
 import { IConnectProps } from "./connect";
 
-interface Location extends H.Location {
-  query: { id?: string };
-}
-
 export interface IEditProps
   extends IConnectProps,
-    RouteComponentProps<{ id: string }> {
-  location: Location;
-}
+    IRouteComponentProps<{ id?: string }> {}
 
-const Edit: FC<IEditProps> = ({ match }) => {
-  const [targetId] = useState<string>(match?.params?.id);
+const Edit = ({ match }: IEditProps) => {
+  const [targetId] = useState(match?.params?.id);
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;

@@ -36,7 +36,10 @@ export function loadImg(url: string, callback: Function) {
 export function processingObj(item: any = {}, todo: string, injectProps: any) {
   const newItem = { ...item };
   for (const key in item) {
-    if (isFunc(item[key]) && Object.prototype.hasOwnProperty.call(item, key)) {
+    if (
+      isFunction(item[key]) &&
+      Object.prototype.hasOwnProperty.call(item, key)
+    ) {
       if (todo === "calling") {
         newItem[key] = item?.[key]?.call(null, injectProps);
       } else if (todo === "bindding") {
@@ -47,11 +50,6 @@ export function processingObj(item: any = {}, todo: string, injectProps: any) {
     }
   }
   return newItem;
-}
-
-export function isFunc(fn: Function) {
-  if (typeof fn === "function") return true;
-  return false;
 }
 
 /**
