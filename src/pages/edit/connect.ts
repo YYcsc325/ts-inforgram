@@ -1,10 +1,26 @@
 import { connect, Dispatch } from "umi";
+import { get } from "lodash";
+import { IEditContentParams } from "@/service/edit";
 
-const mapStateToProps = () => {
-  return {};
+const queryEditContentDaraSource = (payload: any) => ({
+  type: "edit/fetchEditContentDataSource",
+  payload,
+});
+
+const mapStateToProps = ({ edit }: any) => {
+  return {
+    editContentDataSource: get(edit, ["editContentDataSource"], []),
+  };
 };
+
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {};
+  return {
+    /** 获取edit中的初始数据 */
+    dispatchEditContentDataSource({ id }: IEditContentParams) {
+      console.log(id, "adasdsa");
+      return dispatch(queryEditContentDaraSource({ id }));
+    },
+  };
 };
 
 export type IConnectProps = ReturnType<typeof mapStateToProps> &

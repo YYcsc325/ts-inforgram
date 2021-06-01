@@ -44,6 +44,7 @@
     "@types/qs": "^6.9.6",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/uuid": "^8.3.0",
     "@umijs/test": "^3.3.3",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.0",

@@ -1,7 +1,7 @@
 import { connect, Dispatch } from "umi";
 import { get } from "lodash";
 
-const queryProjectList = ({ payload }: any) => ({
+const queryProjectList = (payload: any) => ({
   type: "library/fetchProjectList",
   payload,
 });

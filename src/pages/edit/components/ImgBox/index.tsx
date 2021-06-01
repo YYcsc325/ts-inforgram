@@ -3,6 +3,7 @@ import { useDrag } from "react-dnd";
 import { dragConsts } from "@/consts";
 import { createPrefixClass } from "@/util/utils";
 import classNames from "classnames";
+import { v4 } from "uuid";
 
 import styles from "./index.less";
 
@@ -14,13 +15,12 @@ interface IImgBoxProps {
   className?: string;
 }
 
-let uid = 1;
 const ImgBox: FC<IImgBoxProps> = ({ name, url, type, className, ...reset }) => {
   const [isEnter, setIsEnter] = useState(false);
 
   const [{ isDragging }, drag] = useDrag({
     type: dragConsts.box,
-    item: { ...reset, name, type, url, id: ++uid },
+    item: { ...reset, name, type, url, id: v4() },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
