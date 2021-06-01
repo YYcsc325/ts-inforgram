@@ -1,34 +1,23 @@
 import ClassDrag from "@/components/ClassDrag";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
+import { IEditContentResponse } from "@/service/edit";
 
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("edit-content", styles);
 
-const config = [
-  {
-    id: "key1",
-    type: "Img",
-    defaultPostion: { left: 200, top: 200 },
-    url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-    scale: true,
-  },
-  {
-    id: "key2",
-    type: "Img",
-    defaultPostion: { left: 300, top: 300 },
-    url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-    scale: false,
-  },
-];
+export interface IEditContentProps {
+  editContentDataSource: IEditContentResponse;
+}
 
-const EditContent = () => {
-  const [list, setList] = useState(config);
+const EditContent = (props: IEditContentProps) => {
+  const [list, setList] = useState(props.editContentDataSource);
+
   const listIds = useMemo(() => {
     return list.map((item) => item.id);
   }, [list]);
@@ -49,6 +38,10 @@ const EditContent = () => {
       canDrop: monitor.canDrop(),
     }),
   });
+
+  useEffect(() => {
+    setList(props.editContentDataSource);
+  }, [props.editContentDataSource]);
 
   return (
     <div className={prefixCls()} ref={drop}>

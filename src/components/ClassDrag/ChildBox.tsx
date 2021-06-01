@@ -2,7 +2,7 @@ import React, { Component, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import { RedoOutlined } from "@ant-design/icons";
-import { dragAllowConsts } from "@/consts";
+import { dragAllowConsts, eventButtons } from "@/consts";
 import DragImg from "@/components/DragComponents/Img";
 import { loadImg } from "@/util/utils";
 
@@ -39,10 +39,12 @@ export interface IDragBoxProps {
 }
 
 export type IDragBoxPropsWithChildren = PropsWithChildren<IDragBoxProps>;
+
 export interface IDragBoxState {
-  style: IDragData;
-  targetArea: Document | Element;
+  style: IDragData; // 内部存储样式 -> (left, top, width, height)
+  targetArea: Document | Element; // 目标拖拽区域
 }
+
 class ClassChildBox extends Component<
   IDragBoxPropsWithChildren,
   IDragBoxState
@@ -67,6 +69,8 @@ class ClassChildBox extends Component<
 
   // 鼠标被按下
   onMouseDown = (dir: string, e: any) => {
+    // 鼠标右击按下取消事件
+    if (e.button === eventButtons.EVENTBUTTON2) return;
     const { id } = this.props;
     const { targetArea, style } = this.state;
     // 阻止事件冒泡
@@ -130,7 +134,7 @@ class ClassChildBox extends Component<
 
   handleChildStyle = () => {
     const { style } = this.state;
-    const childNode = getComputedStyle(this.$node.childNodes[0]);
+    const childNode = getComputedStyle(this.$node?.childNodes?.[0]);
     this.setState({
       style: {
         ...style,

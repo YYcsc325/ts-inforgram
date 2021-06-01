@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect, IRouteComponentProps } from "umi";
 import Cookies from "js-cookie";
 import { parse } from "qs";
@@ -13,12 +13,16 @@ export interface IEditProps
   extends IConnectProps,
     IRouteComponentProps<{ id?: string }> {}
 
-const Edit = ({ match }: IEditProps) => {
-  const [targetId] = useState(match?.params?.id);
+const Edit = (props: IEditProps) => {
+  const [targetId] = useState(props.match?.params?.id);
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;
   }
+
+  useEffect(() => {
+    props.dispatchEditContentDataSource?.({ id: targetId as string });
+  }, []);
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -59,7 +63,7 @@ const Edit = ({ match }: IEditProps) => {
             <MenuNav />
           </div>
           <div className={styles["editContent"]}>
-            <EditContent />
+            <EditContent editContentDataSource={props.editContentDataSource} />
           </div>
           <div className={styles["editContentRight"]}>4</div>
         </div>
