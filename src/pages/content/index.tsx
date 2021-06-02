@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import ClassDrag from "@/components/ClassDrag";
+import { DragContainer } from "@/components";
 import ImgBox from "@/components/DragComponents/Img";
 
 import styles from "./index.less";
@@ -39,9 +39,9 @@ const Content: FC<IContentProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick} id="container">
-      <ClassDrag style={{ width: "800px", height: "800px" }}>
+      <DragContainer style={{ width: "800px", height: "800px" }}>
         {config.map((item) => (
-          <ClassDrag.Box
+          <DragContainer.Box
             key={item.id}
             id={item.id}
             scale={item.scale}
@@ -49,9 +49,9 @@ const Content: FC<IContentProps> = ({ consumer }) => {
             defaultStyle={item.defaultStyle}
           >
             <ImgBox url={item.url}></ImgBox>
-          </ClassDrag.Box>
+          </DragContainer.Box>
         ))}
-      </ClassDrag>
+      </DragContainer>
     </div>
   );
 };

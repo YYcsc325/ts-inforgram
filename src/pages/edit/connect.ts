@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     /** 获取edit中的初始数据 */
     dispatchEditContentDataSource({ id }: IEditContentParams) {
-      console.log(id, "adasdsa");
       return dispatch(queryEditContentDaraSource({ id }));
     },
   };

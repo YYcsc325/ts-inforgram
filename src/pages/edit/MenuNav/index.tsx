@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 
 import { menuNav, renderList } from "./config";
-import ImgBox from "../ImgBox";
+import ImgBox from "../components/ImgBox";
 import styles from "./index.less";
 
 export interface IEditMenuNavProps {}

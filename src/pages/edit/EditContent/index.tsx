@@ -1,11 +1,12 @@
-import ClassDrag from "@/components/ClassDrag";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
+import { DragContainer } from "@/components";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
 import { IEditContentResponse } from "@/service/edit";
+import ContextMenu from "../components/ContextMenu";
 
 import styles from "./index.less";
 
@@ -43,9 +44,14 @@ const EditContent = (props: IEditContentProps) => {
     setList(props.editContentDataSource);
   }, [props.editContentDataSource]);
 
+  const handleTargetChange = (odps, id) => {
+    console.log(odps, "odps");
+    console.log(id, "id");
+  };
+
   return (
     <div className={prefixCls()} ref={drop}>
-      <ClassDrag
+      <DragContainer
         className={classNames(prefixCls("edit-page"), {
           [prefixCls("isover")]: isOver,
         })}
@@ -53,17 +59,24 @@ const EditContent = (props: IEditContentProps) => {
         {list.map((item) => {
           const Element = getDragComponent(item.type as string);
           return (
-            <ClassDrag.Box
+            <DragContainer.Box
               key={item.id}
               id={item.id}
               scale={item.scale}
               defaultPostion={item.defaultPostion}
             >
-              <Element {...item} />
-            </ClassDrag.Box>
+              <ContextMenu
+                options={[
+                  { title: "delete", value: "delete", icon: <span>icon</span> },
+                ]}
+                onMenuClick={(value) => handleTargetChange(value, item.id)}
+              >
+                <Element {...item} />
+              </ContextMenu>
+            </DragContainer.Box>
           );
         })}
-      </ClassDrag>
+      </DragContainer>
     </div>
   );
 };
