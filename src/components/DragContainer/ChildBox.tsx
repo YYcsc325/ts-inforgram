@@ -147,6 +147,7 @@ class ClassChildBox extends Component<
   componentDidMount() {
     // 获取子元素默认width跟height
     const { type, props }: any = this.props.children;
+    console.log(this.props.children, "this.props.children");
     if (type === DragImg) {
       loadImg(props.url, this.handleChildStyle);
     } else {

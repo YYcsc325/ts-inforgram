@@ -9,16 +9,16 @@ import styles from "./index.less";
 
 const prefixCls = createPrefixClass("drag-container", styles);
 
-interface IClassDragProps {
+interface IDragContainerProps {
   className?: string;
   style?: React.CSSProperties;
   onChildClick?: (params: any) => void;
   onChildDrag?: (params: { string: any }) => void;
 }
 
-type IClassDragPropsWithChildren = PropsWithChildren<IClassDragProps>;
+type IDragContainerPropsWithChildren = PropsWithChildren<IDragContainerProps>;
 
-interface IClassDragState {
+interface IDragContainerState {
   singleClickId?: string;
   doubleClickId?: string;
   vLines: string[];
@@ -26,15 +26,15 @@ interface IClassDragState {
   indices: string[];
 }
 
-class ClassDrag extends Component<
-  IClassDragPropsWithChildren,
-  IClassDragState
+class DragContainer extends Component<
+  IDragContainerPropsWithChildren,
+  IDragContainerState
 > {
   static Box: any = ChildBox;
   nodeRef: any = null;
   $children: any = [];
 
-  constructor(props: IClassDragPropsWithChildren) {
+  constructor(props: IDragContainerPropsWithChildren) {
     super(props);
     this.state = {
       singleClickId: undefined,
@@ -402,4 +402,4 @@ class ClassDrag extends Component<
   }
 }
 
-export default ClassDrag;
+export default DragContainer;
