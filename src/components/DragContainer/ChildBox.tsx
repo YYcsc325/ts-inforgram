@@ -36,6 +36,7 @@ export interface IDragBoxProps {
   onDrag?: handleDrag;
   onStart?: handleDrag;
   onEnd?: handleDrag;
+  onMemuClick?: (id: string, value: any) => void;
   [x: string]: any;
 }
 
@@ -167,8 +168,13 @@ class ClassChildBox extends Component<
     this.props.onDoubleClick?.(e);
   };
 
+  /** 右击事件 */
+  handleMemuClick = (id: string, { value }: any) => {
+    this.props.contextMenuConfig?.onMemuClick?.(id, value);
+  };
+
   render() {
-    const { children, id, consumer } = this.props;
+    const { children, id, contextMenuConfig, consumer } = this.props;
     const { _singleClickId, _doubleClickId } = consumer;
     const { style } = this.state;
 
@@ -212,7 +218,10 @@ class ClassChildBox extends Component<
             <RedoOutlined style={{ color: "#3494ce" }} />
           </div>
         )}
-        <ContextMenu options={[{ title: "删除", value: "delete" }]}>
+        <ContextMenu
+          options={contextMenuConfig.options}
+          onMenuClick={this.handleMemuClick.bind(this, id)}
+        >
           {React.cloneElement(child, { ...style, id })}
         </ContextMenu>
       </div>

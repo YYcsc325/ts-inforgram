@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
@@ -43,10 +43,17 @@ const EditContent = (props: IEditContentProps) => {
     setList(props.editContentDataSource);
   }, [props.editContentDataSource]);
 
-  const handleTargetChange = (odps, id) => {
-    console.log(odps, "odps");
-    console.log(id, "id");
-  };
+  const handleBoxMenuClick = useCallback(
+    (id: string, type: any) => {
+      const typeList: any = {
+        delete: () => {
+          setList(list.filter((item) => item.id !== id));
+        },
+      };
+      typeList[type] && typeList[type]();
+    },
+    [list]
+  );
 
   return (
     <div className={prefixCls()} ref={drop}>
@@ -63,6 +70,10 @@ const EditContent = (props: IEditContentProps) => {
               id={item.id}
               scale={item.scale}
               defaultPostion={item.defaultPostion}
+              contextMenuConfig={{
+                options: item.options || [{ title: "删除", value: "delete" }],
+                onMemuClick: handleBoxMenuClick,
+              }}
             >
               <Element {...item} />
             </DragContainer.Box>

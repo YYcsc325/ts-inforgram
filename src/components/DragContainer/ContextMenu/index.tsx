@@ -25,7 +25,6 @@ const ContextMenu: FC<IContextMenuProps> = ({
   options = [],
   onMenuClick,
   placement = "bottomCenter",
-  ...reset
 }) => {
   const handleClick = (value: OptionsItem) => {
     onMenuClick?.(value);
@@ -52,7 +51,7 @@ const ContextMenu: FC<IContextMenuProps> = ({
       trigger={["contextMenu"]}
       overlayClassName={prefixCls()}
     >
-      {children}
+      <div>{children}</div>
     </Dropdown>
   );
 };
