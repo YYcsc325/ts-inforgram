@@ -6,7 +6,6 @@ import { DragContainer } from "@/components";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
 import { IEditContentResponse } from "@/service/edit";
-import ContextMenu from "../components/ContextMenu";
 
 import styles from "./index.less";
 
@@ -65,14 +64,7 @@ const EditContent = (props: IEditContentProps) => {
               scale={item.scale}
               defaultPostion={item.defaultPostion}
             >
-              <ContextMenu
-                options={[
-                  { title: "delete", value: "delete", icon: <span>icon</span> },
-                ]}
-                onMenuClick={(value) => handleTargetChange(value, item.id)}
-              >
-                <Element {...item} />
-              </ContextMenu>
+              <Element {...item} />
             </DragContainer.Box>
           );
         })}

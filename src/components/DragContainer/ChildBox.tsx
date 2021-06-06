@@ -5,6 +5,7 @@ import { RedoOutlined } from "@ant-design/icons";
 import { dragAllowConsts, eventButtons } from "@/consts";
 import DragImg from "@/components/DragComponents/Img";
 import { loadImg } from "@/util/utils";
+import ContextMenu from "./ContextMenu";
 
 import styles from "./ChildBox.less";
 import { transform, transformScale } from "./utils";
@@ -147,7 +148,6 @@ class ClassChildBox extends Component<
   componentDidMount() {
     // 获取子元素默认width跟height
     const { type, props }: any = this.props.children;
-    console.log(this.props.children, "this.props.children");
     if (type === DragImg) {
       loadImg(props.url, this.handleChildStyle);
     } else {
@@ -212,7 +212,9 @@ class ClassChildBox extends Component<
             <RedoOutlined style={{ color: "#3494ce" }} />
           </div>
         )}
-        {React.cloneElement(child, { ...style, id })}
+        <ContextMenu options={[{ title: "删除", value: "delete" }]}>
+          {React.cloneElement(child, { ...style, id })}
+        </ContextMenu>
       </div>
     );
   }
