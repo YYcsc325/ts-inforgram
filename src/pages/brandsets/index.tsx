@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import ContextMenu from "@/components/DragContainer/ContextMenu";
 
 import styles from "./index.less";
 
@@ -22,9 +21,7 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
 
   return (
     <div className={prefixCls()} onClick={handleClick}>
-      <ContextMenu options={[{ title: "测试数据1", value: "delete" }]}>
-        <div>这是什么</div>
-      </ContextMenu>
+      brandsets
     </div>
   );
 };
