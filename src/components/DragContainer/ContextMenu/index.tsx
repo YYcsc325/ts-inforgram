@@ -37,8 +37,8 @@ const ContextMenu: FC<IContextMenuProps> = ({
           onClick={() => handleClick(item)}
           className={prefixCls("menu-item")}
         >
-          <div className={prefixCls("item-icon")}>{item.icon}</div>
           <div className={prefixCls("item-title")}>{item.title}</div>
+          <div className={prefixCls("item-icon")}>{item.icon}</div>
         </div>
       ))}
     </Menu>

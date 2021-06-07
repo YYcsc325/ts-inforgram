@@ -1,19 +1,21 @@
 .dt-context-menu {
-  top: 40px;
   color: #fff;
+  box-shadow: rgb(0 0 0 / 50%) 0px 10px 40px 0px;
+  border: 4px;
 
   :global {
     .ant-dropdown-menu {
       width: 175px;
       padding: 0 5px;
-      margin-top: 10px;
       background-color: #2e2e2e;
-      border-radius: 4px;
+      &:hover {
+        background: rgb(34, 149, 202);
+      }
     }
   }
   &-menu-item {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     height: 34px;
     line-height: 34px;
     cursor: pointer;
