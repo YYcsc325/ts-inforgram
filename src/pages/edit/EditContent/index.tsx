@@ -6,6 +6,7 @@ import { DragContainer } from "@/components";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
 import { IEditContentResponse } from "@/service/edit";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 
@@ -71,7 +72,13 @@ const EditContent = (props: IEditContentProps) => {
               scale={item.scale}
               defaultPostion={item.defaultPostion}
               contextMenuConfig={{
-                options: item.options || [{ title: "删除", value: "delete" }],
+                options: [
+                  {
+                    title: "删除",
+                    value: "delete",
+                    icon: <CloseCircleOutlined />,
+                  },
+                ],
                 onMemuClick: handleBoxMenuClick,
               }}
             >
