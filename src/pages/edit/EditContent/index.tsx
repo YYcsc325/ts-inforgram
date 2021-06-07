@@ -74,7 +74,7 @@ const EditContent = (props: IEditContentProps) => {
               contextMenuConfig={{
                 options: [
                   {
-                    title: "删除",
+                    title: "delete",
                     value: "delete",
                     icon: <CloseCircleOutlined />,
                   },
