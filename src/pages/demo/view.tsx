@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Form, Button, message } from "antd";
+import { Form, Button, message, Input, Select } from "antd";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-import { CustomModal, FormView, Steps, DragHTag, Ellipsis } from "@/components";
+import {
+  CustomModal,
+  FormView,
+  Steps,
+  DragHTag,
+  Ellipsis,
+  RadioGroups,
+} from "@/components";
 import Drag from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
+import classNames from "classnames";
 
 import { defaultConfig } from "./defaultConfig";
 import styles from "./index.less";
@@ -123,6 +131,25 @@ const ComponentList = [
       );
     },
   },
+  {
+    type: "RadioGroups",
+    description: "RadioGroups多选可自定义children",
+    Component: () => {
+      return (
+        <RadioGroups onChange={() => {}} defaultValue="a">
+          <RadioGroups.Item label="不限" value="a" />
+          <RadioGroups.Item label="测试数据1" value="b">
+            <Input style={{ width: 300, marginTop: 10 }} placeholder="请输入" />
+          </RadioGroups.Item>
+          <RadioGroups.Item label="测试数据2" value="c">
+            <Select style={{ width: 300, marginTop: 10 }} placeholder="请选择">
+              <Select.Option value="1">选择数据1</Select.Option>
+            </Select>
+          </RadioGroups.Item>
+        </RadioGroups>
+      );
+    },
+  },
 ];
 
 const Index = () => {
@@ -166,9 +193,16 @@ const Index = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles["demo-btn"]}>
+      <div>
         {ComponentList.map((item) => (
-          <Button onClick={() => handleClick(item)}>{item.description}</Button>
+          <Button
+            onClick={() => handleClick(item)}
+            className={classNames({
+              [styles["demo-btn-active"]]: item.type === renderItem.type,
+            })}
+          >
+            {item.description}
+          </Button>
         ))}
       </div>
       <div className={styles["demo-component"]}>
