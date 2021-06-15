@@ -10,14 +10,15 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 
-const prefixCls = createPrefixClass("edit-content", styles);
+const prefixCls = createPrefixClass("edit-page-warp", styles);
 
-export interface IEditContentProps {
-  editContentDataSource: IEditContentResponse;
+export interface IEditPageProps {
+  editPageData: IEditContentResponse;
+  className?: string;
 }
 
-const EditContent = (props: IEditContentProps) => {
-  const [list, setList] = useState(props.editContentDataSource);
+const EditPage = (props: IEditPageProps) => {
+  const [list, setList] = useState(props.editPageData);
 
   const listIds = useMemo(() => {
     return list.map((item) => item.id);
@@ -41,8 +42,8 @@ const EditContent = (props: IEditContentProps) => {
   });
 
   useEffect(() => {
-    setList(props.editContentDataSource);
-  }, [props.editContentDataSource]);
+    setList(props.editPageData);
+  }, [props.editPageData]);
 
   const handleBoxMenuClick = useCallback(
     (id: string, type: any) => {
@@ -57,7 +58,7 @@ const EditContent = (props: IEditContentProps) => {
   );
 
   return (
-    <div className={prefixCls()} ref={drop}>
+    <div className={prefixCls()} ref={drop} style={{ marginTop: "10px" }}>
       <DragContainer
         className={classNames(prefixCls("edit-page"), {
           [prefixCls("isover")]: isOver,
@@ -69,7 +70,6 @@ const EditContent = (props: IEditContentProps) => {
             <DragContainer.Box
               key={item.id}
               id={item.id}
-              scale={item.scale}
               defaultPostion={item.defaultPostion}
               contextMenuConfig={{
                 options: [
@@ -91,4 +91,4 @@ const EditContent = (props: IEditContentProps) => {
   );
 };
 
-export default EditContent;
+export default EditPage;

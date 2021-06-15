@@ -63,9 +63,11 @@ const Edit: FC<IEditProps> = (props) => {
             <MenuNav />
           </div>
           <div className={styles["editContent"]}>
-            <EditContent editContentDataSource={props.editContentDataSource} />
+            {[1, 2, 3].map((item) => (
+              <EditContent editPageData={props.editContentDataSource} />
+            ))}
           </div>
-          <div className={styles["editContentRight"]}>4</div>
+          <div className={styles["editContentRight"]}></div>
         </div>
       </div>
     </DndProvider>
