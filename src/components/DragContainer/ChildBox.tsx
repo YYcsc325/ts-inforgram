@@ -96,9 +96,12 @@ class ClassChildBox extends Component<
     // 判断鼠标是否按住
     if (!this.$isDown) return;
 
-    const newStyle = scale
-      ? transformScale(this.$direction, this.$oriPos, e)
-      : transform(this.$direction, this.$oriPos, e);
+    const newStyle =
+      /* scale ? transformScale(this.$direction, this.$oriPos, e) : */ transform(
+        this.$direction,
+        this.$oriPos,
+        e
+      );
     const { x, y } = this.props._onDrag?.(newStyle.left, newStyle.top);
     // 还得计算transForm的scale的值
 
