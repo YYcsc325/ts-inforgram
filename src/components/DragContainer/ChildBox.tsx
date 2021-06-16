@@ -222,7 +222,7 @@ class ClassChildBox extends Component<
           </div>
         )}
         <ContextMenu
-          options={contextMenuConfig.options}
+          options={contextMenuConfig?.options || []}
           onMenuClick={this.handleMemuClick.bind(this, id)}
         >
           {React.cloneElement(child, { ...style, id })}
