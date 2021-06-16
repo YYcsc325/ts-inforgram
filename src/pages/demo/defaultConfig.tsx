@@ -5,8 +5,6 @@ import { Input } from "antd";
 
 import connect from "./connect";
 
-import InputList from "./components/InputList";
-
 const list = [
   { label: "产品ID", rules: [{ required: true, message: "必填" }] },
 ];
@@ -45,16 +43,7 @@ export const defaultConfig = [
       label: "自定义",
     },
     component: ({ form }) => {
-      return (
-        <InputList
-          fatherKey="custom"
-          form={form}
-          options={list.map((item, index) => ({
-            key: `custom.${index}`,
-            ...item,
-          }))}
-        />
-      );
+      return <div>自定义</div>;
     },
   },
   {

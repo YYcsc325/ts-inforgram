@@ -1,0 +1,29 @@
+.dt-shrink-line {
+  width: 100%;
+  border-top: 1px solid rgb(101, 101, 101);
+  position: relative;
+
+  &-shrink-line-box {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 63px;
+    height: 13px;
+    left: calc(50% - 32px);
+    top: -8px;
+    cursor: ns-resize;
+    border-radius: 4px;
+    background-color: rgb(101, 101, 101);
+    &:hover {
+      background-color: rgb(49, 148, 203);
+    }
+  }
+  &-shrink-line-double {
+    display: inline-block;
+    width: 23px;
+    height: 5px;
+    border-top: 1px solid rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(255, 255, 255);
+  }
+}

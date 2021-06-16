@@ -44,7 +44,6 @@ const Content: FC<IContentProps> = ({ consumer }) => {
           <DragContainer.Box
             key={item.id}
             id={item.id}
-            scale={item.scale}
             defaultPostion={item.defaultPostion}
             defaultStyle={item.defaultStyle}
           >

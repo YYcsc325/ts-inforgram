@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import { ChromePicker } from "react-color";
+import ShrinkLine from "@/components/DragContainer/ShrinkLine";
 
 import styles from "./index.less";
 
@@ -12,7 +12,6 @@ interface ITeamProps {
 const prefixCls = createPrefixClass("team", styles);
 
 const Team: FC<ITeamProps> = ({ consumer }) => {
-  const [color, setColor] = useState<string>("");
   const handleClick = () => {
     consumer?.handleShowShrinkageChange(false);
   };
@@ -23,14 +22,9 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
 
   return (
     <div id={"team"} className={prefixCls()} onClick={handleClick}>
-      <ChromePicker
-        onChange={(e) => {
-          setColor(e.hex);
-        }}
-        color={color}
-      />
-      {color}
-      <span style={{ color }}>这是选择的颜色</span>
+      <div style={{ marginTop: "100px" }}>
+        <ShrinkLine></ShrinkLine>
+      </div>
     </div>
   );
 };
