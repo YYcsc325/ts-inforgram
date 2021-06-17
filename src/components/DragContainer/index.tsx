@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { createPrefixClass, filterChildren } from "@/util/utils";
 
 import ChildBox from "./ChildBox";
+import ShrinkLine from "./ShrinkLine";
 import { ContextProvider } from "./context";
 import { unique, checkArrayWithPush, getMaxDistance } from "./utils";
 import styles from "./index.less";
@@ -21,6 +22,7 @@ type IDragContainerPropsWithChildren = PropsWithChildren<IDragContainerProps>;
 interface IDragContainerState {
   singleClickId?: string;
   doubleClickId?: string;
+  style?: React.CSSProperties;
   vLines: string[];
   hLines: string[];
   indices: string[];
@@ -31,17 +33,23 @@ class DragContainer extends Component<
   IDragContainerState
 > {
   static Box: any = ChildBox;
-  nodeRef: any = null;
+  $nodeRef: any = null;
   $children: any = [];
 
   constructor(props: IDragContainerPropsWithChildren) {
     super(props);
+    const { style } = props;
     this.state = {
       singleClickId: undefined,
       doubleClickId: undefined,
       vLines: [],
       hLines: [],
       indices: [],
+      style: {
+        ...style,
+        width: style?.width || "100%",
+        height: style?.height || "800px",
+      },
     };
   }
 
@@ -53,8 +61,12 @@ class DragContainer extends Component<
   };
 
   componentDidMount() {
-    // 捕获阶段先行执行，有点问题，临时方案
     document.addEventListener("click", this.privateClick);
+  }
+  componentDidUpdate(preProps: IDragContainerProps) {
+    if (preProps.style !== this.props.style) {
+      this.setState({ style: this.props.style });
+    }
   }
   componentWillUnmount() {
     document.removeEventListener("click", this.privateClick);
@@ -62,7 +74,7 @@ class DragContainer extends Component<
 
   /** 存储当前组件的ref */
   handleRoot = (node: any) => {
-    this.nodeRef = node;
+    this.$nodeRef = node;
   };
 
   handleChildClick = (e: any, props: any = {}) => {
@@ -83,7 +95,7 @@ class DragContainer extends Component<
   handleChildStart = () => {
     this.$children = filterChildren(this.props.children, ChildBox).map(
       (item, i) => {
-        const $ = this.nodeRef?.childNodes?.[i];
+        const $ = this.$nodeRef?.childNodes?.[i];
         const x = Number($.getAttribute("data-x"));
         const y = Number($.getAttribute("data-y"));
         const w = $.clientWidth;
@@ -379,23 +391,24 @@ class DragContainer extends Component<
   };
 
   render() {
-    const { className, style } = this.props;
-    const { singleClickId, doubleClickId } = this.state;
+    const { className } = this.props;
+    const { singleClickId, doubleClickId, style } = this.state;
     return (
       <ContextProvider
         value={{
           _singleClickId: singleClickId,
           _doubleClickId: doubleClickId,
-          _dragArea: this.nodeRef,
+          _dragArea: this.$nodeRef,
         }}
       >
         <div
-          style={style}
+          style={{ ...style }}
           className={classNames(prefixCls(), className)}
           ref={this.handleRoot}
         >
           {this.renderChildren()}
           {this.renderGuideLine()}
+          <ShrinkLine className={prefixCls("shrink-line")} />
         </div>
       </ContextProvider>
     );

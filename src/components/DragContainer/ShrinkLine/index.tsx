@@ -17,17 +17,25 @@ const ShrinkLine: FC<IShrinkLineProps> = ({
   className,
   onMouseMove,
 }) => {
-  const handleMouseMove = useCallback(
+  const handleMouseDown = useCallback(
     (e) => {
       console.log(e, "e");
     },
     [onMouseMove]
   );
+
+  const handleMouseMove = useCallback(() => {}, []);
+
+  const handleMouseUp = useCallback(() => {
+    document?.removeEventListener?.("mousemove", handleMouseMove);
+    document?.removeEventListener?.("mouseup", handleMouseUp);
+  }, []);
+
   return (
     <div className={classNames(prefixCls(), className)} style={style}>
       <span
         className={prefixCls("shrink-line-box")}
-        onMouseMove={handleMouseMove}
+        onMouseDown={handleMouseDown}
       >
         <span className={prefixCls("shrink-line-double")}></span>
       </span>
