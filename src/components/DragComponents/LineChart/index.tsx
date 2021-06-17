@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Chart } from "@antv/g2";
 import { createPrefixClass } from "@/util/utils";
+import { v4 } from "uuid";
 
 import styles from "./index.less";
 
@@ -23,12 +24,13 @@ interface ILineChartProps {
 }
 
 class LineChart extends Component<ILineChartProps> {
+  $parivateId = v4();
   $chart: any;
 
   componentDidMount() {
     const { id, width = 300, height = 300 } = this.props;
     const chart = new Chart({
-      container: `line-chart_${id}`, // 指定图表容器 ID
+      container: `line-chart_${id}_${this.$parivateId}`, // 指定图表容器 ID
       width,
       height,
     });
@@ -53,7 +55,12 @@ class LineChart extends Component<ILineChartProps> {
 
   render() {
     const { id } = this.props;
-    return <div id={`line-chart_${id}`} className={prefixCls()}></div>;
+    return (
+      <div
+        id={`line-chart_${id}_${this.$parivateId}`}
+        className={prefixCls()}
+      ></div>
+    );
   }
 }
 
