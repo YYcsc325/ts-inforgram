@@ -28,6 +28,7 @@
     "echarts-for-react": "^3.0.1",
     "immutability-helper": "^3.1.1",
     "js-cookie": "^2.2.1",
+    "localforage": "^1.9.0",
     "lodash": "^4.17.21",
     "qs": "^6.10.1",
     "react-color": "^2.19.3",
