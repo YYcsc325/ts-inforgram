@@ -15,3 +15,4 @@ export { default as CustomDropDown } from "./CustomDropDown";
 export { default as DragContainer } from "./DragContainer";
 export { default as Ellipsis } from "./Ellipsis";
 export { default as RadioGroups } from "./RadioGroups";
+export { default as CardTabs } from "./CardTabs";

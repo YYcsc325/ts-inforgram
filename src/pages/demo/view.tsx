@@ -9,6 +9,7 @@ import {
   DragHTag,
   Ellipsis,
   RadioGroups,
+  CardTabs,
 } from "@/components";
 import Drag from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
@@ -147,6 +148,26 @@ const ComponentList = [
             </Select>
           </RadioGroups.Item>
         </RadioGroups>
+      );
+    },
+  },
+  {
+    type: "CardTabs",
+    description: "CardTabs可切换tab框",
+    Component: () => {
+      return (
+        <CardTabs defaultValue="1">
+          <CardTabs.Tab
+            title="Tab1"
+            value="1"
+            description="描述点数据1的内容"
+          />
+          <CardTabs.Tab
+            title="Tab2"
+            value="2"
+            description="描述点数据2的内容"
+          />
+        </CardTabs>
       );
     },
   },
