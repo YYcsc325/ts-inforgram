@@ -1,0 +1,32 @@
+.dt-card-tabs {
+  display: flex;
+}
+.dt-tab {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 4px solid transparent;
+  cursor: pointer;
+  &:hover &-title {
+    color: #1677ff;
+  }
+  &:hover &-description {
+    color: #1677ff;
+  }
+
+  &-active {
+    border-bottom-color: #1677ff;
+  }
+  &-line {
+    border-right: 1px solid #e3e3e3;
+  }
+  &-title {
+    font-size: 18px;
+    color: #000;
+    font-family: PingFangSC-Medium;
+  }
+  &-description {
+    font-size: 16px;
+    color: #999;
+    font-family: PingFangSC-Regular;
+  }
+}
