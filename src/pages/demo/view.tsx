@@ -10,6 +10,7 @@ import {
   Ellipsis,
   RadioGroups,
   CardTabs,
+  Composite,
 } from "@/components";
 import Drag from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
@@ -168,6 +169,18 @@ const ComponentList = [
             description="描述点数据2的内容"
           />
         </CardTabs>
+      );
+    },
+  },
+  {
+    type: "Composite",
+    description: "Composite渲染固定位置组件",
+    Component: () => {
+      return (
+        <Composite>
+          <Composite.Left>left</Composite.Left>
+          <Composite.Right>right</Composite.Right>
+        </Composite>
       );
     },
   },
