@@ -16,3 +16,4 @@ export { default as DragContainer } from "./DragContainer";
 export { default as Ellipsis } from "./Ellipsis";
 export { default as RadioGroups } from "./RadioGroups";
 export { default as CardTabs } from "./CardTabs";
+export { default as Composite } from "./Composite";
