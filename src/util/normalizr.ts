@@ -5,40 +5,40 @@
 
 import { normalize, schema } from "normalizr";
 
-const data = [
-  {
-    id: "123",
-    author: {
-      id: "1",
-      name: "Paul",
-    },
-    title: "My awesome blog post",
-    comments: [
-      {
-        id: "324",
-        commenter: {
-          id: "2",
-          name: "Nicole",
-        },
-      },
-    ],
+const originalData = {
+  id: "123",
+  author: {
+    id: "1",
+    name: "Paul",
   },
-];
+  title: "My awesome blog post",
+  comments: [
+    {
+      id: "324",
+      commenter: {
+        id: "2",
+        name: "Nicole",
+      },
+    },
+  ],
+};
 
+// Define a users schema
 const user = new schema.Entity("users");
 
+// Define your comments schema
 const comment = new schema.Entity("comments", {
   commenter: user,
 });
 
+// Define your article
 const article = new schema.Entity("articles", {
   author: user,
   comments: [comment],
 });
 
-console.log(user, "user");
-console.log(comment, "comment");
-console.log(article, "article");
-console.log(normalize(data, user), "normalize");
+const normalizedData = normalize(originalData, article);
+
+console.log(normalizedData, "normalize");
 
 export default () => {};

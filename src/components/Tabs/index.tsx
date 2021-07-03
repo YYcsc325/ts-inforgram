@@ -16,6 +16,7 @@ interface ITabsProps {
 interface ITabsPaneProps {
   tab: React.ReactNode;
   value: string;
+  active?: boolean;
   className?: string;
   privateValue?: string;
   onChange?: (key: string) => void;
@@ -45,7 +46,10 @@ const Tabs: FC<ITabsProps> & {
     <div className={classNames(prefixTabCls(), className)}>
       <div className={prefixTabCls("warp")}>
         {childFilter.map((child) =>
-          React.cloneElement(child, { onChange: handleChange, privateValue })
+          React.cloneElement(child, {
+            onChange: handleChange,
+            active: child?.props?.value === privateValue,
+          })
         )}
       </div>
       <div>
@@ -58,6 +62,7 @@ const Tabs: FC<ITabsProps> & {
 const TabsPane: FC<ITabsPaneProps> = ({
   tab,
   value,
+  active,
   onChange,
   className,
   children,
@@ -73,7 +78,7 @@ const TabsPane: FC<ITabsPaneProps> = ({
       className={classNames(
         prefixTabPaneCls(),
         {
-          [prefixTabPaneCls("active")]: privateValue === value,
+          [prefixTabPaneCls("active")]: active,
         },
         className
       )}
