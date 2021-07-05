@@ -15,9 +15,12 @@ import {
 import Drag from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
 import classNames from "classnames";
+import normalizrUtils from "@/util/normalizr";
 
 import { defaultConfig } from "./defaultConfig";
 import styles from "./index.less";
+
+normalizrUtils();
 
 const ComponentList = [
   {
