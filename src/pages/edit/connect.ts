@@ -9,7 +9,7 @@ const queryEditContentDaraSource = (payload: any) => ({
 
 const mapStateToProps = ({ edit }: any) => {
   return {
-    editContentDataSource: get(edit, ["editContentDataSource"], []),
+    // pagesDatasource: get(edit, ["editContentDataSource"], []),
   };
 };
 
