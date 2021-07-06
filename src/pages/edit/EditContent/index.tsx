@@ -13,12 +13,12 @@ import styles from "./index.less";
 const prefixCls = createPrefixClass("edit-page-warp", styles);
 
 export interface IEditPageProps {
-  editPageData: IEditContentResponse;
+  boxsData: IEditContentResponse;
   className?: string;
 }
 
 const EditPage = (props: IEditPageProps) => {
-  const [list, setList] = useState(props.editPageData);
+  const [list, setList] = useState(props.boxsData);
 
   const listIds = useMemo(() => {
     return list.map((item) => item.id);
@@ -42,8 +42,8 @@ const EditPage = (props: IEditPageProps) => {
   });
 
   useEffect(() => {
-    setList(props.editPageData);
-  }, [props.editPageData]);
+    setList(props.boxsData);
+  }, [props.boxsData]);
 
   const handleBoxMenuClick = useCallback(
     (id: string, type: any) => {

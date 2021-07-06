@@ -20,13 +20,20 @@ export interface IEditProps
 
 const Edit: FC<IEditProps> = (props) => {
   const [targetId] = useState(props.match?.params?.id);
+  const [pagesData, setPagesData] = useState([]);
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;
   }
 
   useEffect(() => {
-    props.dispatchEditContentDataSource?.({ id: targetId as string });
+    props
+      .dispatchEditContentDataSource?.({
+        id: targetId as string,
+      })
+      .then((res: any) => {
+        setPagesData(res.result || []);
+      });
   }, []);
 
   return (
@@ -37,8 +44,8 @@ const Edit: FC<IEditProps> = (props) => {
           <div className={styles["editContentWarp"]}>
             <EditMenu />
             <div className={styles["editContent"]}>
-              {[1, 2, 3].map((item) => (
-                <EditContent editPageData={props.editContentDataSource} />
+              {pagesData.map(({ id, name, children = [] }) => (
+                <EditContent boxsData={children} />
               ))}
             </div>
             <EditData />

@@ -1,6 +1,7 @@
 /**
  * @name 数据范式化，扁平化
  * @desc: github地址： https://github.com/paularmstrong/normalizr
+ * @desc  借鉴地址： https://zhuanlan.zhihu.com/p/55984381
  */
 
 import { normalize, denormalize, schema } from "normalizr";
