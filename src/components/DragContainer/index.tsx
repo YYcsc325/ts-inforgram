@@ -2,19 +2,18 @@ import React, { Component, PropsWithChildren } from "react";
 import classNames from "classnames";
 import { createPrefixClass, filterChildren } from "@/util/utils";
 
-import ChildBox from "./ChildBox";
+import ChildBox, { handleDrag } from "./ChildBox";
 import ShrinkLine from "./ShrinkLine";
-import { ContextProvider } from "./context";
 import { unique, checkArrayWithPush, getMaxDistance } from "./utils";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("drag-container", styles);
-
 interface IDragContainerProps {
   className?: string;
   style?: React.CSSProperties;
-  onChildClick?: (params: any) => void;
-  onChildDrag?: (params: { string: any }) => void;
+  onMouseEnd?: handleDrag;
+  onMouseMove?: handleDrag;
+  onMouseStart?: handleDrag;
 }
 
 type IDragContainerPropsWithChildren = PropsWithChildren<IDragContainerProps>;
@@ -32,7 +31,7 @@ class DragContainer extends Component<
   IDragContainerPropsWithChildren,
   IDragContainerState
 > {
-  static Box: any = ChildBox;
+  static Box = ChildBox;
   $nodeRef: any = null;
   $children: any = [];
 
@@ -92,7 +91,7 @@ class DragContainer extends Component<
   };
 
   // 拖拽初始时 计算出所有元素的坐标信息，存储于childPos
-  handleChildStart = () => {
+  handleChildStart: handleDrag = (e, id, data) => {
     this.$children = filterChildren(this.props.children, ChildBox).map(
       (item, i) => {
         const $ = this.$nodeRef?.childNodes?.[i];
@@ -117,26 +116,41 @@ class DragContainer extends Component<
         };
       }
     );
+    this.props.onMouseStart?.(e, id, data);
   };
 
   /** 拖拽结束 */
-  handleChildEnd = () => {
+  handleChildEnd: handleDrag = (e, id, data) => {
     this.setState({ vLines: [], hLines: [], indices: [] });
+    console.log(this.props, "asdsadas");
+    this.props.onMouseEnd?.(e, id, data);
   };
 
   // 拖动中计算是否吸附/显示辅助线
   handleChildDrag = (index: number) => {
-    return (x: any, y: any) => {
+    return (e: any, id: any, data: any) => {
       const target = this.$children?.[index];
+      const { left, top } = data || {};
       const compares = this.$children?.filter(
         (_: any, i: number) => i !== index
       );
 
       if (compares.length === 0) {
-        return { x, y };
+        this.props.onMouseMove?.(e, id, data);
+        return { x: left, y: top };
       }
 
-      return this.calcAndDrawLines({ x, y }, target, compares);
+      const endPosition = this.calcAndDrawLines(
+        { x: left, y: top },
+        target,
+        compares
+      );
+      this.props.onMouseMove?.(e, id, {
+        ...data,
+        left: endPosition.x,
+        top: endPosition.y,
+      });
+      return endPosition;
     };
   };
   /**
@@ -333,14 +347,18 @@ class DragContainer extends Component<
   /** 渲染children */
   renderChildren = () => {
     const childList = filterChildren(this.props.children, ChildBox);
-    return childList.map((child, index) =>
+    const { singleClickId, doubleClickId } = this.state;
+
+    return childList.map((child: any, index) =>
       React.cloneElement(child, {
         // @ts-ignore
-        _onDrag: this.handleChildDrag(index),
-        _onStart: this.handleChildStart,
-        _onEnd: this.handleChildEnd,
-        _onClick: (e: any) => this.handleChildClick(e, child.props),
-        _onDoubleClick: (e: any) => this.handleChildDoubleClick(e, child.props),
+        isSingleClicked: singleClickId === child.props.id,
+        isDoubleClicked: doubleClickId === child.props.id,
+        onMouseMove: this.handleChildDrag(index),
+        onMouseStart: this.handleChildStart,
+        onMouseEnd: this.handleChildEnd,
+        onClick: (e: any) => this.handleChildClick(e, child.props),
+        onDoubleClick: (e: any) => this.handleChildDoubleClick(e, child.props),
       })
     );
   };
@@ -392,25 +410,18 @@ class DragContainer extends Component<
 
   render() {
     const { className } = this.props;
-    const { singleClickId, doubleClickId, style } = this.state;
+    const { style } = this.state;
+
     return (
-      <ContextProvider
-        value={{
-          _singleClickId: singleClickId,
-          _doubleClickId: doubleClickId,
-          _dragArea: this.$nodeRef,
-        }}
+      <div
+        style={{ ...style }}
+        className={classNames(prefixCls(), className)}
+        ref={this.handleRoot}
       >
-        <div
-          style={{ ...style }}
-          className={classNames(prefixCls(), className)}
-          ref={this.handleRoot}
-        >
-          {this.renderChildren()}
-          {this.renderGuideLine()}
-          <ShrinkLine className={prefixCls("shrink-line")} />
-        </div>
-      </ContextProvider>
+        {this.renderChildren()}
+        {this.renderGuideLine()}
+        <ShrinkLine className={prefixCls("shrink-line")} />
+      </div>
     );
   }
 }

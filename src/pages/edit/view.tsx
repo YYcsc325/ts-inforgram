@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useCallback } from "react";
 import { Redirect, IRouteComponentProps } from "umi";
 import Cookies from "js-cookie";
 import { parse } from "qs";
@@ -12,6 +12,7 @@ import EditData from "./editData";
 
 import { IConnectProps } from "./connect";
 import { EditContextProvider } from "./context";
+import { normalizePagesData } from "./utils";
 import styles from "./index.less";
 
 export interface IEditProps
@@ -20,7 +21,8 @@ export interface IEditProps
 
 const Edit: FC<IEditProps> = (props) => {
   const [targetId] = useState(props.match?.params?.id);
-  const [pagesData, setPagesData] = useState([]);
+  const [pagesData, setPagesData] = useState<any>({});
+  const [boxsData, setBoxsData] = useState<any>({});
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;
@@ -32,9 +34,39 @@ const Edit: FC<IEditProps> = (props) => {
         id: targetId as string,
       })
       .then((res: any) => {
-        setPagesData(res.result || []);
+        const normalize = normalizePagesData(res.result || []);
+        setPagesData(normalize.get("pages") as any);
+        setBoxsData(normalize.get("boxs") as any);
       });
   }, []);
+
+  // 修改page数据
+  const handleModifyPage = () => {};
+  // 修改box数据
+  const handleModifyBox = () => {};
+
+  // 删除
+  const handleEditDelete = () => {};
+  // 修改
+  const handleEditModify = () => {};
+  // 增加
+  const handleEditAdd = () => {};
+
+  /** 优化page的渲染 */
+  const PageContent = useCallback(() => {
+    return (
+      <div>
+        {Object.values(pagesData).map(({ id, name, children = [] }: any) => {
+          const boxsList = children.map((item: string) => ({
+            ...boxsData[item],
+          }));
+          return (
+            <EditContent boxsData={boxsList} id={id} pageName={name} key={id} />
+          );
+        })}
+      </div>
+    );
+  }, [pagesData, boxsData]);
 
   return (
     <EditContextProvider>
@@ -44,9 +76,7 @@ const Edit: FC<IEditProps> = (props) => {
           <div className={styles["editContentWarp"]}>
             <EditMenu />
             <div className={styles["editContent"]}>
-              {pagesData.map(({ id, name, children = [] }) => (
-                <EditContent boxsData={children} />
-              ))}
+              <PageContent />
             </div>
             <EditData />
           </div>

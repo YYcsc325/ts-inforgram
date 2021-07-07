@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useCallback, FC } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
@@ -13,11 +13,13 @@ import styles from "./index.less";
 const prefixCls = createPrefixClass("edit-page-warp", styles);
 
 export interface IEditPageProps {
+  id: string;
   boxsData: IEditContentResponse;
+  pageName: React.ReactNode;
   className?: string;
 }
 
-const EditPage = (props: IEditPageProps) => {
+const EditPage: FC<IEditPageProps> = (props) => {
   const [list, setList] = useState(props.boxsData);
 
   const listIds = useMemo(() => {
@@ -31,7 +33,7 @@ const EditPage = (props: IEditPageProps) => {
       const isFind = listIds.includes(item.id);
       if (!isFind) {
         let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
-        setList(list.concat({ ...item, defaultPostion: { left: x, top: y } }));
+        setList(list.concat({ ...item, postion: { left: x, top: y } }));
       }
       return { ...item };
     },
@@ -63,14 +65,17 @@ const EditPage = (props: IEditPageProps) => {
         className={classNames(prefixCls("edit-page"), {
           [prefixCls("isover")]: isOver,
         })}
+        onMouseEnd={(...args) => {
+          console.log(args, "data");
+        }}
       >
-        {list.map((item) => {
+        {list.map((item: any) => {
           const Element = getDragComponent(item.type as string);
           return (
             <DragContainer.Box
               key={item.id}
               id={item.id}
-              defaultPostion={item.defaultPostion}
+              postion={item.postion}
               contextMenuConfig={{
                 options: [
                   {
