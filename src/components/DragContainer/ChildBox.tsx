@@ -9,7 +9,6 @@ import ContextMenu from "./ContextMenu";
 
 import styles from "./ChildBox.less";
 import { transform, transformScale } from "./utils";
-import { contextConsumer } from "./context";
 
 const { E, W, S, N, NE, NW, SE, SW, ROTATE, MOVE } = dragAllowConsts;
 
@@ -27,45 +26,47 @@ type IDragData = {
   transform?: string;
 };
 
-type handleDrag = (e: IDragEvent, id: string, data: IDragData) => void;
+export type handleDrag = (e: IDragEvent, id: string, data: IDragData) => void;
 
 export interface IDragBoxProps {
   id: string; // 唯一标识
   scale?: boolean; // 是否开启等比例缩放
-  defaultPostion?: Pick<IDragData, "left" | "top">;
-  onDrag?: handleDrag;
-  onStart?: handleDrag;
-  onEnd?: handleDrag;
+  postion?: Pick<IDragData, "left" | "top">;
+  isSingleClicked?: boolean;
+  isDoubleClicked?: boolean;
+  contextMenuConfig?: any;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onDoubleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onMouseMove?: handleDrag;
+  onMouseStart?: handleDrag;
+  onMouseEnd?: handleDrag;
   onMemuClick?: (id: string, value: any) => void;
-  [x: string]: any;
 }
 
 export type IDragBoxPropsWithChildren = PropsWithChildren<IDragBoxProps>;
-
 export interface IDragBoxState {
   style: IDragData; // 内部存储样式 -> (left, top, width, height)
-  targetArea: Document | Element; // 目标拖拽区域
 }
-
 class ClassChildBox extends Component<
   IDragBoxPropsWithChildren,
   IDragBoxState
 > {
-  $node: any = null;
-  $direction: any = "";
-  $isDown: boolean = false;
-  $oriPos: any = {};
+  $node: any = null; // 当前组件最外层div的ref
+  $direction: any = ""; // 记录拖拽的方位，是哪个方位引发的拖拽
+  $isDown: boolean = false; // 记录鼠标是否按下
+  $oriPos: any = {}; // 记录x,y坐标信息
+  $parentNode: any = null; // 拖拽区域，父元素
 
   constructor(props: IDragBoxPropsWithChildren) {
     super(props);
+    const { left, top } = props.postion || {};
     this.state = {
       style: {
         ...{
-          left: props?.defaultPostion?.left ?? 0,
-          top: props?.defaultPostion?.top ?? 0,
+          left: left ?? 0,
+          top: top ?? 0,
         },
       },
-      targetArea: props._dragArea || document,
     };
   }
 
@@ -74,7 +75,7 @@ class ClassChildBox extends Component<
     // 鼠标右击按下取消事件
     if (e.button === eventButtons.EVENTBUTTON2) return;
     const { id } = this.props;
-    const { targetArea, style } = this.state;
+    const { style } = this.state;
     // 阻止事件冒泡
     e.stopPropagation();
     // 保存拖拽事件方向。
@@ -82,28 +83,22 @@ class ClassChildBox extends Component<
     this.$isDown = true;
     this.$oriPos = { ...style, cX: e.clientX, cY: e.clientY };
 
-    this.props._onStart?.(e, id, style);
+    this.props.onMouseStart?.(e, id, style);
     // 在目标拖拽区域注册事件
-    targetArea?.addEventListener?.("mousemove", this.onMouseMove);
-    targetArea?.addEventListener?.("mouseup", this.onMouseUp);
+    this.$parentNode?.addEventListener?.("mousemove", this.onMouseMove);
+    this.$parentNode?.addEventListener?.("mouseup", this.onMouseUp);
   };
 
   // 鼠标移动
   onMouseMove = (e: any) => {
     e.stopPropagation();
-
-    const { scale } = this.props;
+    const { id } = this.props;
     // 判断鼠标是否按住
     if (!this.$isDown) return;
 
-    const newStyle =
-      /* scale ? transformScale(this.$direction, this.$oriPos, e) : */ transform(
-        this.$direction,
-        this.$oriPos,
-        e
-      );
-    const { x, y } = this.props._onDrag?.(newStyle.left, newStyle.top);
-    // 还得计算transForm的scale的值
+    const newStyle = transform(this.$direction, this.$oriPos, e);
+
+    const { x, y }: any = this.props.onMouseMove?.(e, id, newStyle);
 
     this.setState({
       style: { ...newStyle, left: x, top: y },
@@ -113,28 +108,21 @@ class ClassChildBox extends Component<
   // 鼠标被抬起
   onMouseUp = (e: any) => {
     e.stopPropagation();
-    const { id } = this.props;
-    const { style, targetArea } = this.state;
     this.$isDown = false;
 
-    this.props._onEnd?.(e, id, style);
-    // 取消注册事件
-    targetArea?.removeEventListener?.("mousemove", this.onMouseMove);
-    targetArea?.removeEventListener?.("mouseup", this.onMouseUp);
-  };
+    const { id } = this.props;
+    const { style } = this.state;
 
-  /** 更新指定拖拽区域 */
-  componentDidUpdate(preProps: any) {
-    if (preProps?.consumer?._dragArea !== this.props.consumer?._dragArea) {
-      this.setState({
-        targetArea: this.props.consumer?._dragArea,
-      });
-    }
-  }
+    this.props.onMouseEnd?.(e, id, style);
+    // 取消注册事件
+    this.$parentNode?.removeEventListener?.("mousemove", this.onMouseMove);
+    this.$parentNode?.removeEventListener?.("mouseup", this.onMouseUp);
+  };
 
   /** 获取ref */
   handlePrivateRef = (node: any) => {
     this.$node = node;
+    this.$parentNode = node?.parentNode;
   };
 
   handleChildStyle = () => {
@@ -161,13 +149,11 @@ class ClassChildBox extends Component<
 
   /** 单击事件 */
   handleSingleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    this.props._onClick?.(e);
     this.props.onClick?.(e);
   };
 
   /** 双击事件 */
   handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    this.props._onDoubleClick?.(e);
     this.props.onDoubleClick?.(e);
   };
 
@@ -177,12 +163,15 @@ class ClassChildBox extends Component<
   };
 
   render() {
-    const { children, id, contextMenuConfig, consumer } = this.props;
-    const { _singleClickId, _doubleClickId } = consumer;
-    const { style } = this.state;
+    const {
+      children,
+      id,
+      contextMenuConfig,
+      isSingleClicked,
+      isDoubleClicked,
+    } = this.props;
 
-    const isSingleClicked = _singleClickId === id;
-    const isDoubleClicked = _doubleClickId === id;
+    const { style } = this.state;
 
     const child = React.Children.only(children) as any;
 
@@ -232,4 +221,4 @@ class ClassChildBox extends Component<
   }
 }
 
-export default contextConsumer(ClassChildBox);
+export default ClassChildBox;
