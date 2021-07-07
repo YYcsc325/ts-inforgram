@@ -42,15 +42,17 @@ const Edit: FC<IEditProps> = (props) => {
 
   // 修改page数据
   const handleModifyPage = () => {};
+  // 删除page数据
+  const handleDeletePage = () => {};
+  // 增加page数据
+  const handleAddPage = () => {};
+
   // 修改box数据
   const handleModifyBox = () => {};
-
-  // 删除
-  const handleEditDelete = () => {};
-  // 修改
-  const handleEditModify = () => {};
-  // 增加
-  const handleEditAdd = () => {};
+  // 删除box数据
+  const handleDeleteBox = () => {};
+  // 增加box数据
+  const handleAddBox = (parentId: number, id: number, data: any) => {};
 
   /** 优化page的渲染 */
   const PageContent = useCallback(() => {

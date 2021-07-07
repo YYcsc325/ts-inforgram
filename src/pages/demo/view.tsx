@@ -20,7 +20,7 @@ import normalizrUtils from "@/util/normalizr";
 import { defaultConfig } from "./defaultConfig";
 import styles from "./index.less";
 
-normalizrUtils();
+// normalizrUtils();
 
 const ComponentList = [
   {
