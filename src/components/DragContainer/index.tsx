@@ -122,7 +122,6 @@ class DragContainer extends Component<
   /** 拖拽结束 */
   handleChildEnd: handleDrag = (e, id, data) => {
     this.setState({ vLines: [], hLines: [], indices: [] });
-    console.log(this.props, "asdsadas");
     this.props.onMouseEnd?.(e, id, data);
   };
 

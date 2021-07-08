@@ -32,8 +32,9 @@ const ContextMenu: FC<IContextMenuProps> = ({
 
   const menu = (
     <Menu>
-      {options.map((item) => (
+      {options.map((item, index) => (
         <div
+          key={item.value || index}
           onClick={() => handleClick(item)}
           className={prefixCls("menu-item")}
         >

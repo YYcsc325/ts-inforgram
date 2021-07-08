@@ -1,9 +1,10 @@
-import React, { useEffect, useState, FC, useCallback } from "react";
+import React, { useEffect, useState, FC, useRef } from "react";
 import { Redirect, IRouteComponentProps } from "umi";
 import Cookies from "js-cookie";
 import { parse } from "qs";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { set, omit } from "lodash";
 
 import EditHeader from "./editHeader";
 import EditMenu from "./editMenu";
@@ -19,10 +20,16 @@ export interface IEditProps
   extends IConnectProps,
     IRouteComponentProps<{ id?: string }> {}
 
+// 双击数据没有回显
+// 那个id能不能用hook去做
+
 const Edit: FC<IEditProps> = (props) => {
   const [targetId] = useState(props.match?.params?.id);
+
   const [pagesData, setPagesData] = useState<any>({});
   const [boxsData, setBoxsData] = useState<any>({});
+
+  const checkedId = useRef("");
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;
@@ -48,39 +55,68 @@ const Edit: FC<IEditProps> = (props) => {
   const handleAddPage = () => {};
 
   // 修改box数据
-  const handleModifyBox = () => {};
+  const handleModifyBox = (boxId: string, data: any) => {
+    checkedId.current = boxId;
+    setBoxsData({ ...boxsData, [boxId]: { ...boxsData[boxId], ...data } });
+  };
   // 删除box数据
-  const handleDeleteBox = () => {};
-  // 增加box数据
-  const handleAddBox = (parentId: number, id: number, data: any) => {};
-
-  /** 优化page的渲染 */
-  const PageContent = useCallback(() => {
-    return (
-      <div>
-        {Object.values(pagesData).map(({ id, name, children = [] }: any) => {
-          const boxsList = children.map((item: string) => ({
-            ...boxsData[item],
-          }));
-          return (
-            <EditContent boxsData={boxsList} id={id} pageName={name} key={id} />
-          );
-        })}
-      </div>
+  const handleDeleteBox = (pageId: string, boxId: string) => {
+    checkedId.current = boxId;
+    setPagesData(
+      set(
+        pagesData,
+        [pageId, "children"],
+        [...pagesData[pageId].children.filter((item: any) => item.id !== boxId)]
+      )
     );
-  }, [pagesData, boxsData]);
+    setBoxsData(omit(boxsData, [boxId]));
+  };
+  // 增加box数据
+  const handleAddBox = (pageId: string, boxId: string, data: any) => {
+    checkedId.current = boxId;
+    setPagesData(
+      set(
+        pagesData,
+        [pageId, "children"],
+        [...pagesData[pageId].children, boxId]
+      )
+    );
+    setBoxsData({ ...boxsData, [boxId]: data });
+  };
 
   return (
-    <EditContextProvider>
+    <EditContextProvider
+      value={{
+        pagesData,
+        boxsData,
+        handleAddBox,
+        handleDeleteBox,
+        handleModifyBox,
+      }}
+    >
       <DndProvider backend={HTML5Backend}>
         <div className={styles["edit"]}>
           <EditHeader />
           <div className={styles["editContentWarp"]}>
             <EditMenu />
             <div className={styles["editContent"]}>
-              <PageContent />
+              {Object.values(pagesData).map(
+                ({ id, name, children = [] }: any) => {
+                  const boxsList = children.map((item: string) => ({
+                    ...boxsData[item],
+                  }));
+                  return (
+                    <EditContent
+                      boxsData={boxsList || []}
+                      pageId={id}
+                      pageName={name}
+                      key={id}
+                    />
+                  );
+                }
+              )}
             </div>
-            <EditData />
+            <EditData checkedId={checkedId.current} />
           </div>
         </div>
       </DndProvider>
