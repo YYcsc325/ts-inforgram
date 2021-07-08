@@ -8,7 +8,7 @@ import { loadImg } from "@/util/utils";
 import ContextMenu from "./ContextMenu";
 
 import styles from "./ChildBox.less";
-import { transform, transformScale } from "./utils";
+import { transform } from "./utils";
 
 const { E, W, S, N, NE, NW, SE, SW, ROTATE, MOVE } = dragAllowConsts;
 
@@ -19,8 +19,8 @@ const points = [E, W, S, N, NE, NW, SE, SW];
 type IDragEvent = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
 type IDragData = {
-  left: number;
-  top: number;
+  left?: number;
+  top?: number;
   width?: number;
   height?: number;
   transform?: string;
@@ -31,7 +31,10 @@ export type handleDrag = (e: IDragEvent, id: string, data: IDragData) => void;
 export interface IDragBoxProps {
   id: string; // 唯一标识
   scale?: boolean; // 是否开启等比例缩放
-  postion?: Pick<IDragData, "left" | "top">;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
   isSingleClicked?: boolean;
   isDoubleClicked?: boolean;
   contextMenuConfig?: any;
@@ -59,14 +62,8 @@ class ClassChildBox extends Component<
 
   constructor(props: IDragBoxPropsWithChildren) {
     super(props);
-    const { left, top } = props.postion || {};
     this.state = {
-      style: {
-        ...{
-          left: left ?? 0,
-          top: top ?? 0,
-        },
-      },
+      style: {},
     };
   }
 
@@ -75,7 +72,9 @@ class ClassChildBox extends Component<
     // 鼠标右击按下取消事件
     if (e.button === eventButtons.EVENTBUTTON2) return;
     const { id } = this.props;
-    const { style } = this.state;
+
+    const style = this.renderRealStyle();
+
     // 阻止事件冒泡
     e.stopPropagation();
     // 保存拖拽事件方向。
@@ -111,7 +110,8 @@ class ClassChildBox extends Component<
     this.$isDown = false;
 
     const { id } = this.props;
-    const { style } = this.state;
+
+    const style = this.renderRealStyle();
 
     this.props.onMouseEnd?.(e, id, style);
     // 取消注册事件
@@ -162,17 +162,28 @@ class ClassChildBox extends Component<
     this.props.contextMenuConfig?.onMemuClick?.(id, value);
   };
 
+  renderRealStyle = () => {
+    const { style } = this.state;
+    const { width, height, left, top } = this.props;
+    return {
+      ...style,
+      width: width ?? style.width,
+      height: height ?? style.height,
+      left: (left ?? style.left) || 0,
+      top: (top ?? style.top) || 0,
+    };
+  };
+
   render() {
     const {
-      children,
       id,
+      children,
       contextMenuConfig,
       isSingleClicked,
       isDoubleClicked,
     } = this.props;
 
-    const { style } = this.state;
-
+    const style = this.renderRealStyle();
     const child = React.Children.only(children) as any;
 
     return (
@@ -185,7 +196,7 @@ class ClassChildBox extends Component<
         data-heght={style.height}
         ref={this.handlePrivateRef}
         className={classNames(prefixCls(), {
-          [prefixCls("clicked")]: isSingleClicked,
+          [prefixCls("clicked")]: isSingleClicked || isDoubleClicked,
         })}
         onMouseDown={this.onMouseDown.bind(this, MOVE)}
         onClick={this.handleSingleClick}
