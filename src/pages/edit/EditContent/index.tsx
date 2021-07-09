@@ -6,6 +6,9 @@ import { DragContainer } from "@/components";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
 import { IEditContentResponse } from "@/service/edit";
+import ContextMenu, {
+  OptionsItem,
+} from "@/components/DragContainer/ContextMenu";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 import { editContextConsumer } from "../context";
@@ -21,10 +24,18 @@ export interface IEditPageProps {
   className?: string;
 }
 
+const options = [
+  {
+    title: "delete",
+    value: "delete",
+    icon: <CloseCircleOutlined />,
+  },
+];
+
 const EditPage: FC<IEditPageProps> = (props) => {
   const { editConsumer, boxsData = [], pageId } = props;
   const { handleAddBox, handleDeleteBox, handleModifyBox } = editConsumer;
-  console.log(boxsData, "boxsData");
+
   const listIds = useMemo(() => {
     return boxsData.map((item) => item.id);
   }, [boxsData]);
@@ -50,7 +61,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
     }),
   });
 
-  const handleBoxMenuClick = (boxId: string) => {
+  const handleBoxMenuClick = (boxId: string) => (params: OptionsItem) => {
     handleDeleteBox(pageId, boxId);
   };
 
@@ -61,6 +72,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
   return (
     <div className={prefixCls()} ref={drop} style={{ marginTop: "10px" }}>
       <DragContainer
+        id={pageId}
         className={classNames(prefixCls("edit-page"), {
           [prefixCls("isover")]: isOver,
         })}
@@ -76,18 +88,13 @@ const EditPage: FC<IEditPageProps> = (props) => {
               top={item.top}
               width={item.width}
               height={item.height}
-              contextMenuConfig={{
-                options: [
-                  {
-                    title: "delete",
-                    value: "delete",
-                    icon: <CloseCircleOutlined />,
-                  },
-                ],
-                onMemuClick: handleBoxMenuClick,
-              }}
             >
-              <Element {...item} />
+              <ContextMenu
+                options={options}
+                onMenuClick={handleBoxMenuClick(item.id)}
+              >
+                <Element {...item} />
+              </ContextMenu>
             </DragContainer.Box>
           );
         })}

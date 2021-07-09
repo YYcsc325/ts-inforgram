@@ -5,7 +5,6 @@ import { RedoOutlined } from "@ant-design/icons";
 import { dragAllowConsts, eventButtons } from "@/consts";
 import DragImg from "@/components/DragComponents/Img";
 import { loadImg } from "@/util/utils";
-import ContextMenu from "./ContextMenu";
 
 import styles from "./ChildBox.less";
 import { transform } from "./utils";
@@ -37,13 +36,13 @@ export interface IDragBoxProps {
   height: number;
   isSingleClicked?: boolean;
   isDoubleClicked?: boolean;
-  contextMenuConfig?: any;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onDoubleClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
   onMouseMove?: handleDrag;
-  onMouseStart?: handleDrag;
-  onMouseEnd?: handleDrag;
-  onMemuClick?: (id: string, value: any) => void;
+  onMouseDown?: handleDrag;
+  onMouseUp?: handleDrag;
+  onDoubleClick?: (
+    e: React.MouseEvent<HTMLDivElement>,
+    params: { id: string }
+  ) => void;
 }
 
 export type IDragBoxPropsWithChildren = PropsWithChildren<IDragBoxProps>;
@@ -82,7 +81,7 @@ class ClassChildBox extends Component<
     this.$isDown = true;
     this.$oriPos = { ...style, cX: e.clientX, cY: e.clientY };
 
-    this.props.onMouseStart?.(e, id, style);
+    this.props.onMouseDown?.(e, id, style);
     // 在目标拖拽区域注册事件
     this.$parentNode?.addEventListener?.("mousemove", this.onMouseMove);
     this.$parentNode?.addEventListener?.("mouseup", this.onMouseUp);
@@ -113,7 +112,7 @@ class ClassChildBox extends Component<
 
     const style = this.renderRealStyle();
 
-    this.props.onMouseEnd?.(e, id, style);
+    this.props.onMouseUp?.(e, id, style);
     // 取消注册事件
     this.$parentNode?.removeEventListener?.("mousemove", this.onMouseMove);
     this.$parentNode?.removeEventListener?.("mouseup", this.onMouseUp);
@@ -127,7 +126,7 @@ class ClassChildBox extends Component<
 
   handleChildStyle = () => {
     const { style } = this.state;
-    const childNode = getComputedStyle(this.$node?.childNodes?.[0]);
+    const childNode = getComputedStyle(this.$node);
     this.setState({
       style: {
         ...style,
@@ -139,27 +138,19 @@ class ClassChildBox extends Component<
 
   componentDidMount() {
     // 获取子元素默认width跟height
-    const { type, props }: any = this.props.children;
-    if (type === DragImg) {
-      loadImg(props.url, this.handleChildStyle);
-    } else {
-      this.handleChildStyle();
-    }
+    // const { type, props }: any = this.props.children;
+    // if (type === DragImg) {
+    //   loadImg(props.url, this.handleChildStyle);
+    // } else {
+    //   this.handleChildStyle();
+    // }
+    this.handleChildStyle();
   }
-
-  /** 单击事件 */
-  handleSingleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    this.props.onClick?.(e);
-  };
 
   /** 双击事件 */
   handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    this.props.onDoubleClick?.(e);
-  };
-
-  /** 右击事件 */
-  handleMemuClick = (id: string, { value }: any) => {
-    this.props.contextMenuConfig?.onMemuClick?.(id, value);
+    const { id } = this.props;
+    this.props.onDoubleClick?.(e, { id });
   };
 
   renderRealStyle = () => {
@@ -175,16 +166,9 @@ class ClassChildBox extends Component<
   };
 
   render() {
-    const {
-      id,
-      children,
-      contextMenuConfig,
-      isSingleClicked,
-      isDoubleClicked,
-    } = this.props;
+    const { id, children, isSingleClicked, isDoubleClicked } = this.props;
 
     const style = this.renderRealStyle();
-    const child = React.Children.only(children) as any;
 
     return (
       <div
@@ -199,7 +183,6 @@ class ClassChildBox extends Component<
           [prefixCls("clicked")]: isSingleClicked || isDoubleClicked,
         })}
         onMouseDown={this.onMouseDown.bind(this, MOVE)}
-        onClick={this.handleSingleClick}
         onDoubleClick={this.handleDoubleClick}
       >
         {isDoubleClicked &&
@@ -221,12 +204,7 @@ class ClassChildBox extends Component<
             <RedoOutlined style={{ color: "#3494ce" }} />
           </div>
         )}
-        <ContextMenu
-          options={contextMenuConfig?.options || []}
-          onMenuClick={this.handleMemuClick.bind(this, id)}
-        >
-          {React.cloneElement(child, { ...style, id })}
-        </ContextMenu>
+        {children}
       </div>
     );
   }

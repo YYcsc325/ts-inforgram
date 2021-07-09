@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
@@ -12,6 +12,18 @@ const EditData: FC<IEditDataProps> = (props) => {
   const { checkedId } = props;
   const { boxsData } = props.editConsumer;
   const data = boxsData[checkedId] || {};
+
+  const listenMouseDown = (e: any) => {
+    console.log(e.target, "e");
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", listenMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", listenMouseDown);
+    };
+  }, []);
+
   return (
     <div className={styles["editData"]}>
       <div>
