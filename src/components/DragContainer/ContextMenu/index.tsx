@@ -6,7 +6,11 @@ import styles from "./index.less";
 
 const prefixCls = createPrefixClass("context-menu", styles);
 
-type OptionsItem = { title: string; value: string; icon?: React.ReactNode };
+export type OptionsItem = {
+  title: string;
+  value: string;
+  icon?: React.ReactNode;
+};
 
 interface IContextMenuProps {
   options: Array<OptionsItem>;
@@ -44,7 +48,6 @@ const ContextMenu: FC<IContextMenuProps> = ({
       ))}
     </Menu>
   );
-
   return (
     <Dropdown
       overlay={menu}

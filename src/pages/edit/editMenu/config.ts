@@ -43,12 +43,16 @@ export const renderList = {
       name: "Title",
       type: "H1",
       text: "Type something",
+      width: 180,
+      height: 36,
     },
     {
       url: "https://cdn.jifo.co/js/dist/c1cd049fa426e4f3fd087e14e17905df.jpg",
       name: "SubTitle",
       type: "H1",
       text: "Write something",
+      width: 180,
+      height: 36,
     },
   ],
   chart: [
@@ -56,6 +60,8 @@ export const renderList = {
       url: "https://cdn.jifo.co/js/dist/d52f1500ee0f63614752457d0b11c11a.jpg",
       name: "Line",
       type: "LineChart",
+      width: 300,
+      height: 300,
     },
   ],
   map: [
@@ -63,11 +69,15 @@ export const renderList = {
       url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
       name: "第一张图",
       type: "Img",
+      width: 200,
+      height: 200,
     },
     {
       url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
       name: "第三章图",
       type: "Img",
+      width: 200,
+      height: 200,
     },
   ],
 };

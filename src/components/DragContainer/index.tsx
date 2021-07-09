@@ -9,11 +9,12 @@ import styles from "./index.less";
 
 const prefixCls = createPrefixClass("drag-container", styles);
 interface IDragContainerProps {
+  id: string;
   className?: string;
   style?: React.CSSProperties;
-  onMouseEnd?: handleDrag;
+  onMouseUp?: handleDrag;
   onMouseMove?: handleDrag;
-  onMouseStart?: handleDrag;
+  onMouseDown?: handleDrag;
 }
 
 type IDragContainerPropsWithChildren = PropsWithChildren<IDragContainerProps>;
@@ -34,7 +35,6 @@ class DragContainer extends Component<
   static Box = ChildBox;
   $nodeRef: any = null;
   $children: any = [];
-
   constructor(props: IDragContainerPropsWithChildren) {
     super(props);
     const { style } = props;
@@ -52,7 +52,7 @@ class DragContainer extends Component<
     };
   }
 
-  privateClick = () => {
+  clearClickedId = () => {
     this.setState({
       singleClickId: "",
       doubleClickId: "",
@@ -60,15 +60,11 @@ class DragContainer extends Component<
   };
 
   componentDidMount() {
-    document.addEventListener("click", this.privateClick);
+    document.addEventListener("mousedown", this.clearClickedId);
   }
-  componentDidUpdate(preProps: IDragContainerProps) {
-    if (preProps.style !== this.props.style) {
-      this.setState({ style: this.props.style });
-    }
-  }
+
   componentWillUnmount() {
-    document.removeEventListener("click", this.privateClick);
+    document.removeEventListener("mousedown", this.clearClickedId);
   }
 
   /** 存储当前组件的ref */
@@ -76,22 +72,14 @@ class DragContainer extends Component<
     this.$nodeRef = node;
   };
 
-  handleChildClick = (e: any, props: any = {}) => {
+  handleChildDoubleClick = (e: any, { id }: any = {}) => {
     event?.stopImmediatePropagation();
-    this.setState({
-      singleClickId: props.id,
-    });
-  };
-
-  handleChildDoubleClick = (e: any, props: any = {}) => {
-    event?.stopImmediatePropagation();
-    this.setState({
-      doubleClickId: props.id,
-    });
+    this.setState({ doubleClickId: id });
   };
 
   // 拖拽初始时 计算出所有元素的坐标信息，存储于childPos
-  handleChildStart: handleDrag = (e, id, data) => {
+  handleChildMouseDown: handleDrag = (e, id, data) => {
+    event?.stopImmediatePropagation();
     this.$children = filterChildren(this.props.children, ChildBox).map(
       (item, i) => {
         const $ = this.$nodeRef?.childNodes?.[i];
@@ -116,17 +104,18 @@ class DragContainer extends Component<
         };
       }
     );
-    this.props.onMouseStart?.(e, id, data);
+    this.props.onMouseDown?.(e, id, data);
+    this.setState({ singleClickId: id });
   };
 
   /** 拖拽结束 */
-  handleChildEnd: handleDrag = (e, id, data) => {
+  handleChildMouseUp: handleDrag = (e, id, data) => {
     this.setState({ vLines: [], hLines: [], indices: [] });
-    this.props.onMouseEnd?.(e, id, data);
+    this.props.onMouseUp?.(e, id, data);
   };
 
   // 拖动中计算是否吸附/显示辅助线
-  handleChildDrag = (index: number) => {
+  handleChildMouseMove = (index: number) => {
     return (e: any, id: any, data: any) => {
       const target = this.$children?.[index];
       const { left, top } = data || {};
@@ -347,17 +336,15 @@ class DragContainer extends Component<
   renderChildren = () => {
     const childList = filterChildren(this.props.children, ChildBox);
     const { singleClickId, doubleClickId } = this.state;
-
     return childList.map((child: any, index) =>
       React.cloneElement(child, {
         // @ts-ignore
         isSingleClicked: singleClickId === child.props.id,
         isDoubleClicked: doubleClickId === child.props.id,
-        onMouseMove: this.handleChildDrag(index),
-        onMouseStart: this.handleChildStart,
-        onMouseEnd: this.handleChildEnd,
-        onClick: (e: any) => this.handleChildClick(e, child.props),
-        onDoubleClick: (e: any) => this.handleChildDoubleClick(e, child.props),
+        onMouseMove: this.handleChildMouseMove(index),
+        onMouseDown: this.handleChildMouseDown,
+        onMouseUp: this.handleChildMouseUp,
+        onDoubleClick: this.handleChildDoubleClick,
       })
     );
   };
@@ -408,11 +395,12 @@ class DragContainer extends Component<
   };
 
   render() {
-    const { className } = this.props;
+    const { className, id } = this.props;
     const { style } = this.state;
 
     return (
       <div
+        data-id={id}
         style={{ ...style }}
         className={classNames(prefixCls(), className)}
         ref={this.handleRoot}
