@@ -1,5 +1,7 @@
 import React, { FC, useEffect } from "react";
+import { Divider } from "antd";
 
+import LabelInput from "../components/LabelInput";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
 
@@ -25,26 +27,20 @@ const EditData: FC<IEditDataProps> = (props) => {
   }, []);
 
   return (
-    <div className={styles["editData"]}>
+    <div className={styles["edit-data"]}>
       <div>
         <span>选中了</span>
         <span>{checkedId}</span>
       </div>
-      <div>
-        <span>宽度</span>
-        <span>{data.width}px</span>
+      <div className={styles["edit-data-add"]}>
+        <LabelInput label="width: (px)" value={data.width} styleOne />
+        <Divider type="vertical" />
+        <LabelInput label="height: (px)" value={data.height} styleOne />
       </div>
-      <div>
-        <span>高度</span>
-        <span>{data.height}px</span>
-      </div>
-      <div>
-        <span>距离左边</span>
-        <span>{data.left}px</span>
-      </div>
-      <div>
-        <span>距离上面</span>
-        <span>{data.top}px</span>
+      <div className={styles["edit-data-add"]}>
+        <LabelInput label="left: (px)" value={data.left} styleOne />
+        <Divider type="vertical" />
+        <LabelInput label="top: (px)" value={data.top} styleOne />
       </div>
     </div>
   );

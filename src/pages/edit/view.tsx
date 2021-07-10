@@ -62,11 +62,12 @@ const Edit: FC<IEditProps> = (props) => {
   // 删除box数据
   const handleDeleteBox = (pageId: string, boxId: string) => {
     checkedId.current = boxId;
+    const childrenList = pagesData[pageId]?.children || [];
     setPagesData(
       set(
         pagesData,
         [pageId, "children"],
-        [...pagesData[pageId].children.filter((item: any) => item.id !== boxId)]
+        childrenList.filter((item: any) => item !== boxId)
       )
     );
     setBoxsData(omit(boxsData, [boxId]));
@@ -74,12 +75,9 @@ const Edit: FC<IEditProps> = (props) => {
   // 增加box数据
   const handleAddBox = (pageId: string, boxId: string, data: any) => {
     checkedId.current = boxId;
+    const childrenList = pagesData[pageId]?.children || [];
     setPagesData(
-      set(
-        pagesData,
-        [pageId, "children"],
-        [...pagesData[pageId].children, boxId]
-      )
+      set(pagesData, [pageId, "children"], [...childrenList, boxId])
     );
     setBoxsData({ ...boxsData, [boxId]: data });
   };

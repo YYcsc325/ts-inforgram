@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback, FC } from "react";
+import React, { useMemo, FC } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
@@ -49,6 +49,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
         let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
         handleAddBox(pageId, item.id, {
           ...item,
+          parentId: pageId,
           left: x,
           top: y,
         });

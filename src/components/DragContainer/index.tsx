@@ -52,20 +52,20 @@ class DragContainer extends Component<
     };
   }
 
-  clearClickedId = () => {
-    this.setState({
-      singleClickId: "",
-      doubleClickId: "",
-    });
-  };
+  // clearClickedId = () => {
+  //   this.setState({
+  //     singleClickId: "",
+  //     doubleClickId: "",
+  //   });
+  // };
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.clearClickedId);
-  }
+  // componentDidMount() {
+  //   document.addEventListener("mousedown", this.clearClickedId);
+  // }
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.clearClickedId);
-  }
+  // componentWillUnmount() {
+  //   document.removeEventListener("mousedown", this.clearClickedId);
+  // }
 
   /** 存储当前组件的ref */
   handleRoot = (node: any) => {
