@@ -15,12 +15,13 @@ interface IImgBoxProps {
   className?: string;
 }
 
-const ImgBox: FC<IImgBoxProps> = ({ name, url, type, className, ...reset }) => {
+const ImgBox: FC<IImgBoxProps> = (props) => {
+  const { url, className } = props;
   const [isEnter, setIsEnter] = useState(false);
 
   const [{ isDragging }, drag] = useDrag({
     type: dragConsts.box,
-    item: { ...reset, name, type, url, id: v4() },
+    item: { ...props, id: v4() },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {

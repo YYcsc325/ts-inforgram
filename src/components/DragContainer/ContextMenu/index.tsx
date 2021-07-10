@@ -30,7 +30,11 @@ const ContextMenu: FC<IContextMenuProps> = ({
   onMenuClick,
   placement = "bottomCenter",
 }) => {
-  const handleClick = (value: OptionsItem) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    value: OptionsItem
+  ) => {
+    e.stopPropagation();
     onMenuClick?.(value);
   };
 
@@ -39,7 +43,7 @@ const ContextMenu: FC<IContextMenuProps> = ({
       {options.map((item, index) => (
         <div
           key={item.value || index}
-          onClick={() => handleClick(item)}
+          onClick={(e) => handleClick(e, item)}
           className={prefixCls("menu-item")}
         >
           <div className={prefixCls("item-title")}>{item.title}</div>
