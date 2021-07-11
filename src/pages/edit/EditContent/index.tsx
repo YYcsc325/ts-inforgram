@@ -22,6 +22,7 @@ export interface IEditPageProps {
   boxsData: IEditContentResponse;
   pageName: React.ReactNode;
   className?: string;
+  index: number;
 }
 
 const options = [
@@ -33,7 +34,7 @@ const options = [
 ];
 
 const EditPage: FC<IEditPageProps> = (props) => {
-  const { editConsumer, boxsData = [], pageId } = props;
+  const { editConsumer, boxsData = [], pageId, index } = props;
   const { handleAddBox, handleDeleteBox, handleModifyBox } = editConsumer;
 
   const listIds = useMemo(() => {
@@ -72,6 +73,10 @@ const EditPage: FC<IEditPageProps> = (props) => {
 
   return (
     <div className={prefixCls()} ref={drop} style={{ marginTop: "10px" }}>
+      <div className={prefixCls("title")}>
+        <span>Page {index}</span>
+        <span>复制</span>
+      </div>
       <DragContainer
         id={pageId}
         className={classNames(prefixCls("edit-page"), {
