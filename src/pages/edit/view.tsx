@@ -47,13 +47,6 @@ const Edit: FC<IEditProps> = (props) => {
       });
   }, []);
 
-  // 修改page数据
-  const handleModifyPage = () => {};
-  // 删除page数据
-  const handleDeletePage = () => {};
-  // 增加page数据
-  const handleAddPage = () => {};
-
   // 修改box数据
   const handleModifyBox = (boxId: string, data: any) => {
     checkedId.current = boxId;
