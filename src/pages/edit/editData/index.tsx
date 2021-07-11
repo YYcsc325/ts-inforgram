@@ -12,11 +12,11 @@ interface IEditDataProps {
 
 const EditData: FC<IEditDataProps> = (props) => {
   const { checkedId } = props;
-  const { boxsData } = props.editConsumer;
+  const { boxsData, handleModifyBox } = props.editConsumer;
   const data = boxsData[checkedId] || {};
 
   const listenMouseDown = (e: any) => {
-    console.log(e.target, "e");
+    // console.log(e.target, "e");
   };
 
   useEffect(() => {
@@ -33,14 +33,42 @@ const EditData: FC<IEditDataProps> = (props) => {
         <span>{checkedId}</span>
       </div>
       <div className={styles["edit-data-add"]}>
-        <LabelInput label="width: (px)" value={data.width} styleOne />
+        <LabelInput
+          label="width: (px)"
+          value={data.width}
+          styleOne
+          onChange={(value) =>
+            handleModifyBox(checkedId, { width: Number(value) })
+          }
+        />
         <Divider type="vertical" />
-        <LabelInput label="height: (px)" value={data.height} styleOne />
+        <LabelInput
+          label="height: (px)"
+          value={data.height}
+          styleOne
+          onChange={(value) =>
+            handleModifyBox(checkedId, { height: Number(value) })
+          }
+        />
       </div>
       <div className={styles["edit-data-add"]}>
-        <LabelInput label="left: (px)" value={data.left} styleOne />
+        <LabelInput
+          label="left: (px)"
+          value={data.left}
+          styleOne
+          onChange={(value) =>
+            handleModifyBox(checkedId, { left: Number(value) })
+          }
+        />
         <Divider type="vertical" />
-        <LabelInput label="top: (px)" value={data.top} styleOne />
+        <LabelInput
+          label="top: (px)"
+          value={data.top}
+          styleOne
+          onChange={(value) =>
+            handleModifyBox(checkedId, { top: Number(value) })
+          }
+        />
       </div>
     </div>
   );

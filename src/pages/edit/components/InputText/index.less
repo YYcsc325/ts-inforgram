@@ -1,0 +1,19 @@
+.dt-input-style-one {
+  color: rgb(216, 216, 216);
+  background-color: rgb(45, 45, 45);
+  border: 2px solid transparent;
+  width: 52px;
+  height: 32px;
+  &:focus {
+    border-color: transparent;
+    box-shadow: initial;
+  }
+  &:hover {
+    border-color: transparent;
+  }
+  :global {
+    .ant-input-number-handler-wrap {
+      display: none;
+    }
+  }
+}
