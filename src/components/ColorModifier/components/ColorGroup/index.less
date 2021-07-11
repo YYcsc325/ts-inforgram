@@ -1,0 +1,21 @@
+.colorGroupBox {
+  width: 210px;
+  &-list {
+    & > span {
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      box-sizing: border-box;
+      vertical-align: middle;
+      border-radius: 4px;
+      margin: 0 5px 5px 0;
+      border: 2px solid transparent;
+      &:hover {
+        border-color: #fff;
+      }
+    }
+  }
+  :global('.chrome-picker ') {
+    width: 210px;
+  }
+}
