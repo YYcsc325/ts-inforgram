@@ -92,13 +92,14 @@ const Edit: FC<IEditProps> = (props) => {
             <EditMenu />
             <div className={styles["editContent"]}>
               {Object.values(pagesData).map(
-                ({ id, name, children = [] }: any) => {
+                ({ id, name, children = [] }: any, index) => {
                   const boxsList = children.map((item: string) => ({
                     ...boxsData[item],
                   }));
                   return (
                     <EditContent
                       boxsData={boxsList || []}
+                      index={index}
                       pageId={id}
                       pageName={name}
                       key={id}
