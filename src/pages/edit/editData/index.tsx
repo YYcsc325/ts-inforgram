@@ -1,74 +1,87 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Divider } from "antd";
 
 import LabelInput from "../components/LabelInput";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
-
 interface IEditDataProps {
   editConsumer?: any;
-  checkedId: string;
 }
 
 const EditData: FC<IEditDataProps> = (props) => {
-  const { checkedId } = props;
-  const { boxsData, handleModifyBox } = props.editConsumer;
-  const data = boxsData[checkedId] || {};
+  const { boxsData, pagesData, handleModifyBox, handleModifyPage, checkedId } =
+    props.editConsumer;
 
-  const listenMouseDown = (e: any) => {
-    // console.log(e.target, "e");
+  const allData = { ...pagesData, ...boxsData };
+  const renderData = allData[checkedId] || {};
+
+  const renderPageComponent = (data: any) => {
+    return (
+      <div className={styles["edit-data-add"]}>
+        <LabelInput
+          styleOne
+          label="height: (px)"
+          value={data.height}
+          onChange={(value) =>
+            handleModifyPage(checkedId, { height: Number(value) })
+          }
+        />
+      </div>
+    );
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", listenMouseDown);
-    return () => {
-      document.removeEventListener("mousedown", listenMouseDown);
-    };
-  }, []);
+  const renderBoxComponent = (data: any) => {
+    return (
+      <div>
+        <div className={styles["edit-data-add"]}>
+          <LabelInput
+            label="width: (px)"
+            value={renderData.width}
+            styleOne
+            onChange={(value) =>
+              handleModifyBox(checkedId, { width: Number(value) })
+            }
+          />
+          <Divider type="vertical" />
+          <LabelInput
+            label="height: (px)"
+            value={renderData.height}
+            styleOne
+            onChange={(value) =>
+              handleModifyBox(checkedId, { height: Number(value) })
+            }
+          />
+        </div>
+        <div className={styles["edit-data-add"]}>
+          <LabelInput
+            label="left: (px)"
+            value={renderData.left}
+            styleOne
+            onChange={(value) =>
+              handleModifyBox(checkedId, { left: Number(value) })
+            }
+          />
+          <Divider type="vertical" />
+          <LabelInput
+            label="top: (px)"
+            value={renderData.top}
+            styleOne
+            onChange={(value) =>
+              handleModifyBox(checkedId, { top: Number(value) })
+            }
+          />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className={styles["edit-data"]}>
       <div>
         <span>选中了</span>
         <span>{checkedId}</span>
-      </div>
-      <div className={styles["edit-data-add"]}>
-        <LabelInput
-          label="width: (px)"
-          value={data.width}
-          styleOne
-          onChange={(value) =>
-            handleModifyBox(checkedId, { width: Number(value) })
-          }
-        />
-        <Divider type="vertical" />
-        <LabelInput
-          label="height: (px)"
-          value={data.height}
-          styleOne
-          onChange={(value) =>
-            handleModifyBox(checkedId, { height: Number(value) })
-          }
-        />
-      </div>
-      <div className={styles["edit-data-add"]}>
-        <LabelInput
-          label="left: (px)"
-          value={data.left}
-          styleOne
-          onChange={(value) =>
-            handleModifyBox(checkedId, { left: Number(value) })
-          }
-        />
-        <Divider type="vertical" />
-        <LabelInput
-          label="top: (px)"
-          value={data.top}
-          styleOne
-          onChange={(value) =>
-            handleModifyBox(checkedId, { top: Number(value) })
-          }
-        />
+        {renderData.name === "page" && renderPageComponent(renderData)}
+        {renderData.name === "box" && renderBoxComponent(renderData)}
       </div>
     </div>
   );

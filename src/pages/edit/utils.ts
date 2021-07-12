@@ -16,3 +16,12 @@ export function denormalizePagesData(normalizedData: any) {
 
   return denormalize(normalizedData.result, [pages], normalizedData.entities);
 }
+
+/** 向上递归查找节点 */
+export function getParentNode(node: any, callback: (params: any) => any): any {
+  if (callback(node)) {
+    return callback(node);
+  } else {
+    return getParentNode(node?.parentNode, callback);
+  }
+}

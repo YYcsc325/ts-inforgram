@@ -16,10 +16,10 @@ const InputText: React.ForwardRefRenderFunction<any, InputTextProps> = (
   props,
   ref
 ) => {
-  const { className, styleOne } = props;
+  const { className, styleOne, ...resetProps } = props;
   return (
     <InputNumber
-      {...props}
+      {...resetProps}
       ref={ref}
       className={classNames(className, {
         [prefixCls()]: styleOne,

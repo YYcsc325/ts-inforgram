@@ -39,45 +39,55 @@ export const menuNav = [
 export const renderList = {
   text: [
     {
-      url: "https://cdn.jifo.co/js/dist/44e7133bff8ab2e162e7051990c05910.jpg",
-      name: "Title",
+      name: "box",
       type: "H1",
-      text: "Type something",
       width: 180,
       height: 36,
+      data: {
+        url: "https://cdn.jifo.co/js/dist/44e7133bff8ab2e162e7051990c05910.jpg",
+        text: "Type something",
+      },
     },
     {
-      url: "https://cdn.jifo.co/js/dist/c1cd049fa426e4f3fd087e14e17905df.jpg",
-      name: "SubTitle",
+      name: "box",
       type: "H1",
-      text: "Write something",
       width: 180,
       height: 36,
+      data: {
+        url: "https://cdn.jifo.co/js/dist/c1cd049fa426e4f3fd087e14e17905df.jpg",
+        text: "Write something",
+      },
     },
   ],
   chart: [
     {
-      url: "https://cdn.jifo.co/js/dist/d52f1500ee0f63614752457d0b11c11a.jpg",
-      name: "Line",
+      name: "box",
       type: "LineChart",
       width: 300,
       height: 300,
+      data: {
+        url: "https://cdn.jifo.co/js/dist/d52f1500ee0f63614752457d0b11c11a.jpg",
+      },
     },
   ],
   map: [
     {
-      url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-      name: "第一张图",
+      name: "box",
       type: "Img",
       width: 200,
       height: 200,
+      data: {
+        url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+      },
     },
     {
-      url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-      name: "第三章图",
+      name: "box",
       type: "Img",
       width: 200,
       height: 200,
+      data: {
+        url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+      },
     },
   ],
 };

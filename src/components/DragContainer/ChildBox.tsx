@@ -30,11 +30,11 @@ export type handleDrag = (e: IDragEvent, id: string, data: IDragData) => void;
 export interface IDragBoxProps {
   id: string; // 唯一标识
   scale?: boolean; // 是否开启等比例缩放
+  className?: string;
   left: number;
   top: number;
   width: number;
   height: number;
-  isSingleClicked?: boolean;
   isDoubleClicked?: boolean;
   onMouseMove?: handleDrag;
   onMouseDown?: handleDrag;
@@ -149,8 +149,7 @@ class ClassChildBox extends Component<
 
   /** 双击事件 */
   handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { id } = this.props;
-    this.props.onDoubleClick?.(e, { id });
+    this.props.onDoubleClick?.(e, this.props);
   };
 
   renderRealStyle = () => {
@@ -166,7 +165,7 @@ class ClassChildBox extends Component<
   };
 
   render() {
-    const { id, children, isSingleClicked, isDoubleClicked } = this.props;
+    const { id, children, isDoubleClicked, className } = this.props;
 
     const style = this.renderRealStyle();
 
@@ -179,9 +178,7 @@ class ClassChildBox extends Component<
         data-width={style.width}
         data-heght={style.height}
         ref={this.handlePrivateRef}
-        className={classNames(prefixCls(), {
-          [prefixCls("clicked")]: isSingleClicked || isDoubleClicked,
-        })}
+        className={classNames(prefixCls(), className)}
         onMouseDown={this.onMouseDown.bind(this, MOVE)}
         onDoubleClick={this.handleDoubleClick}
       >
