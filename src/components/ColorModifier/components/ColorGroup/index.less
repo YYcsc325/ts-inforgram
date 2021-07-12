@@ -1,6 +1,36 @@
 .colorGroupBox {
   width: 210px;
+  position: relative;
+  &-title {
+    color: #fff;
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 10px;
+  }
+  &-icon {
+    width: 19px;
+    height: 19px;
+    background: url('https://infogram.com/i/editor/custom_color@2x.png')
+      no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+  }
+  &-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 12px;
+    height: 12px;
+    :global {
+      .anticon svg {
+        font-size: 12px;
+        color: #fff;
+        font-weight: bolder;
+      }
+    }
+  }
   &-list {
+    margin-bottom: 15px;
     & > span {
       width: 25px;
       height: 25px;
@@ -10,12 +40,56 @@
       border-radius: 4px;
       margin: 0 5px 5px 0;
       border: 2px solid transparent;
+      cursor: pointer;
       &:hover {
         border-color: #fff;
       }
     }
   }
-  :global('.chrome-picker ') {
-    width: 210px;
+  &-colors {
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    margin: 0;
+    padding: 15px;
+  }
+  &-chromePicker {
+    margin-top: 15px;
+    width: 180px !important;
+    :global {
+      .flexbox-fix {
+        &:last-child {
+          display: none !important;
+        }
+      }
+    }
+  }
+  :global {
+    .ant-input-group .ant-input {
+      height: 25px;
+      font-size: 13px;
+      background-color: #202020;
+      color: #fff;
+      border: none;
+    }
+    .ant-input-group-addon {
+      border: none;
+      &:first-child {
+        color: #fff;
+        width: 20px;
+        height: 25px;
+        border: none;
+        padding: 5px 0;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: center;
+        background-color: #656565;
+        border-radius: 4px 0 0 4px;
+      }
+      &:last-child {
+        padding: 3px;
+        background-color: #202020;
+        cursor: pointer;
+      }
+    }
   }
 }

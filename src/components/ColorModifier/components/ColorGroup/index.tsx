@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { ChromePicker } from 'react-color';
 import styles from './index.less';
-
+import { Input } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 interface IBrandsetsProps {
   [x: string]: any;
 }
@@ -24,7 +25,7 @@ const colorList = [
 
 const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
   const [checkColor, setCheckColor] = useState();
-
+  const [showMoreColorFlag, setShowMoreColorFlag] = useState(false);
   useEffect(() => {}, []);
 
   const chooseColor = (data) => {
@@ -35,8 +36,14 @@ const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
 
   return (
     <div className={styles['colorGroupBox']}>
-      <span onClick={hiddenFunc}>x</span>
-      <p>There color</p>
+      <div className={styles['colorGroupBox-close']}>
+        <CloseOutlined
+          onClick={() => {
+            hiddenFunc(), setShowMoreColorFlag(false);
+          }}
+        />
+      </div>
+      <p className={styles['colorGroupBox-title']}>There color</p>
       <div className={styles['colorGroupBox-list']}>
         {colorList.map((item, index) => (
           <span
@@ -50,9 +57,28 @@ const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
           />
         ))}
       </div>
-      <div>
-        <p>Custom color</p>
-        <ChromePicker color={`#${checkColor}`} />
+      <div className={styles['colorGroupBox-colors']}>
+        <p className={styles['colorGroupBox-title']}>Custom color</p>
+        <Input
+          addonBefore="#"
+          addonAfter={
+            <div
+              className={styles['colorGroupBox-icon']}
+              onClick={() => setShowMoreColorFlag(!showMoreColorFlag)}
+            />
+          }
+          value={checkColor}
+        />
+        {showMoreColorFlag && (
+          <ChromePicker
+            color={`#${checkColor}`}
+            className={styles['colorGroupBox-chromePicker']}
+            onChange={(hexColor) => {
+              setCheckColor(hexColor.hex.split('#')[1]);
+              selectColor(hexColor.hex.split('#')[1]);
+            }}
+          />
+        )}
       </div>
     </div>
   );

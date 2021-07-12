@@ -6,18 +6,20 @@
     height: 27px;
     border-radius: 2px;
     padding: 2px;
+    cursor: pointer;
     border: 2px solid #fff;
   }
 }
-.colorModifierPopover {
-  :global {
-    .ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,
-    .ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow,
-    .ant-popover-placement-leftBottom
-      > .ant-popover-content
-      > .ant-popover-arrow,
-    .ant-popover-inner {
-      background-color: #3c3b3b;
-    }
+:global {
+  .ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,
+  .ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow,
+  .ant-popover-placement-leftBottom
+    > .ant-popover-content
+    > .ant-popover-arrow {
+    border-top-color: #3c3b3b;
+    border-right-color: #3c3b3b;
+  }
+  .ant-popover-inner {
+    background-color: #3c3b3b;
   }
 }

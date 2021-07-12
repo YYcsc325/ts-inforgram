@@ -6,7 +6,7 @@ interface IBrandsetsProps {
   [x: string]: any;
 }
 
-const ColorModifier: FC<IBrandsetsProps> = ({ consumer }) => {
+const ColorModifier: FC<IBrandsetsProps> = () => {
   const [isShowCom, setIsShowCom] = useState(false);
   const [color, setColor] = useState({});
   useEffect(() => {
@@ -34,7 +34,6 @@ const ColorModifier: FC<IBrandsetsProps> = ({ consumer }) => {
   return (
     <div className={styles['colorModifierBox']}>
       <Popover
-        className={styles['colorModifierPopover']}
         content={<ColorGroup hiddenFunc={hidden} selectColor={selectColor} />}
         placement="leftTop"
         trigger="click"
