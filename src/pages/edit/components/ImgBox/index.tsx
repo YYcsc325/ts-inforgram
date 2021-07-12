@@ -9,10 +9,10 @@ import styles from "./index.less";
 
 const prefixCls = createPrefixClass("target-box", styles);
 interface IImgBoxProps {
-  name: string;
-  url: string;
   type: string;
+  name: string;
   className?: string;
+  data: { url: string; [x: string]: any };
 }
 
 const ImgBox: FC<IImgBoxProps> = (props) => {
