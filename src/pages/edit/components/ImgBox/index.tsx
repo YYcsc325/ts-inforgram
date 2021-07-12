@@ -16,7 +16,7 @@ interface IImgBoxProps {
 }
 
 const ImgBox: FC<IImgBoxProps> = (props) => {
-  const { url, className } = props;
+  const { data, className } = props;
   const [isEnter, setIsEnter] = useState(false);
 
   const [{ isDragging }, drag] = useDrag({
@@ -55,7 +55,7 @@ const ImgBox: FC<IImgBoxProps> = (props) => {
       >
         <div className={prefixCls("insert")}>Insert</div>
       </div>
-      <img src={url} alt="" className={prefixCls("img")} />
+      <img src={data.url} alt="" className={prefixCls("img")} />
     </div>
   );
 };

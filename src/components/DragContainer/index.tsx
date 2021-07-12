@@ -10,8 +10,10 @@ import styles from "./index.less";
 const prefixCls = createPrefixClass("drag-container", styles);
 interface IDragContainerProps {
   id: string;
+  width?: string | number;
+  height?: string | number;
+  background?: string;
   className?: string;
-  style?: React.CSSProperties;
   onMouseUp?: handleDrag;
   onMouseMove?: handleDrag;
   onMouseDown?: handleDrag;
@@ -20,9 +22,6 @@ interface IDragContainerProps {
 type IDragContainerPropsWithChildren = PropsWithChildren<IDragContainerProps>;
 
 interface IDragContainerState {
-  singleClickId?: string;
-  doubleClickId?: string;
-  style?: React.CSSProperties;
   vLines: string[];
   hLines: string[];
   indices: string[];
@@ -37,44 +36,16 @@ class DragContainer extends Component<
   $children: any = [];
   constructor(props: IDragContainerPropsWithChildren) {
     super(props);
-    const { style } = props;
     this.state = {
-      singleClickId: undefined,
-      doubleClickId: undefined,
       vLines: [],
       hLines: [],
       indices: [],
-      style: {
-        ...style,
-        width: style?.width || "100%",
-        height: style?.height || "800px",
-      },
     };
   }
-
-  // clearClickedId = () => {
-  //   this.setState({
-  //     singleClickId: "",
-  //     doubleClickId: "",
-  //   });
-  // };
-
-  // componentDidMount() {
-  //   document.addEventListener("mousedown", this.clearClickedId);
-  // }
-
-  // componentWillUnmount() {
-  //   document.removeEventListener("mousedown", this.clearClickedId);
-  // }
 
   /** 存储当前组件的ref */
   handleRoot = (node: any) => {
     this.$nodeRef = node;
-  };
-
-  handleChildDoubleClick = (e: any, { id }: any = {}) => {
-    event?.stopImmediatePropagation();
-    this.setState({ doubleClickId: id });
   };
 
   // 拖拽初始时 计算出所有元素的坐标信息，存储于childPos
@@ -105,7 +76,6 @@ class DragContainer extends Component<
       }
     );
     this.props.onMouseDown?.(e, id, data);
-    this.setState({ singleClickId: id });
   };
 
   /** 拖拽结束 */
@@ -335,16 +305,12 @@ class DragContainer extends Component<
   /** 渲染children */
   renderChildren = () => {
     const childList = filterChildren(this.props.children, ChildBox);
-    const { singleClickId, doubleClickId } = this.state;
     return childList.map((child: any, index) =>
       React.cloneElement(child, {
         // @ts-ignore
-        isSingleClicked: singleClickId === child.props.id,
-        isDoubleClicked: doubleClickId === child.props.id,
         onMouseMove: this.handleChildMouseMove(index),
         onMouseDown: this.handleChildMouseDown,
         onMouseUp: this.handleChildMouseUp,
-        onDoubleClick: this.handleChildDoubleClick,
       })
     );
   };
@@ -394,14 +360,21 @@ class DragContainer extends Component<
     );
   };
 
+  renderRealStyle = () => {
+    const { width, height, background } = this.props;
+    return {
+      background: background ?? "#303030",
+      width: width ?? "100%",
+      height: height ?? 800,
+    };
+  };
+
   render() {
     const { className, id } = this.props;
-    const { style } = this.state;
-
     return (
       <div
         data-id={id}
-        style={{ ...style }}
+        style={this.renderRealStyle()}
         className={classNames(prefixCls(), className)}
         ref={this.handleRoot}
       >
