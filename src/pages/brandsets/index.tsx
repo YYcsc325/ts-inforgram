@@ -1,14 +1,14 @@
-import React, { FC, useEffect } from "react";
-import { contextConsumer } from "@/layouts/context";
-import { createPrefixClass } from "@/util/utils";
-
-import styles from "./index.less";
+import React, { FC, useEffect } from 'react';
+import { contextConsumer } from '@/layouts/context';
+import { createPrefixClass } from '@/util/utils';
+import ColorModifier from '@/components/ColorModifier';
+import styles from './index.less';
 
 interface IBrandsetsProps {
   [x: string]: any;
 }
 
-const prefixCls = createPrefixClass("brandsets", styles);
+const prefixCls = createPrefixClass('brandsets', styles);
 
 const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
   const handleClick = () => {
@@ -22,6 +22,7 @@ const Brandsets: FC<IBrandsetsProps> = ({ consumer }) => {
   return (
     <div className={prefixCls()} onClick={handleClick}>
       brandsets
+      <ColorModifier />
     </div>
   );
 };
