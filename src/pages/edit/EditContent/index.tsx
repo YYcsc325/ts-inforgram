@@ -1,4 +1,4 @@
-import React, { useMemo, FC } from "react";
+import React, { useMemo, FC, useRef } from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
@@ -14,6 +14,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 
+import ShrinkLine from "@/components/DragContainer/ShrinkLine";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
 
@@ -43,10 +44,13 @@ const EditPage: FC<IEditPageProps> = (props) => {
     handleAddBox,
     handleDeleteBox,
     handleModifyBox,
+    handleModifyPage,
     boxsData,
     checkedId,
     modifyId,
   } = editConsumer;
+
+  const contentRef = useRef(null);
 
   const boxList = useMemo(() => {
     return boxIdList.map((item: string) => ({
@@ -104,6 +108,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
           [prefixCls("page-active")]: pageId === checkedId,
         })}
         onMouseMove={handleBoxMove}
+        ref={contentRef}
       >
         {boxList.map((item: any) => {
           const Element = getDragComponent(item.type as string);
@@ -135,6 +140,12 @@ const EditPage: FC<IEditPageProps> = (props) => {
           );
         })}
       </DragContainer>
+      <ShrinkLine
+        onMouseMove={(e: any) => {
+          const top = contentRef.current.$nodeRef.offsetTop;
+          handleModifyPage(pageId, { height: e.pageY - top });
+        }}
+      />
     </div>
   );
 };

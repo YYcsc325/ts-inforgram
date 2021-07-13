@@ -1,12 +1,14 @@
-import React, { FC, useState, useEffect, useCallback } from 'react';
-import styles from './index.less';
-import ColorGroup from './components/ColorGroup';
-import { Popover } from 'antd';
+import React, { FC, useState, useEffect, useCallback } from "react";
+import styles from "./index.less";
+import ColorGroup from "./components/ColorGroup";
+import { Popover } from "antd";
+
 interface ColorModifierProps {
   [x: string]: any;
   value: string;
   onChange: (value: string) => void;
 }
+
 const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
   const [isShowCom, setIsShowCom] = useState(false);
 
@@ -29,7 +31,7 @@ const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
   };
 
   return (
-    <div className={styles['colorModifierBox']}>
+    <div className={styles["colorModifierBox"]}>
       <Popover
         content={<ColorGroup {...popoverData} />}
         placement="leftTop"
@@ -38,7 +40,7 @@ const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
         onVisibleChange={handleVisibleChange}
       >
         <div
-          className={styles['colorModifierBox-content']}
+          className={styles["colorModifierBox-content"]}
           onClick={show}
           style={{ background: `#${value}` }}
         />
