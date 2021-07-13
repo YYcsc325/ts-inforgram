@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { createPrefixClass, filterChildren } from "@/util/utils";
 
 import ChildBox, { handleDrag } from "./ChildBox";
-import ShrinkLine from "./ShrinkLine";
 import { unique, checkArrayWithPush, getMaxDistance } from "./utils";
 import styles from "./index.less";
 
@@ -380,7 +379,6 @@ class DragContainer extends Component<
       >
         {this.renderChildren()}
         {this.renderGuideLine()}
-        <ShrinkLine className={prefixCls("shrink-line")} />
       </div>
     );
   }

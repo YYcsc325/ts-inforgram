@@ -77,7 +77,6 @@ const Edit: FC<IEditProps> = (props) => {
   /** 修改page数据 */
   const handleModifyPage = (pageId: string, data: any) => {
     const datas = { ...pagesData, [pageId]: { ...pagesData[pageId], ...data } };
-    console.log(datas, "datas");
     setPagesData({ ...pagesData, [pageId]: { ...pagesData[pageId], ...data } });
   };
 

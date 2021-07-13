@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useRef } from "react";
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 
@@ -9,24 +9,40 @@ const prefixCls = createPrefixClass("shrink-line", styles);
 export interface IShrinkLineProps {
   style?: React.CSSProperties;
   className?: string;
-  onMouseMove?: () => void;
+  onMouseDown?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
+  onMouseMove?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
+  onMouseUp?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
 }
 
 const ShrinkLine: FC<IShrinkLineProps> = ({
   style,
   className,
+  onMouseDown,
   onMouseMove,
+  onMouseUp,
 }) => {
+  const isDown = useRef<boolean>(false);
+
   const handleMouseDown = useCallback(
     (e) => {
-      console.log(e, "e");
+      isDown.current = true;
+      onMouseDown?.(e);
+      document?.addEventListener?.("mousemove", handleMouseMove);
+      document?.addEventListener?.("mouseup", handleMouseUp);
+    },
+    [onMouseDown]
+  );
+
+  const handleMouseMove = useCallback(
+    (e) => {
+      isDown.current && onMouseMove?.(e);
     },
     [onMouseMove]
   );
 
-  const handleMouseMove = useCallback(() => {}, []);
-
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e) => {
+    isDown.current = false;
+    onMouseUp?.(e);
     document?.removeEventListener?.("mousemove", handleMouseMove);
     document?.removeEventListener?.("mouseup", handleMouseUp);
   }, []);
