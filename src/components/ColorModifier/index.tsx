@@ -1,19 +1,14 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useCallback } from 'react';
 import styles from './index.less';
 import ColorGroup from './components/ColorGroup';
 import { Popover } from 'antd';
-interface IBrandsetsProps {
+interface ColorModifierProps {
   [x: string]: any;
+  value: string;
+  onChange: (value: string) => void;
 }
-
-const ColorModifier: FC<IBrandsetsProps> = () => {
+const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
   const [isShowCom, setIsShowCom] = useState(false);
-  const [color, setColor] = useState({});
-  useEffect(() => {
-    setColor({
-      background: '#ccc',
-    });
-  }, []);
 
   const show = () => {
     setIsShowCom(true);
@@ -23,18 +18,20 @@ const ColorModifier: FC<IBrandsetsProps> = () => {
     setIsShowCom(false);
   };
 
-  const handleVisibleChange = (visible) => {
+  const handleVisibleChange = (visible: boolean) => {
     setIsShowCom(visible);
   };
 
-  const selectColor = (data) => {
-    setColor({ background: `#${data}` });
+  const popoverData = {
+    hiddenFunc: hidden,
+    value,
+    onChange,
   };
 
   return (
     <div className={styles['colorModifierBox']}>
       <Popover
-        content={<ColorGroup hiddenFunc={hidden} selectColor={selectColor} />}
+        content={<ColorGroup {...popoverData} />}
         placement="leftTop"
         trigger="click"
         visible={isShowCom}
@@ -43,7 +40,7 @@ const ColorModifier: FC<IBrandsetsProps> = () => {
         <div
           className={styles['colorModifierBox-content']}
           onClick={show}
-          style={color}
+          style={{ background: `#${value}` }}
         />
       </Popover>
     </div>

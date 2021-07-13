@@ -3,8 +3,10 @@ import { ChromePicker } from 'react-color';
 import styles from './index.less';
 import { Input } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-interface IBrandsetsProps {
+interface ColorGroupProps {
   [x: string]: any;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 const colorList = [
@@ -23,15 +25,10 @@ const colorList = [
   'FFFFFF',
 ];
 
-const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
-  const [checkColor, setCheckColor] = useState();
+const ColorGroup: FC<ColorGroupProps> = ({ hiddenFunc, value, onChange }) => {
   const [showMoreColorFlag, setShowMoreColorFlag] = useState(false);
-  useEffect(() => {}, []);
-
-  const chooseColor = (data) => {
-    console.log(data, 'chooseColor');
-    setCheckColor(data);
-    selectColor(data);
+  const chooseColor = (data: string) => {
+    onChange(data);
   };
 
   return (
@@ -49,7 +46,7 @@ const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
           <span
             key={index}
             style={
-              checkColor === item
+              value === item
                 ? { background: `#${item}`, borderColor: ' #fff' }
                 : { background: `#${item}` }
             }
@@ -67,15 +64,14 @@ const ColorGroup: FC<IBrandsetsProps> = ({ hiddenFunc, selectColor }) => {
               onClick={() => setShowMoreColorFlag(!showMoreColorFlag)}
             />
           }
-          value={checkColor}
+          value={value}
         />
         {showMoreColorFlag && (
           <ChromePicker
-            color={`#${checkColor}`}
+            color={`#${value}`}
             className={styles['colorGroupBox-chromePicker']}
             onChange={(hexColor) => {
-              setCheckColor(hexColor.hex.split('#')[1]);
-              selectColor(hexColor.hex.split('#')[1]);
+              onChange(hexColor.hex.split('#')[1]);
             }}
           />
         )}
