@@ -11,7 +11,7 @@ interface IDragContainerProps {
   id: string;
   width?: string | number;
   height?: string | number;
-  background?: string;
+  backgroundColor?: string;
   className?: string;
   onMouseUp?: handleDrag;
   onMouseMove?: handleDrag;
@@ -360,9 +360,9 @@ class DragContainer extends Component<
   };
 
   renderRealStyle = () => {
-    const { width, height, background } = this.props;
+    const { width, height, backgroundColor } = this.props;
     return {
-      background: background ?? "#303030",
+      backgroundColor: backgroundColor ?? "#303030",
       width: width ?? "100%",
       height: height ?? 800,
     };

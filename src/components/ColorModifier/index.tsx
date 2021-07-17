@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useCallback } from "react";
+import React, { FC, useState } from "react";
 import styles from "./index.less";
 import ColorGroup from "./components/ColorGroup";
 import { Popover } from "antd";
@@ -29,23 +29,22 @@ const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
     value,
     onChange,
   };
-
+  console.log(isShowCom, "isShowCom");
   return (
-    <div className={styles["colorModifierBox"]}>
-      <Popover
-        content={<ColorGroup {...popoverData} />}
-        placement="leftTop"
-        trigger="click"
-        visible={isShowCom}
-        onVisibleChange={handleVisibleChange}
-      >
-        <div
-          className={styles["colorModifierBox-content"]}
-          onClick={show}
-          style={{ background: `#${value}` }}
-        />
-      </Popover>
-    </div>
+    <Popover
+      overlayClassName={styles["colorModifierBox"]}
+      content={<ColorGroup {...popoverData} />}
+      placement="leftTop"
+      trigger="click"
+      visible={isShowCom}
+      onVisibleChange={handleVisibleChange}
+    >
+      <div
+        className={styles["colorModifierBox-content"]}
+        onClick={show}
+        style={{ background: value }}
+      />
+    </Popover>
   );
 };
 

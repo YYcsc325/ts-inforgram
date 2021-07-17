@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Divider } from "antd";
+import { ColorModifier } from "@/components";
 
 import LabelInput from "../components/LabelInput";
 import { editContextConsumer } from "../context";
@@ -25,6 +26,12 @@ const EditData: FC<IEditDataProps> = (props) => {
           onChange={(value) =>
             handleModifyPage(checkedId, { height: Number(value) })
           }
+        />
+        <ColorModifier
+          value={data.backgroundColor}
+          onChange={(val) => {
+            handleModifyPage(checkedId, { backgroundColor: val });
+          }}
         />
       </div>
     );

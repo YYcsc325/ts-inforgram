@@ -23,6 +23,7 @@ const prefixCls = createPrefixClass("edit", styles);
 export interface IEditPageProps {
   pageId: string;
   height?: string | number;
+  backgroundColor?: string;
   editConsumer?: any;
   boxIdList: string[];
   pageName: React.ReactNode;
@@ -39,7 +40,14 @@ const options = [
 ];
 
 const EditPage: FC<IEditPageProps> = (props) => {
-  const { editConsumer, pageId, index, boxIdList = [], height } = props;
+  const {
+    editConsumer,
+    pageId,
+    index,
+    boxIdList = [],
+    height,
+    backgroundColor,
+  } = props;
   const {
     handleAddBox,
     handleDeleteBox,
@@ -104,6 +112,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
       <DragContainer
         id={pageId}
         height={height}
+        backgroundColor={backgroundColor}
         className={classNames(prefixCls("page-content"), {
           [prefixCls("page-active")]: pageId === checkedId,
         })}
@@ -142,7 +151,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
       </DragContainer>
       <ShrinkLine
         onMouseMove={(e: any) => {
-          const top = contentRef.current.$nodeRef.offsetTop;
+          const top = contentRef?.current?.$nodeRef.offsetTop;
           handleModifyPage(pageId, { height: e.pageY - top });
         }}
       />
