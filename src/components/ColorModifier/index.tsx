@@ -12,24 +12,16 @@ interface ColorModifierProps {
 const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
   const [isShowCom, setIsShowCom] = useState(false);
 
-  const show = () => {
-    setIsShowCom(true);
-  };
-
-  const hidden = () => {
-    setIsShowCom(false);
-  };
-
   const handleVisibleChange = (visible: boolean) => {
     setIsShowCom(visible);
   };
 
   const popoverData = {
-    hiddenFunc: hidden,
+    hiddenFunc: handleVisibleChange,
     value,
     onChange,
   };
-  console.log(isShowCom, "isShowCom");
+
   return (
     <Popover
       overlayClassName={styles["colorModifierBox"]}
@@ -39,9 +31,8 @@ const ColorModifier: FC<ColorModifierProps> = ({ value, onChange }) => {
       visible={isShowCom}
       onVisibleChange={handleVisibleChange}
     >
-      <div
+      <span
         className={styles["colorModifierBox-content"]}
-        onClick={show}
         style={{ background: value }}
       />
     </Popover>

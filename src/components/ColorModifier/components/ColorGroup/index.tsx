@@ -37,7 +37,7 @@ const ColorGroup: FC<ColorGroupProps> = ({ hiddenFunc, value, onChange }) => {
       <div className={styles["colorGroupBox-close"]}>
         <CloseOutlined
           onClick={() => {
-            hiddenFunc(), setShowMoreColorFlag(false);
+            hiddenFunc(false), setShowMoreColorFlag(false);
           }}
         />
       </div>
