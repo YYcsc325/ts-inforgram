@@ -27,12 +27,14 @@ const EditData: FC<IEditDataProps> = (props) => {
             handleModifyPage(checkedId, { height: Number(value) })
           }
         />
-        <ColorModifier
-          value={data.backgroundColor}
-          onChange={(val) => {
-            handleModifyPage(checkedId, { backgroundColor: val });
-          }}
-        />
+        <LabelInput label="background: (fill)">
+          <ColorModifier
+            value={data.backgroundColor}
+            onChange={(val) => {
+              handleModifyPage(checkedId, { backgroundColor: val });
+            }}
+          />
+        </LabelInput>
       </div>
     );
   };

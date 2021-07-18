@@ -117,13 +117,13 @@ const EditPage: FC<IEditPageProps> = (props) => {
           [prefixCls("page-active")]: pageId === checkedId,
         })}
         onMouseMove={handleBoxMove}
-        ref={contentRef}
+        nodeRef={(node) => (contentRef.current = node)}
       >
-        {boxList.map((item: any) => {
+        {boxList.map((item: any = {}, index) => {
           const Element = getDragComponent(item.type as string);
           return (
             <DragContainer.Box
-              key={item.id}
+              key={item.id ?? index}
               id={item.id}
               left={item.left}
               top={item.top}
@@ -151,7 +151,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
       </DragContainer>
       <ShrinkLine
         onMouseMove={(e: any) => {
-          const top = contentRef?.current?.$nodeRef.offsetTop;
+          const top = contentRef?.current?.offsetTop;
           handleModifyPage(pageId, { height: e.pageY - top });
         }}
       />

@@ -11,13 +11,11 @@ export interface ILabelInputProps extends InputTextProps {
 }
 
 const LabelInput: FC<ILabelInputProps> = (props) => {
-  const { label, ...resetProps } = props;
+  const { label, children, ...resetProps } = props;
   return (
     <div className={prefixCls()}>
       <div>{label}</div>
-      <div>
-        <InputText {...resetProps} />
-      </div>
+      <div>{children ? children : <InputText {...resetProps} />}</div>
     </div>
   );
 };
