@@ -9,6 +9,7 @@ import styles from "./index.less";
 const prefixCls = createPrefixClass("drag-container", styles);
 interface IDragContainerProps {
   id: string;
+  nodeRef?: (node: any) => void;
   width?: string | number;
   height?: string | number;
   backgroundColor?: string;
@@ -45,6 +46,7 @@ class DragContainer extends Component<
   /** 存储当前组件的ref */
   handleRoot = (node: any) => {
     this.$nodeRef = node;
+    this.props.nodeRef?.(node);
   };
 
   // 拖拽初始时 计算出所有元素的坐标信息，存储于childPos
