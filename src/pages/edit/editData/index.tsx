@@ -3,6 +3,7 @@ import { Divider } from "antd";
 import { ColorModifier } from "@/components";
 
 import LabelInput from "../components/LabelInput";
+import { boxChangeType } from "../utils";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
 interface IEditDataProps {
@@ -10,8 +11,13 @@ interface IEditDataProps {
 }
 
 const EditData: FC<IEditDataProps> = (props) => {
-  const { boxsData, pagesData, handleModifyBox, handleModifyPage, checkedId } =
-    props.editConsumer;
+  const {
+    boxsData,
+    pagesData,
+    handleBoxChange,
+    handleModifyPageStyle,
+    checkedId,
+  } = props.editConsumer;
 
   const allData = { ...pagesData, ...boxsData };
   const renderData = allData[checkedId] || {};
@@ -24,14 +30,14 @@ const EditData: FC<IEditDataProps> = (props) => {
           label="height: (px)"
           value={data.height}
           onChange={(value) =>
-            handleModifyPage(checkedId, { height: Number(value) })
+            handleModifyPageStyle(checkedId, { height: Number(value) })
           }
         />
         <LabelInput label="background: (fill)">
           <ColorModifier
             value={data.backgroundColor}
             onChange={(val) => {
-              handleModifyPage(checkedId, { backgroundColor: val });
+              handleModifyPageStyle(checkedId, { backgroundColor: val });
             }}
           />
         </LabelInput>
@@ -48,7 +54,9 @@ const EditData: FC<IEditDataProps> = (props) => {
             value={renderData.width}
             styleOne
             onChange={(value) =>
-              handleModifyBox(checkedId, { width: Number(value) })
+              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
+                width: Number(value),
+              })
             }
           />
           <Divider type="vertical" />
@@ -57,7 +65,9 @@ const EditData: FC<IEditDataProps> = (props) => {
             value={renderData.height}
             styleOne
             onChange={(value) =>
-              handleModifyBox(checkedId, { height: Number(value) })
+              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
+                height: Number(value),
+              })
             }
           />
         </div>
@@ -67,7 +77,9 @@ const EditData: FC<IEditDataProps> = (props) => {
             value={renderData.left}
             styleOne
             onChange={(value) =>
-              handleModifyBox(checkedId, { left: Number(value) })
+              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
+                left: Number(value),
+              })
             }
           />
           <Divider type="vertical" />
@@ -76,7 +88,9 @@ const EditData: FC<IEditDataProps> = (props) => {
             value={renderData.top}
             styleOne
             onChange={(value) =>
-              handleModifyBox(checkedId, { top: Number(value) })
+              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
+                top: Number(value),
+              })
             }
           />
         </div>

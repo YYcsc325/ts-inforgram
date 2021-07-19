@@ -13,7 +13,12 @@ import EditData from "./editData";
 
 import { IConnectProps } from "./connect";
 import { EditContextProvider } from "./context";
-import { normalizePagesData, getParentNode } from "./utils";
+import {
+  normalizePagesData,
+  getParentNode,
+  boxChangeType,
+  IBoxChangeType,
+} from "./utils";
 import styles from "./index.less";
 
 export interface IEditProps
@@ -30,6 +35,7 @@ const Edit: FC<IEditProps> = (props) => {
   const [modifyId, setModifyId] = useState("");
 
   const editContentRef = useRef<any>(null);
+  const editContentScrollTop = useRef<number>(0);
 
   if (!parse(Cookies.get("userLogin") as string)?.login) {
     return <Redirect to="/login" />;
@@ -43,8 +49,8 @@ const Edit: FC<IEditProps> = (props) => {
       })
       .then((res: any) => {
         const normalize = normalizePagesData(res.result || []);
-        setPagesData(normalize.get("pages") as any);
-        setBoxsData(normalize.get("boxs") as any);
+        setPagesData((normalize?.pages as any) || {});
+        setBoxsData((normalize?.boxs as any) || {});
       });
   }, []);
 
@@ -65,47 +71,75 @@ const Edit: FC<IEditProps> = (props) => {
     setModifyId(modifyId);
   };
 
+  /** 监听页面滚动 */
+  const listenPageScroll = (e: any) => {
+    editContentScrollTop.current = e.srcElement.scrollTop;
+  };
+
   useEffect(() => {
     editContentRef.current?.addEventListener("mousedown", listenMouseDown);
-    editContentRef.current.addEventListener("dblclick", listenDbClick);
+    editContentRef.current?.addEventListener("dblclick", listenDbClick);
+    editContentRef.current?.addEventListener("scroll", listenPageScroll);
     return () => {
       editContentRef.current?.removeEventListener("mousedown", listenMouseDown);
-      editContentRef.current.removeEventListener("dblclick", listenDbClick);
+      editContentRef.current?.removeEventListener("dblclick", listenDbClick);
+      editContentRef.current?.removeEventListener("scroll", listenPageScroll);
     };
   }, []);
 
-  /** 修改page数据 */
-  const handleModifyPage = (pageId: string, data: any) => {
-    const datas = { ...pagesData, [pageId]: { ...pagesData[pageId], ...data } };
-    setPagesData({ ...pagesData, [pageId]: { ...pagesData[pageId], ...data } });
+  /** 修改page样式 */
+  const handleModifyPageStyle = (
+    pageId: string,
+    style: React.CSSProperties
+  ) => {
+    setPagesData({
+      ...set(pagesData, [pageId], { ...pagesData[pageId], ...style }),
+    });
   };
 
-  // 修改box数据
-  const handleModifyBox = (boxId: string, data: any) => {
-    setBoxsData({ ...boxsData, [boxId]: { ...boxsData[boxId], ...data } });
+  // 修改box样式
+  const handleModifyBoxStyle = (boxId: string, style: React.CSSProperties) => {
+    setBoxsData({
+      ...set(boxsData, [boxId], { ...boxsData[boxId], ...style }),
+    });
   };
 
-  // 删除box数据
+  // 删除box
   const handleDeleteBox = (pageId: string, boxId: string) => {
     const childrenList = pagesData[pageId]?.children || [];
-    setPagesData(
-      set(
+    setPagesData({
+      ...set(
         pagesData,
         [pageId, "children"],
         childrenList.filter((item: any) => item !== boxId)
-      )
-    );
-    setBoxsData(omit(boxsData, [boxId]));
+      ),
+    });
+    setBoxsData({ ...omit(boxsData, [boxId]) });
   };
 
-  // 增加box数据
+  // 增加box
   const handleAddBox = (pageId: string, boxId: string, data: any) => {
     const childrenList = pagesData[pageId]?.children || [];
-    setPagesData(
-      set(pagesData, [pageId, "children"], [...childrenList, boxId])
-    );
-    setBoxsData({ ...boxsData, [boxId]: data });
+    setPagesData({
+      ...set(pagesData, [pageId, "children"], [...childrenList, boxId]),
+    });
+    setBoxsData({
+      ...set(boxsData, [boxId], data),
+    });
   };
+
+  const handleBoxChange =
+    (type: IBoxChangeType) =>
+    (...args: any) => {
+      const map = {
+        [boxChangeType.ADD]: handleAddBox,
+        [boxChangeType.DELETE]: handleDeleteBox,
+        [boxChangeType.MODIFY_STYLE]: handleModifyBoxStyle,
+      };
+      const func = map[type] as Function | undefined;
+      if (!func) return;
+      func(...args);
+    };
 
   return (
     <EditContextProvider
@@ -114,10 +148,9 @@ const Edit: FC<IEditProps> = (props) => {
         modifyId,
         pagesData,
         boxsData,
-        handleAddBox,
-        handleDeleteBox,
-        handleModifyBox,
-        handleModifyPage,
+        editContentScrollTop,
+        handleBoxChange,
+        handleModifyPageStyle,
       }}
     >
       <DndProvider backend={HTML5Backend}>
@@ -131,14 +164,15 @@ const Edit: FC<IEditProps> = (props) => {
               ref={editContentRef}
             >
               {Object.values(pagesData).map((item: any, index) => {
-                const { children = [], id } = item;
                 return (
                   <EditContent
                     {...item}
-                    boxIdList={children}
                     index={index}
-                    pageId={id}
-                    key={id}
+                    key={item.id}
+                    pageId={item.id}
+                    dataSource={Object.values(boxsData).filter((val: any) =>
+                      (item.children || []).includes(val.id)
+                    )}
                   />
                 );
               })}
