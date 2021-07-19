@@ -13,22 +13,23 @@ import {
   CopyOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-
 import ShrinkLine from "@/components/DragContainer/ShrinkLine";
+
+import { boxChangeType } from "../utils";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("edit", styles);
 
 export interface IEditPageProps {
+  index: number;
   pageId: string;
-  height?: string | number;
+  name?: string;
+  height: number;
   backgroundColor?: string;
   editConsumer?: any;
-  boxIdList: string[];
-  pageName: React.ReactNode;
+  dataSource: any[];
   className?: string;
-  index: number;
 }
 
 const options = [
@@ -39,36 +40,27 @@ const options = [
   },
 ];
 
-const EditPage: FC<IEditPageProps> = (props) => {
+const EditPage: FC<IEditPageProps> = ({
+  index,
+  pageId,
+  height,
+  backgroundColor,
+  dataSource = [],
+  editConsumer,
+}) => {
   const {
-    editConsumer,
-    pageId,
-    index,
-    boxIdList = [],
-    height,
-    backgroundColor,
-  } = props;
-  const {
-    handleAddBox,
-    handleDeleteBox,
-    handleModifyBox,
-    handleModifyPage,
-    boxsData,
+    handleBoxChange,
+    handleModifyPageStyle,
     checkedId,
     modifyId,
+    editContentScrollTop,
   } = editConsumer;
 
-  const contentRef = useRef(null);
-
-  const boxList = useMemo(() => {
-    return boxIdList.map((item: string) => ({
-      ...boxsData[item],
-    }));
-  }, [boxIdList, boxsData]);
+  const contentRef = useRef<any>(null);
 
   const boxIds = useMemo(() => {
-    return boxList.map((item) => item.id);
-  }, [boxList]);
+    return dataSource.map((item) => item.id);
+  }, [dataSource]);
 
   // 放下拖拽元素的触发的事件
   const [{ canDrop, isOver }, drop] = useDrop({
@@ -77,7 +69,7 @@ const EditPage: FC<IEditPageProps> = (props) => {
       const isFind = boxIds.includes(item.id);
       if (!isFind) {
         let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
-        handleAddBox(pageId, item.id, {
+        handleBoxChange(boxChangeType.ADD)(pageId, item.id, {
           ...item,
           parentId: pageId,
           left: x,
@@ -92,12 +84,12 @@ const EditPage: FC<IEditPageProps> = (props) => {
     }),
   });
 
-  const handleBoxMenuClick = (boxId: string) => (params: OptionsItem) => {
-    handleDeleteBox(pageId, boxId);
+  const handleBoxMenuClick = (_p: OptionsItem) => {
+    handleBoxChange(boxChangeType.DELETE)(pageId, checkedId);
   };
 
-  const handleBoxMove = (e: any, boxId: string, data: any) => {
-    handleModifyBox(boxId, data);
+  const handleBoxMove = (_e: any, _id: string, data: any) => {
+    handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, data);
   };
 
   return (
@@ -111,15 +103,14 @@ const EditPage: FC<IEditPageProps> = (props) => {
       </div>
       <DragContainer
         id={pageId}
-        height={height}
-        backgroundColor={backgroundColor}
+        style={{ height, backgroundColor }}
         className={classNames(prefixCls("page-content"), {
           [prefixCls("page-active")]: pageId === checkedId,
         })}
         onMouseMove={handleBoxMove}
         nodeRef={(node) => (contentRef.current = node)}
       >
-        {boxList.map((item: any = {}, index) => {
+        {dataSource.map((item: any = {}, index) => {
           const Element = getDragComponent(item.type as string);
           return (
             <DragContainer.Box
@@ -130,15 +121,11 @@ const EditPage: FC<IEditPageProps> = (props) => {
               width={item.width}
               height={item.height}
               className={classNames(prefixCls("page-box"), {
-                [prefixCls("box-active")]:
-                  item.id === checkedId || item.id === modifyId,
+                [prefixCls("box-active")]: item.id === checkedId,
               })}
-              isDoubleClicked={item.id === modifyId}
+              isDoubleClicked={item.id === modifyId && modifyId === checkedId}
             >
-              <ContextMenu
-                options={options}
-                onMenuClick={handleBoxMenuClick(item.id)}
-              >
+              <ContextMenu options={options} onMenuClick={handleBoxMenuClick}>
                 <Element
                   {...item.data}
                   width={item.width}
@@ -150,9 +137,12 @@ const EditPage: FC<IEditPageProps> = (props) => {
         })}
       </DragContainer>
       <ShrinkLine
+        id={pageId}
         onMouseMove={(e: any) => {
-          const top = contentRef?.current?.offsetTop;
-          handleModifyPage(pageId, { height: e.pageY - top });
+          const offsetTop = contentRef?.current?.offsetTop ?? 0;
+          const editScrollTop = Number(editContentScrollTop?.current) ?? 0;
+          const height = e.pageY + editScrollTop - offsetTop;
+          handleModifyPageStyle(pageId, { height });
         }}
       />
     </div>

@@ -9,12 +9,14 @@ const prefixCls = createPrefixClass("shrink-line", styles);
 export interface IShrinkLineProps {
   style?: React.CSSProperties;
   className?: string;
+  id: string | number;
   onMouseDown?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
   onMouseMove?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
   onMouseUp?: (e: React.MouseEventHandler<HTMLSpanElement>) => void;
 }
 
 const ShrinkLine: FC<IShrinkLineProps> = ({
+  id,
   style,
   className,
   onMouseDown,
@@ -48,7 +50,11 @@ const ShrinkLine: FC<IShrinkLineProps> = ({
   }, []);
 
   return (
-    <div className={classNames(prefixCls(), className)} style={style}>
+    <div
+      className={classNames(prefixCls(), className)}
+      style={style}
+      data-id={id}
+    >
       <span
         className={prefixCls("shrink-line-box")}
         onMouseDown={handleMouseDown}

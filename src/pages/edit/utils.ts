@@ -6,7 +6,8 @@ export function normalizePagesData(data: any[] = []) {
   const boxs = new schema.Entity("boxs");
   const pages = new schema.Entity("pages", { children: [boxs] });
   const result = normalize(data, [pages]).entities;
-  return Map(result);
+  return result;
+  // return Map(result);
 }
 
 /** 反序列化pagesData */
@@ -25,3 +26,13 @@ export function getParentNode(node: any, callback: (params: any) => any): any {
     return getParentNode(node?.parentNode, callback);
   }
 }
+export const boxChangeType = {
+  /** 添加盒子 */
+  ADD: "ADD",
+  /** 删除盒子 */
+  DELETE: "DELETE",
+  /** 修改盒子样式 */
+  MODIFY_STYLE: "MODIFY_STYLE",
+} as const;
+
+export type IBoxChangeType = keyof typeof boxChangeType;

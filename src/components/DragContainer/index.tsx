@@ -7,12 +7,11 @@ import { unique, checkArrayWithPush, getMaxDistance } from "./utils";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("drag-container", styles);
+
 interface IDragContainerProps {
   id: string;
+  style?: React.CSSProperties;
   nodeRef?: (node: any) => void;
-  width?: string | number;
-  height?: string | number;
-  backgroundColor?: string;
   className?: string;
   onMouseUp?: handleDrag;
   onMouseMove?: handleDrag;
@@ -362,12 +361,8 @@ class DragContainer extends Component<
   };
 
   renderRealStyle = () => {
-    const { width, height, backgroundColor } = this.props;
-    return {
-      backgroundColor: backgroundColor ?? "#303030",
-      width: width ?? "100%",
-      height: height ?? 800,
-    };
+    const { style } = this.props;
+    return style;
   };
 
   render() {
