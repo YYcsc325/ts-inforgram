@@ -58,6 +58,7 @@ export function processingObj(item: any = {}, todo: string, injectProps: any) {
 export function addPageListener(cb: () => any) {
   document.addEventListener("visibilitychange", cb);
 }
+
 /**
  * @name 移除去除监听页面切换
  */
@@ -65,9 +66,11 @@ export function removePageListener(cb: () => any) {
   document.addEventListener("visibilitychange", cb);
 }
 
-export function getDisplayName(component: ComponentType<any>) {
-  if (!component) return "Unknow";
-  return component.displayName || component.name || "Unknown";
+export function getDisplayName(WrappedComponent: ComponentType<any>) {
+  if (!WrappedComponent) return "Unknow";
+  return (
+    WrappedComponent.displayName || WrappedComponent.name || "WrappedComponent"
+  );
 }
 
 export function findChild<P = any>(
@@ -167,6 +170,7 @@ export function isUndefined(o: any) {
 export function isNull(o: any) {
   return o === null;
 }
+
 /** 计算字符串长度，包括英文跟中文字符 */
 export function getBLen(str: any) {
   if (str == null) return 0;
@@ -174,6 +178,11 @@ export function getBLen(str: any) {
     str += "";
   }
   return str.replace(/[^\x00-\xff]/g, "01").length;
+}
+
+/** 数组平铺 */
+export function flattenArray(arr: Array<any>) {
+  return Array.prototype.concat.apply([], arr);
 }
 
 /** 是否展示省略号 */

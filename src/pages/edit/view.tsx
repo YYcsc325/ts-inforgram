@@ -140,7 +140,6 @@ const Edit: FC<IEditProps> = (props) => {
       if (!func) return;
       func(...args);
     };
-
   return (
     <EditContextProvider
       value={{
