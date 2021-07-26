@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
-import { Drag } from "@/components";
+import Drag, { IDragProps } from "@/components/Drag";
 import { Input, Select } from "antd";
 
 import styles from "./index.less";
 
-interface IContentProps {
+interface IContentProps extends IDragProps {
   [x: string]: any;
 }
 
@@ -50,6 +50,14 @@ const Content: FC<IContentProps> = ({ consumer, drag }) => {
               测试数据2
             </Select.Option>
           </Select>
+        </Drag.Item>
+      </Drag>
+      <Drag drag={drag}>
+        <Drag.Item name="key4">
+          <Input
+            onChange={(e) => console.log(e, "e____")}
+            style={{ width: 300 }}
+          />
         </Drag.Item>
       </Drag>
     </div>
