@@ -9,22 +9,24 @@ interface IDragProps {
   drag: any;
 }
 
-export default class Drag extends Component<IDragProps, { [x: string]: any }> {
+export default class Drag extends Component<IDragProps> {
   static Item = DragItem;
 
   static create = createBaseClass;
 
   render() {
     const { children, drag } = this.props;
-
     return (
       <DragContextProvider
         value={{
           _drag: drag,
+          _dragValues: drag.getValues(),
         }}
       >
         {childrenToArray(children).map((child: any) => (
-          <DragContextConsumer>{child}</DragContextConsumer>
+          <DragContextConsumer key={child.props.name}>
+            {child}
+          </DragContextConsumer>
         ))}
       </DragContextProvider>
     );
