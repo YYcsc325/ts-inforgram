@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { childrenToArray } from "@/util/utils";
 
-import DragItem from "./components/DragItem";
+import DragItem from "./DragItem";
 import createBaseClass from "./createBaseClass";
 import { ContextProvider, ContextConsumer } from "./context";
 
