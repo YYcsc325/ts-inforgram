@@ -114,12 +114,8 @@ const EditPage: FC<IEditPageProps> = ({
           const Element = getDragComponent(item.type as string);
           return (
             <DragContainer.Box
+              {...item}
               key={item.id ?? index}
-              id={item.id}
-              left={item.left}
-              top={item.top}
-              width={item.width}
-              height={item.height}
               className={classNames(prefixCls("page-box"), {
                 [prefixCls("box-active")]: item.id === checkedId,
               })}

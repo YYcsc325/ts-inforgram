@@ -1,17 +1,17 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType, Component } from "react";
 
-// class _store1 {
-//   // @ts-ignore
-//   #store = {};
+class _store1 {
+  // @ts-ignore
+  #store: any = {}; // 类的私有化属性
 
-//   getValues = () => this.#store;
+  getValues = () => this.#store;
 
-//   getValue = (key) => this.#store[key];
+  getValue = (key: string) => this.#store[key];
 
-//   setValue = (key, value) => {
-//     this.#store[key] = value;
-//   };
-// }
+  setValue = (key: string, value: any) => {
+    this.#store[key] = value;
+  };
+}
 
 type IStore = any;
 
@@ -19,21 +19,21 @@ export interface IStoreResult {
   getValues: () => IStore;
   getValue: (key: string) => IStore;
   setValue: (key: string, value: any) => void;
+  setInitailValue: (value: any) => void;
 }
 
 export function store(): IStoreResult {
-  const _store: IStore = {};
+  var _store: IStore = {};
   return {
-    getValues: () => _store,
+    getValues: () => {
+      return _store;
+    },
     getValue: (key) => _store[key],
     setValue: (key, value) => {
       _store[key] = value;
     },
-  };
-}
-
-export function createBaseDom(WarpedComponent: ComponentType<any>) {
-  return function decorate(props: any) {
-    return <WarpedComponent {...props} drag={store()} />;
+    setInitailValue: (value) => {
+      _store = value;
+    },
   };
 }

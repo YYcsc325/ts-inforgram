@@ -1,35 +1,32 @@
 import React, { Component } from "react";
+import { childrenToArray } from "@/util/utils";
 
-import DragItem from "./components/DragItem";
-import { createBaseDom } from "./utils";
-
-interface IDragState {
-  a: string;
-  b: string;
-}
+import DragItem from "./DragItem";
+import createBaseClass from "./createBaseClass";
+import { DragContextProvider, DragContextConsumer } from "./context";
 
 interface IDragProps {
   drag: any;
 }
 
-export default class Drag extends Component<IDragProps, IDragState> {
+export default class Drag extends Component<IDragProps, { [x: string]: any }> {
   static Item = DragItem;
 
-  static create = createBaseDom;
+  static create = createBaseClass;
 
   render() {
     const { children, drag } = this.props;
 
-    const childList = React.Children.toArray(children);
-
     return (
-      <div>
-        {childList.map((child: any) =>
-          React.cloneElement(child, {
-            _setValue: (value: any) => drag.setValue(child.props.name, value),
-          })
-        )}
-      </div>
+      <DragContextProvider
+        value={{
+          _drag: drag,
+        }}
+      >
+        {childrenToArray(children).map((child: any) => (
+          <DragContextConsumer>{child}</DragContextConsumer>
+        ))}
+      </DragContextProvider>
     );
   }
 }

@@ -30,6 +30,7 @@ const Content: FC<IContentProps> = ({ consumer, drag }) => {
       >
         点击获取数据
       </button>
+      <button onClick={() => drag.setValue("key1", 1)}>设置数据</button>
       <Drag drag={drag}>
         <Drag.Item name="key1">
           <Input
@@ -37,10 +38,10 @@ const Content: FC<IContentProps> = ({ consumer, drag }) => {
             style={{ width: 300 }}
           />
         </Drag.Item>
-        <Drag.Item name="key2">
+        <Drag.Item name="key2" initailValue={2}>
           <Input style={{ width: 300 }} />
         </Drag.Item>
-        <Drag.Item name="key3">
+        <Drag.Item name="key3" initailValue={"1"}>
           <Select style={{ width: 300 }}>
             <Select.Option value="1" key="1">
               测试数据1
