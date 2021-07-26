@@ -1,29 +1,37 @@
 import React, { Component } from "react";
+import { childrenClone, childrenOnly } from "@/util/utils";
 
 interface IDragItemProps {
-  name: string;
-  _setValue?: (params: any) => void;
+  readonly name: string;
+  readonly _drag?: any;
+  readonly initailValue?: any;
 }
 
-export default class DragItem extends Component<IDragItemProps> {
-  render() {
-    const { name, children, _setValue } = this.props;
+class DragItem extends Component<IDragItemProps> {
+  componentDidMount() {
+    const { _drag, initailValue, name } = this.props;
+    _drag.setValue(name, initailValue);
+  }
 
-    const child: any = React.Children.only(children);
+  render() {
+    const { name, children, _drag } = this.props;
+
+    const child: any = childrenOnly(children);
+
+    const values = _drag.getValues();
 
     return (
       <div data-name={name}>
-        {React.cloneElement(child, {
-          onChange: (e: any) => {
-            let targetValue = e;
-            if (e?.type) {
-              targetValue = e.target.value || e.currentTarget.value;
-            }
-            child.props.onChange?.(targetValue);
-            _setValue?.(targetValue);
+        {childrenClone(child, {
+          value: values[name] || undefined,
+          onChange: (val: any) => {
+            child.props.onChange?.(val);
+            _drag.setValue(name, val);
           },
         })}
       </div>
     );
   }
 }
+
+export default DragItem;

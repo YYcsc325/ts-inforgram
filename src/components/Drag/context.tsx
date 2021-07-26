@@ -1,26 +1,28 @@
-import React, { ComponentType } from "react";
+import React from "react";
 
 export interface ICacheProviderValue<T = any> {
-  name?: string;
   value?: T;
 }
 
 export const CacheContext = React.createContext<ICacheProviderValue>({});
 
-export function CacheProvider({
-  children,
+export const ContextProvider: React.FC<ICacheProviderValue> = ({
   value,
-  name,
-}: React.PropsWithChildren<ICacheProviderValue>) {
-  const context = useContext(CacheContext);
-  const contextCache = context;
-  if (!contextCache[name]) {
-    contextCache[name] = value;
-  }
+  children,
+}) => {
+  return (
+    <CacheContext.Provider value={value}>{children}</CacheContext.Provider>
+  );
+};
+
+export const ContextConsumer: React.FC = ({ children }) => {
+  const Child = React.Children.only<any>(children);
 
   return (
-    <CacheContext.Provider value={contextCache}>
-      {children}
-    </CacheContext.Provider>
+    <CacheContext.Consumer>
+      {(v) => {
+        return React.cloneElement(Child, v);
+      }}
+    </CacheContext.Consumer>
   );
-}
+};
