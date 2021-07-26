@@ -25,8 +25,13 @@ class DragItem extends Component<IDragItemProps> {
         {childrenClone(child, {
           value: values[name] || undefined,
           onChange: (val: any) => {
-            child.props.onChange?.(val);
-            _drag.setValue(name, val);
+            let value = val;
+            let targetValue = val?.target?.value;
+            if (targetValue) {
+              value = targetValue;
+            }
+            child.props.onChange?.(value);
+            _drag.setValue(name, value);
           },
         })}
       </div>
