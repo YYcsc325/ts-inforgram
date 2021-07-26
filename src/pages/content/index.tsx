@@ -38,7 +38,7 @@ const Content: FC<IContentProps> = ({ consumer, drag }) => {
             style={{ width: 300 }}
           />
         </Drag.Item>
-        <Drag.Item name="key2" initailValue={2}>
+        <Drag.Item name="key2" initailValue={"2"}>
           <Input style={{ width: 300 }} />
         </Drag.Item>
         <Drag.Item name="key3" initailValue={"1"}>

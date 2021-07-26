@@ -4,6 +4,7 @@ import { childrenClone, childrenOnly } from "@/util/utils";
 interface IDragItemProps {
   readonly name: string;
   readonly _drag?: any;
+  readonly _dragValues?: any;
   readonly initailValue?: any;
 }
 
@@ -14,16 +15,14 @@ class DragItem extends Component<IDragItemProps> {
   }
 
   render() {
-    const { name, children, _drag } = this.props;
+    const { name, children, _drag, _dragValues, initailValue } = this.props;
 
     const child: any = childrenOnly(children);
-
-    const values = _drag.getValues();
 
     return (
       <div data-name={name}>
         {childrenClone(child, {
-          value: values[name] || undefined,
+          value: _dragValues[name] ?? initailValue,
           onChange: (val: any) => {
             let value = val;
             let targetValue = val?.target?.value;
