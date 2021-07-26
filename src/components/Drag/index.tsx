@@ -3,7 +3,7 @@ import { childrenToArray } from "@/util/utils";
 
 import DragItem from "./DragItem";
 import createBaseClass from "./createBaseClass";
-import { ContextProvider, ContextConsumer } from "./context";
+import { DragContextProvider, DragContextConsumer } from "./context";
 
 interface IDragProps {
   drag: any;
@@ -18,15 +18,15 @@ export default class Drag extends Component<IDragProps, { [x: string]: any }> {
     const { children, drag } = this.props;
 
     return (
-      <ContextProvider
+      <DragContextProvider
         value={{
           _drag: drag,
         }}
       >
         {childrenToArray(children).map((child: any) => (
-          <ContextConsumer>{child}</ContextConsumer>
+          <DragContextConsumer>{child}</DragContextConsumer>
         ))}
-      </ContextProvider>
+      </DragContextProvider>
     );
   }
 }

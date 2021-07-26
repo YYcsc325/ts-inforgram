@@ -4,25 +4,27 @@ export interface ICacheProviderValue<T = any> {
   value?: T;
 }
 
-export const CacheContext = React.createContext<ICacheProviderValue>({});
+export const DragCacheContext = React.createContext<ICacheProviderValue>({});
 
-export const ContextProvider: React.FC<ICacheProviderValue> = ({
+export const DragContextProvider: React.FC<ICacheProviderValue> = ({
   value,
   children,
 }) => {
   return (
-    <CacheContext.Provider value={value}>{children}</CacheContext.Provider>
+    <DragCacheContext.Provider value={value}>
+      {children}
+    </DragCacheContext.Provider>
   );
 };
 
-export const ContextConsumer: React.FC = ({ children }) => {
+export const DragContextConsumer: React.FC = ({ children }) => {
   const Child = React.Children.only<any>(children);
 
   return (
-    <CacheContext.Consumer>
+    <DragCacheContext.Consumer>
       {(v) => {
         return React.cloneElement(Child, v);
       }}
-    </CacheContext.Consumer>
+    </DragCacheContext.Consumer>
   );
 };
