@@ -19,3 +19,4 @@ export { default as CardTabs } from "./CardTabs";
 export { default as Composite } from "./Composite";
 export { default as ColorModifier } from "./ColorModifier";
 export { default as Drag } from "./Drag";
+export { default as AutoCenterTexts } from "./AutoCenterTexts";
