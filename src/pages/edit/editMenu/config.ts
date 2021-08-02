@@ -1,93 +1,64 @@
-export const menuNav = [
+import { TransforObjectToArray } from "@/util/useType";
+
+export const menuNavConsts = {
+  /** 文本 */
+  TEXT: "TEXT",
+  /** 图表 */
+  CHART: "CHART",
+  /** 地图 */
+  MAP: "MAP",
+  /** 组件 */
+  ELEMENT: "ELEMENT",
+  /** 区域 */
+  GRAPHICS: "GRAPHICS",
+  /** shape */
+  SHAPE: "SHAPE",
+  /** integration */
+  INTEGRATION: "INTEGRATION",
+} as const;
+
+export type IMenuNavConsts = TransforObjectToArray<typeof menuNavConsts>;
+
+export type IMenuNavItem = {
+  key: IMenuNavConsts;
+  title: string;
+  class: string;
+};
+
+export const menuNav: Array<IMenuNavItem> = [
   {
-    key: "text",
+    key: "TEXT",
     title: "Add text",
     class: "addText",
   },
   {
-    key: "chart",
+    key: "CHART",
     title: "Add chart",
     class: "addChart",
   },
   {
-    key: "map",
+    key: "MAP",
     title: "Add map",
     class: "addMap",
   },
   {
-    key: "element",
+    key: "ELEMENT",
     title: "Add element",
     class: "addElement",
   },
   {
-    key: "graphics",
+    key: "GRAPHICS",
     title: "Add graphics",
     class: "addGraphics",
   },
   {
-    key: "shape",
+    key: "SHAPE",
     title: "Add shape",
     class: "addShape",
   },
   {
-    key: "integration",
+    key: "INTEGRATION",
     title: "Add integration",
     class: "addIntegration",
   },
 ];
-
-export const renderList = {
-  text: [
-    {
-      name: "box",
-      type: "H1",
-      width: 180,
-      height: 36,
-      data: {
-        url: "https://cdn.jifo.co/js/dist/44e7133bff8ab2e162e7051990c05910.jpg",
-        text: "Type something",
-      },
-    },
-    {
-      name: "box",
-      type: "H1",
-      width: 180,
-      height: 36,
-      data: {
-        url: "https://cdn.jifo.co/js/dist/c1cd049fa426e4f3fd087e14e17905df.jpg",
-        text: "Write something",
-      },
-    },
-  ],
-  chart: [
-    {
-      name: "box",
-      type: "LineChart",
-      width: 300,
-      height: 300,
-      data: {
-        url: "https://cdn.jifo.co/js/dist/d52f1500ee0f63614752457d0b11c11a.jpg",
-      },
-    },
-  ],
-  map: [
-    {
-      name: "box",
-      type: "Img",
-      width: 200,
-      height: 200,
-      data: {
-        url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-      },
-    },
-    {
-      name: "box",
-      type: "Img",
-      width: 200,
-      height: 200,
-      data: {
-        url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
-      },
-    },
-  ],
-};

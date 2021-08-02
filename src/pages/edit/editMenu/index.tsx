@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import classNames from "classnames";
 
-import { menuNav, renderList } from "./config";
-import ImgBox from "../components/ImgBox";
+import { menuNav, IMenuNavItem } from "./config";
+import queryTemplate from "./templates";
 import styles from "./index.less";
 
 export interface IEditMenuNavProps {}
 
-const EditMenuNav: React.FC<IEditMenuNavProps> = ({ children, ...reset }) => {
+const EditMenuNav: React.FC<IEditMenuNavProps> = () => {
   const [menuNavData] = useState(menuNav);
   const [viewportFlag, setViewportFlag] = useState(false);
-  const [viewportItem, setViewportItem] = useState<any>({});
+  const [viewportItem, setViewportItem] = useState<IMenuNavItem>({} as any);
 
   const showViewport = (e: React.MouseEvent<HTMLDivElement>, item: any) => {
     event?.stopImmediatePropagation();
@@ -27,6 +27,10 @@ const EditMenuNav: React.FC<IEditMenuNavProps> = ({ children, ...reset }) => {
       document.removeEventListener("click", setViewport);
     };
   }, []);
+
+  const RenderDom = useMemo(() => {
+    return queryTemplate(viewportItem.key);
+  }, [viewportItem.key]);
 
   return (
     <div className={styles["editMenu"]}>
@@ -52,15 +56,7 @@ const EditMenuNav: React.FC<IEditMenuNavProps> = ({ children, ...reset }) => {
             />
           </div>
           <div className={styles["viewportContent"]}>
-            {(renderList[viewportItem.key] || []).map((item, index: number) => (
-              <ImgBox
-                {...item}
-                key={item.name}
-                className={classNames(styles["mb"], {
-                  [styles["ml"]]: index / 2 !== 0,
-                })}
-              ></ImgBox>
-            ))}
+            <RenderDom />
           </div>
         </div>
       ) : null}

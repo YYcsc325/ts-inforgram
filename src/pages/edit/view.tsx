@@ -140,6 +140,7 @@ const Edit: FC<IEditProps> = (props) => {
       if (!func) return;
       func(...args);
     };
+
   return (
     <EditContextProvider
       value={{
@@ -148,6 +149,7 @@ const Edit: FC<IEditProps> = (props) => {
         pagesData,
         boxsData,
         editContentScrollTop,
+        editContentRef,
         handleBoxChange,
         handleModifyPageStyle,
       }}

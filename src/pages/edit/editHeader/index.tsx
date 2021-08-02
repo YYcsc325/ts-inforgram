@@ -1,9 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "umi";
+import screenfull from "screenfull";
 
+import { editContextConsumer } from "../context";
 import styles from "./index.less";
 
-const EditHeader = () => {
+const EditHeader: FC<any> = ({ editConsumer }) => {
+  const { editContentRef } = editConsumer;
+  const handlePreview = () => {
+    if (screenfull.isEnabled) {
+      screenfull.request(editContentRef.current);
+    } else {
+      console.log("当前浏览器不支持全屏浏览");
+    }
+  };
+
   return (
     <div className={styles["editHeader"]}>
       <div className={styles["editHeaderAction"]}>
@@ -22,7 +33,7 @@ const EditHeader = () => {
       </div>
       <div className={styles["editBtnList"]}>
         <div className={styles["editBtnIconOne"]} />
-        <div className={styles["editBtnIconTwo"]} />
+        <div className={styles["editBtnIconTwo"]} onClick={handlePreview} />
         <div className={styles["editBtnIconThree"]} />
         <button className={styles["editDownloadBtn"]}>
           <span className={styles["iconStyle"]} />
@@ -37,4 +48,4 @@ const EditHeader = () => {
   );
 };
 
-export default EditHeader;
+export default editContextConsumer(EditHeader) as typeof EditHeader;
