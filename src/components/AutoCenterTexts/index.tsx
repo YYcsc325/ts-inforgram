@@ -1,28 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import classNames from "classnames";
-import { createPrefixClass } from "@/util/utils";
+import { createPrefixClass, filterChildren } from "@/util/utils";
 
 import styles from "./index.less";
 
 const createPrefixTexts = createPrefixClass("auto-texts", styles);
 const createPrefixText = createPrefixClass("auto-text", styles);
 
-export interface IAutoCenterTextsProps {
+interface IAutoCenterTextsProps {
+  size?: number;
   style?: React.CSSProperties;
   className?: string;
 }
 
 const AutoCenterTexts: FC<IAutoCenterTextsProps> & {
   Item: FC<IAutoCenterTextProps>;
-} = ({ children, className, style }) => {
+} = ({ children, className, style, size }) => {
+  const childList = filterChildren(children, AutoCenterText);
   return (
     <div className={classNames(createPrefixTexts(), className)} style={style}>
-      {children}
+      {childList}
     </div>
   );
 };
 
-export interface IAutoCenterTextProps {
+interface IAutoCenterTextProps {
   label: string;
   text: string | number;
   style?: React.CSSProperties;
@@ -35,7 +37,9 @@ const AutoCenterText: FC<IAutoCenterTextProps> = ({
   className,
   style,
 }) => {
-  const labelRender = label.split("").map((item) => <span>{item}</span>);
+  const labelRender = useMemo(() => {
+    return label.split("").map((item) => <span>{item}</span>);
+  }, [label]);
 
   return (
     <div className={classNames(createPrefixText(), className)} style={style}>
@@ -55,5 +59,7 @@ const AutoCenterText: FC<IAutoCenterTextProps> = ({
 AutoCenterTexts.Item = AutoCenterText;
 AutoCenterTexts.displayName = "AutoCenterTexts";
 AutoCenterText.displayName = "AutoCenterText";
+
+export { IAutoCenterTextsProps, IAutoCenterTextProps };
 
 export default AutoCenterTexts;

@@ -27,37 +27,37 @@ export type IMenuNavItem = {
 
 export const menuNav: Array<IMenuNavItem> = [
   {
-    key: "TEXT",
+    key: menuNavConsts.TEXT,
     title: "Add text",
     class: "addText",
   },
   {
-    key: "CHART",
+    key: menuNavConsts.CHART,
     title: "Add chart",
     class: "addChart",
   },
   {
-    key: "MAP",
+    key: menuNavConsts.MAP,
     title: "Add map",
     class: "addMap",
   },
   {
-    key: "ELEMENT",
+    key: menuNavConsts.ELEMENT,
     title: "Add element",
     class: "addElement",
   },
   {
-    key: "GRAPHICS",
+    key: menuNavConsts.GRAPHICS,
     title: "Add graphics",
     class: "addGraphics",
   },
   {
-    key: "SHAPE",
+    key: menuNavConsts.SHAPE,
     title: "Add shape",
     class: "addShape",
   },
   {
-    key: "INTEGRATION",
+    key: menuNavConsts.INTEGRATION,
     title: "Add integration",
     class: "addIntegration",
   },
