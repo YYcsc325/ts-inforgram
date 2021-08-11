@@ -140,6 +140,37 @@ export function recursiveLoop<T = any>(
   });
 }
 
+/**
+ * @name   打散数组成二维数组
+ * @params Array
+ * @params count
+ */
+export function splitArray<T>(array: T[], count: number) {
+  return array.reduce<T[][]>((acc, item) => {
+    const lastIndex = acc.length - 1;
+    const arr = acc[lastIndex] || [];
+    if (arr.length < count) {
+      arr.push(item);
+      acc[lastIndex < 0 ? 0 : lastIndex] = arr;
+      return acc;
+    }
+
+    return acc.concat([[item]]);
+  }, []);
+}
+
+export function autoFillArray<T = any>(
+  arr: T[] = [],
+  fillNumber: number,
+  callback?: (params: number) => any
+): T[] {
+  if (arr.length > fillNumber) return arr;
+  return Array.from(Array(fillNumber)).map((_, index) => {
+    if (arr[index]) return arr[index];
+    return callback?.(index) ?? null;
+  });
+}
+
 /** 计算字符串长度，包括英文跟中文字符 */
 export function getBLen(str: any) {
   if (str == null) return 0;
