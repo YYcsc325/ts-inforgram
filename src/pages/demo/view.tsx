@@ -12,8 +12,9 @@ import {
   CardTabs,
   Composite,
   AverageLabel,
+  DragForm,
 } from "@/components";
-import Drag from "@/components/DragDnd";
+import DragDnd from "@/components/DragDnd";
 import DragBoxWarp from "@/components/Draggble";
 import classNames from "classnames";
 import normalizrUtils from "@/util/normalizr";
@@ -120,7 +121,7 @@ const ComponentList = [
     type: "DragRnd",
     description: "DragRnd自由缩放拖拽 组件演示",
     Component: () => {
-      return <Drag></Drag>;
+      return <DragDnd></DragDnd>;
     },
   },
   {
@@ -205,9 +206,56 @@ const ComponentList = [
       );
     },
   },
+  {
+    type: "DragForm",
+    description: "简单实现form机制",
+    Component: ({ dragForm }: any) => {
+      return (
+        <div>
+          <button
+            onClick={() => {
+              console.log(dragForm.getValues(), "___-");
+            }}
+          >
+            点击获取数据
+          </button>
+          <button onClick={() => dragForm.setValue("key1", 1)}>设置数据</button>
+          <DragForm drag={dragForm}>
+            <DragForm.Item name="key1">
+              <Input
+                onChange={(e) => console.log(e, "e____")}
+                style={{ width: 300 }}
+              />
+            </DragForm.Item>
+            <DragForm.Item name="key2" initailValue={"2"}>
+              <Input style={{ width: 300 }} />
+            </DragForm.Item>
+            <DragForm.Item name="key3" initailValue={"1"}>
+              <Select style={{ width: 300 }}>
+                <Select.Option value="1" key="1">
+                  测试数据1
+                </Select.Option>
+                <Select.Option value="2" key="2">
+                  测试数据2
+                </Select.Option>
+              </Select>
+            </DragForm.Item>
+          </DragForm>
+          <DragForm drag={dragForm}>
+            <DragForm.Item name="key4">
+              <Input
+                onChange={(e) => console.log(e, "e____")}
+                style={{ width: 300 }}
+              />
+            </DragForm.Item>
+          </DragForm>
+        </div>
+      );
+    },
+  },
 ];
 
-const Index = () => {
+const Index = ({ dragForm }: any) => {
   const [form] = Form.useForm();
   const [renderItem, setRenderItem] = useState(ComponentList[0]);
 
@@ -265,10 +313,11 @@ const Index = () => {
           form={form}
           handleSubmit={handleSubmit}
           openModal={openModal}
+          dragForm={dragForm}
         />
       </div>
     </div>
   );
 };
 
-export default Index;
+export default DragForm.create(Index);

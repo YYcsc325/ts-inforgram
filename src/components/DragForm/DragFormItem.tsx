@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { childrenClone, childrenOnly } from "@/util/utils";
 
-interface IDragItemProps {
+interface IDragFormItemProps {
   readonly name: string;
   readonly _drag?: any;
   readonly _dragValues?: any;
   readonly initailValue?: any;
 }
 
-class DragItem extends Component<IDragItemProps> {
+class DragFormItem extends Component<IDragFormItemProps> {
   componentDidMount() {
     const { _drag, initailValue, name } = this.props;
     _drag.setValue(name, initailValue);
@@ -38,4 +38,4 @@ class DragItem extends Component<IDragItemProps> {
   }
 }
 
-export default DragItem;
+export default DragFormItem;

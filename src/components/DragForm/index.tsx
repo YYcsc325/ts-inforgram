@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { childrenToArray } from "@/util/utils";
 
-import DragItem from "./DragItem";
+import DragFormItem from "./DragFormItem";
 import createBaseClass, { ICreateBaseStoreProps } from "./createBaseClass";
 import { DragContextProvider, DragContextConsumer } from "./context";
 
-export interface IDragProps {
+export interface IDragFormProps {
   drag: ICreateBaseStoreProps;
 }
 
-export default class Drag extends Component<IDragProps> {
-  static Item = DragItem;
+export default class DragForm extends Component<IDragFormProps> {
+  static Item = DragFormItem;
 
   static create = createBaseClass;
 
