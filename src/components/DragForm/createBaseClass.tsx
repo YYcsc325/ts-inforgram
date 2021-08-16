@@ -25,13 +25,13 @@ export default function createBaseDom(WarpedComponent: ComponentType<any>) {
     };
 
     render() {
-      const drag = {
+      const dragForm = {
         getValue: this.getValue,
         getValues: this.getValues,
         setValue: this.setValue,
       };
 
-      return <WarpedComponent {...this.props} drag={drag} />;
+      return <WarpedComponent {...this.props} dragForm={dragForm} />;
     }
   };
 }

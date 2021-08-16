@@ -18,5 +18,5 @@ export { default as RadioGroups } from "./RadioGroups";
 export { default as CardTabs } from "./CardTabs";
 export { default as Composite } from "./Composite";
 export { default as ColorModifier } from "./ColorModifier";
-export { default as Drag } from "./Drag";
+export { default as DragForm } from "./DragForm";
 export { default as AverageLabel } from "./AverageLabel";

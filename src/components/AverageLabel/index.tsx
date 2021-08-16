@@ -78,9 +78,9 @@ const AverageLabel: React.FC<IAverageLabelProps> & {
     <div className={classNames(createPrefixLabel(), className)} style={style}>
       {renderSortChildList.map((childs: any, index: number) => (
         <div key={index} className={createPrefixLabel("col")}>
-          {childs.map((child: any) => (
+          {childs.map((child: any, index: number) => (
             <div
-              key={child.props.name}
+              key={child.props.name || index}
               className={createPrefixLabel("col-line")}
             >
               {childrenClone(child, { splitLabel })}

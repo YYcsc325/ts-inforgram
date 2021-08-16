@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons";
 import ShrinkLine from "@/components/DragContainer/ShrinkLine";
 
-import { boxChangeType } from "../utils";
+import { pageReducerTypes, boxReducerTypes } from "../reducer";
 import { editContextConsumer } from "../context";
 import styles from "./index.less";
 
@@ -49,11 +49,11 @@ const EditPage: FC<IEditPageProps> = ({
   editConsumer,
 }) => {
   const {
-    handleBoxChange,
-    handleModifyPageStyle,
     checkedId,
     modifyId,
     editContentScrollTop,
+    dispatchPageStore,
+    dispatchBoxStore,
   } = editConsumer;
 
   const contentRef = useRef<any>(null);
@@ -69,11 +69,21 @@ const EditPage: FC<IEditPageProps> = ({
       const isFind = boxIds.includes(item.id);
       if (!isFind) {
         let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
-        handleBoxChange(boxChangeType.ADD)(pageId, item.id, {
-          ...item,
-          parentId: pageId,
-          left: x,
-          top: y,
+        dispatchPageStore({
+          type: pageReducerTypes.ADD_CHILDREN,
+          payload: { pageId, boxId: item.id },
+        });
+        dispatchBoxStore({
+          type: boxReducerTypes.ADD,
+          payload: {
+            boxId: item.id,
+            data: {
+              ...item,
+              parentId: pageId,
+              left: x,
+              top: y,
+            },
+          },
         });
       }
       return { ...item };
@@ -85,11 +95,21 @@ const EditPage: FC<IEditPageProps> = ({
   });
 
   const handleBoxMenuClick = (_p: OptionsItem) => {
-    handleBoxChange(boxChangeType.DELETE)(pageId, checkedId);
+    dispatchPageStore({
+      type: pageReducerTypes.DELETE_CHILDREN,
+      payload: { pageId },
+    });
+    dispatchBoxStore({
+      type: boxReducerTypes.DELETE,
+      payload: { boxId: checkedId },
+    });
   };
 
   const handleBoxMove = (_e: any, _id: string, data: any) => {
-    handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, data);
+    dispatchBoxStore({
+      type: boxReducerTypes.MODIFY,
+      payload: { boxId: _id, data },
+    });
   };
 
   return (
@@ -138,7 +158,10 @@ const EditPage: FC<IEditPageProps> = ({
           const offsetTop = contentRef?.current?.offsetTop ?? 0;
           const editScrollTop = Number(editContentScrollTop?.current) ?? 0;
           const height = e.pageY + editScrollTop - offsetTop;
-          handleModifyPageStyle(pageId, { height });
+          dispatchPageStore({
+            type: pageReducerTypes.MODIFY,
+            payload: { pageId, data: { height } },
+          });
         }}
       />
     </div>
