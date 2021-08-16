@@ -3,24 +3,41 @@ import { Divider } from "antd";
 import { ColorModifier } from "@/components";
 
 import LabelInput from "../components/LabelInput";
-import { boxChangeType } from "../utils";
 import { editContextConsumer } from "../context";
+import { pageReducerTypes, boxReducerTypes } from "../reducer";
 import styles from "./index.less";
+
 interface IEditDataProps {
   editConsumer?: any;
 }
 
 const EditData: FC<IEditDataProps> = (props) => {
   const {
-    boxsData,
-    pagesData,
-    handleBoxChange,
-    handleModifyPageStyle,
     checkedId,
+    boxStore,
+    pageStore,
+    dispatchPageStore,
+    dispatchBoxStore,
   } = props.editConsumer;
 
-  const allData = { ...pagesData, ...boxsData };
+  const allData = { ...pageStore, ...boxStore };
   const renderData = allData[checkedId] || {};
+
+  // page修改统一处理
+  const handlePageModify = (data: any) => {
+    dispatchPageStore({
+      type: pageReducerTypes.MODIFY,
+      payload: { pageId: checkedId, data },
+    });
+  };
+
+  // box修改统一处理
+  const handleBoxModify = (data: any) => {
+    dispatchBoxStore({
+      type: boxReducerTypes.MODIFY,
+      payload: { boxId: checkedId, data },
+    });
+  };
 
   const renderPageComponent = (data: any) => {
     return (
@@ -29,16 +46,12 @@ const EditData: FC<IEditDataProps> = (props) => {
           styleOne
           label="height: (px)"
           value={data.height}
-          onChange={(value) =>
-            handleModifyPageStyle(checkedId, { height: Number(value) })
-          }
+          onChange={(value) => handlePageModify({ height: Number(value) })}
         />
         <LabelInput label="background: (fill)">
           <ColorModifier
             value={data.backgroundColor}
-            onChange={(val) => {
-              handleModifyPageStyle(checkedId, { backgroundColor: val });
-            }}
+            onChange={(val) => handlePageModify({ backgroundColor: val })}
           />
         </LabelInput>
       </div>
@@ -53,22 +66,14 @@ const EditData: FC<IEditDataProps> = (props) => {
             label="width: (px)"
             value={renderData.width}
             styleOne
-            onChange={(value) =>
-              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
-                width: Number(value),
-              })
-            }
+            onChange={(value) => handleBoxModify({ width: Number(value) })}
           />
           <Divider type="vertical" />
           <LabelInput
             label="height: (px)"
             value={renderData.height}
             styleOne
-            onChange={(value) =>
-              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
-                height: Number(value),
-              })
-            }
+            onChange={(value) => handleBoxModify({ height: Number(value) })}
           />
         </div>
         <div className={styles["edit-data-add"]}>
@@ -76,22 +81,14 @@ const EditData: FC<IEditDataProps> = (props) => {
             label="left: (px)"
             value={renderData.left}
             styleOne
-            onChange={(value) =>
-              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
-                left: Number(value),
-              })
-            }
+            onChange={(value) => handleBoxModify({ left: Number(value) })}
           />
           <Divider type="vertical" />
           <LabelInput
             label="top: (px)"
             value={renderData.top}
             styleOne
-            onChange={(value) =>
-              handleBoxChange(boxChangeType.MODIFY_STYLE)(checkedId, {
-                top: Number(value),
-              })
-            }
+            onChange={(value) => handleBoxModify({ top: Number(value) })}
           />
         </div>
       </div>
