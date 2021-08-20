@@ -1,7 +1,7 @@
 import request from "@/util/request";
 import { PREFIX } from "@/consts";
 
-export interface IProjectListProps {}
+export interface IProjectListParams {}
 
 export type IProjectListItem = {
   id: string;
@@ -11,8 +11,10 @@ export type IProjectListItem = {
   url: string;
 };
 
+export type IProjectListResponse = IProjectListItem[];
+
 export async function getProjectList(
-  params: IProjectListProps
-): Promise<IProjectListItem[]> {
+  params: IProjectListParams
+): Promise<IProjectListResponse> {
   return request(`${PREFIX}/inforgram/projectList.json`, { params });
 }

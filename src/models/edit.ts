@@ -1,51 +1,43 @@
 import { getEditContentDataSource, IEditContentResponse } from "@/service/edit";
-import { Reducer } from "umi";
 
-const initialState = {
+import type { io, ActionWithPayload } from "./modelsPublicInterface";
+import { createActions } from "./index";
+
+const editInitialState = {
   editContentDataSource: <IEditContentResponse>[],
 };
 
-type initialStateTypeOf = typeof initialState;
+type IEditInitialState = typeof editInitialState;
 
-type IEditModel = {
-  namespace: string;
-  state: initialStateTypeOf;
-  effects: {
-    fetchEditContentDataSource: Reducer<any>;
-  };
-  reducers: {
-    updateState: Reducer<any>;
-    clearState: Reducer<any>;
-  };
-};
-
-const editModel: IEditModel = {
+const editModel = {
   namespace: "edit",
-  state: initialState,
+  state: editInitialState,
   effects: {
-    *fetchEditContentDataSource({ payload }, { call, put }) {
-      let response = [];
-      try {
-        response = yield call(getEditContentDataSource, { ...payload });
-      } catch (err) {
-        throw err;
-      }
-      yield put({
-        type: "updateState",
-        updatePath: "editContentDataSource",
-        payload: response.result,
-      });
+    *fetchEditContentDataSource(
+      { payload }: ActionWithPayload,
+      { call, put }: io
+    ): any {
+      const response = yield call(getEditContentDataSource, { ...payload });
+      if (response)
+        yield put(
+          editActions.setState({ editContentDataSource: response.result })
+        );
       return response;
     },
   },
   reducers: {
-    updateState(state, { payload, updatePath }: any) {
-      return { ...state, [updatePath]: payload };
+    setState(
+      state: IEditInitialState,
+      { payload }: ActionWithPayload<Partial<IEditInitialState>>
+    ) {
+      return { ...state, ...payload };
     },
     clearState() {
-      return initialState;
+      return editInitialState;
     },
   },
 };
+
+export const editActions = createActions(editModel);
 
 export default editModel;
