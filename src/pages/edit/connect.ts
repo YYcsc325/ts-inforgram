@@ -1,23 +1,16 @@
 import { connect, Dispatch } from "umi";
-import { get } from "lodash";
 import { IEditContentParams } from "@/service/edit";
+import { editActions } from "@/models/edit";
+import type { AppStore } from "@/store";
 
-const queryEditContentDaraSource = (payload: any) => ({
-  type: "edit/fetchEditContentDataSource",
-  payload,
-});
-
-const mapStateToProps = ({ edit }: any) => {
-  return {
-    // pagesDatasource: get(edit, ["editContentDataSource"], []),
-  };
+const mapStateToProps = ({ edit }: AppStore) => {
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    /** 获取edit中的初始数据 */
     dispatchEditContentDataSource({ id }: IEditContentParams) {
-      return dispatch(queryEditContentDaraSource({ id }));
+      return dispatch(editActions.fetchEditContentDataSource({ id }));
     },
   };
 };

@@ -1,21 +1,17 @@
 import { connect, Dispatch } from "umi";
 import { get } from "lodash";
+import { libraryActions } from "@/models/library";
+import type { AppStore } from "@/store";
 
-const queryProjectList = (payload: any) => ({
-  type: "library/fetchProjectList",
-  payload,
-});
-
-const mapStateToProps = ({ library }: any) => {
+const mapStateToProps = ({ library }: AppStore) => {
   return {
     projectList: get(library, ["projectList"], []),
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    /** 获取library项目列表数据 */
     dispatchProjectList() {
-      return dispatch(queryProjectList({}));
+      return dispatch(libraryActions.fetchProjectList({}));
     },
   };
 };

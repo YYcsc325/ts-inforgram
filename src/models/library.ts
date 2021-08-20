@@ -1,51 +1,38 @@
-import { getProjectList, IProjectListItem } from "@/service/library";
-import { Reducer } from "umi";
+import { getProjectList, IProjectListResponse } from "@/service/library";
 
-const initialState = {
-  projectList: <IProjectListItem[]>[],
+import type { io, ActionWithPayload } from "./modelsPublicInterface";
+import { createActions } from "./index";
+
+const libraryInitialState = {
+  projectList: <IProjectListResponse>[],
 };
 
-type initialStateTypeOf = typeof initialState;
+type IlibraryInitialState = typeof libraryInitialState;
 
-type ILibraryModel = {
-  namespace: string;
-  state: initialStateTypeOf;
-  effects: {
-    fetchProjectList: Reducer<any>;
-  };
-  reducers: {
-    updateState: Reducer<any>;
-    clearState: Reducer<any>;
-  };
-};
-
-const libraryModel: ILibraryModel = {
+const libraryModel = {
   namespace: "library",
-  state: initialState,
+  state: libraryInitialState,
   effects: {
-    *fetchProjectList({ payload }, { call, put }) {
-      let response = [];
-      try {
-        response = yield call(getProjectList, { ...payload });
-      } catch (err) {
-        throw err;
-      }
-      yield put({
-        type: "updateState",
-        updatePath: "projectList",
-        payload: response.result,
-      });
+    *fetchProjectList({ payload }: ActionWithPayload, { call, put }: io): any {
+      const response = yield call(getProjectList, payload);
+      if (response)
+        yield put(libraryActions.setState({ projectList: response.result }));
       return response;
     },
   },
   reducers: {
-    updateState(state, { payload, updatePath }: any) {
-      return { ...state, [updatePath]: payload };
+    setState(
+      state: IlibraryInitialState,
+      { payload }: ActionWithPayload<Partial<IlibraryInitialState>>
+    ) {
+      return { ...state, ...payload };
     },
     clearState() {
-      return initialState;
+      return libraryInitialState;
     },
   },
 };
+
+export const libraryActions = createActions(libraryModel);
 
 export default libraryModel;
