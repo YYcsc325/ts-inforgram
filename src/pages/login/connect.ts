@@ -1,14 +1,11 @@
 import { connect, Dispatch } from "umi";
 import { get } from "lodash";
-import { IUserProps } from "@/service/user";
-
-const loginAction = ({ payload }: any) => ({
-  type: "user/fetchUserList",
-  payload,
-});
+import { IRequestUserParams } from "@/service/user";
+import { AppStore } from "@/store";
+import { userActions } from "@/models/user";
 
 // 这里的any类型其实就是每个model的state类型
-const mapStateToProps = ({ loading, user }: any) => {
+const mapStateToProps = ({ loading, user }: AppStore) => {
   return {
     userinfo: get(user, ["userinfo"], {}),
     userinfoloading: get(loading, ["effects", "user/fetchUserList"], false),
@@ -16,8 +13,8 @@ const mapStateToProps = ({ loading, user }: any) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    dispatchLogin({ email, passWord }: IUserProps) {
-      return dispatch(loginAction({ payload: { email, passWord } }));
+    dispatchLogin(params: IRequestUserParams) {
+      return dispatch(userActions.fetchUserList(params));
     },
   };
 };

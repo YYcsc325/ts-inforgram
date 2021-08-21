@@ -1,6 +1,6 @@
 import { getEditContentDataSource, IEditContentResponse } from "@/service/edit";
 
-import type { io, ActionWithPayload } from "./modelsPublicInterface";
+import type { io, ActionWithPayload } from "./index";
 import { createActions } from "./index";
 
 const editInitialState = {

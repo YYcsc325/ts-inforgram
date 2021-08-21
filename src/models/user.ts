@@ -1,60 +1,46 @@
 import { getQueryUserData, IUserResponse } from "@/service/user";
-import { Reducer } from "umi";
 
-const initialState = {
+import type { io, ActionWithPayload } from "./index";
+import { createActions } from "./index";
+
+const userInitialState = {
   userinfo: <IUserResponse>{},
 };
 
-type initialStateTypeOf = typeof initialState;
+type IUserInitialState = typeof userInitialState;
 
-type IUserModel = {
-  namespace: string;
-  state: initialStateTypeOf;
-  effects: {
-    fetchUserList: Reducer<any>;
-  };
-  reducers: {
-    updateState: Reducer<any>;
-    clearState: Reducer<any>;
-  };
-  subscriptions: {
-    setup: Reducer<any>;
-  };
-};
-
-const userModel: IUserModel = {
+const userModel = {
   namespace: "user",
-  state: initialState,
+  state: userInitialState,
   effects: {
-    *fetchUserList({ payload }, { call, put, select }) {
-      let response = [];
-      try {
-        response = yield call(getQueryUserData, { ...payload });
-      } catch (err) {
-        throw err;
-      }
-      yield put({
-        type: "updateState",
-        updatePath: "userinfo",
-        payload: { ...response.result, code: response.code },
-      });
+    *fetchUserList({ payload }: ActionWithPayload, { call, put, select }: io) {
+      const response = yield call(getQueryUserData, payload);
+      if (response)
+        userActions.setState({
+          userinfo: { ...response.result, code: response.code },
+        });
       return response;
     },
   },
   reducers: {
-    updateState(state, { payload, updatePath }: any) {
-      return { ...state, [updatePath]: { ...payload } };
+    setState(
+      state: IUserInitialState,
+      { payload }: ActionWithPayload<Partial<IUserInitialState>>
+    ) {
+      return { ...state, ...payload };
     },
     clearState() {
-      return initialState;
+      return userInitialState;
     },
   },
-  subscriptions: {
-    setup({ dispatch, history }) {
-      // 这里是监听路由变化
-      history.listen((location) => {});
-    },
-  },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     // 这里是监听路由变化
+  //     history.listen((location) => {});
+  //   },
+  // },
 };
+
+export const userActions = createActions(userModel);
 
 export default userModel;

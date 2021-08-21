@@ -1,6 +1,6 @@
 import { getProjectList, IProjectListResponse } from "@/service/library";
 
-import type { io, ActionWithPayload } from "./modelsPublicInterface";
+import type { io, ActionWithPayload } from "./index";
 import { createActions } from "./index";
 
 const libraryInitialState = {

@@ -1,7 +1,7 @@
 import request from "@/util/request";
 import { PREFIX } from "@/consts";
 
-export interface IUserProps {
+export interface IRequestUserParams {
   email: string;
   passWord: string;
 }
@@ -12,12 +12,12 @@ export interface IUserResponse {
 }
 
 export async function getQueryUserData(
-  params: IUserProps
+  params: IRequestUserParams
 ): Promise<IUserResponse> {
   return request(`${PREFIX}/inforgram/user.json`, { params });
 }
 export async function postQueryUserData(
-  data: IUserProps
+  data: IRequestUserParams
 ): Promise<IUserResponse> {
   return request(`${PREFIX}/inforgram/user.json`, {
     method: "POST",
