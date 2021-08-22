@@ -8,7 +8,7 @@ import userModel from "@/models/user";
 export type DelareState<M extends IDvaModel = IDvaModel> = M["state"];
 
 export type AppStore = {
-  user: userState;
+  user: UserState;
   library: LibraryState;
   edit: EditState;
   loading: LoadingState;
@@ -17,8 +17,5 @@ export type AppStore = {
 /** 用户的state */
 export type LibraryState = DelareState<typeof libraryModel>;
 export type EditState = DelareState<typeof editModel>;
-export type userState = DelareState<typeof userModel>;
-
-export type LoadingState = {
-  effects: any;
-};
+export type UserState = DelareState<typeof userModel>;
+export type LoadingState = { effects: any };
