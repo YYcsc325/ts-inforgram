@@ -16,5 +16,5 @@ export type IProjectListResponse = IProjectListItem[];
 export async function getProjectList(
   params: IProjectListParams
 ): Promise<IProjectListResponse> {
-  return request(`${PREFIX}/inforgram/projectList.json`, { params });
+  return request(`${PREFIX}/inforgram/library/list.json`, { params });
 }
