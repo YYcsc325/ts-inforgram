@@ -46,7 +46,7 @@ export default defineConfig({
     "/dt": {
       target,
       changeOrigin: true,
-      pathRewrite: { "^/dt": "" },
+      pathRewrite: { "^/dt": target },
     },
   },
   // extraBabelPlugins: ["transform-remove-console"],

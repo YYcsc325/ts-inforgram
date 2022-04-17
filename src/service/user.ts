@@ -14,7 +14,6 @@ export interface IUserResponse {
 export async function getQueryUserData(
   params: IRequestUserParams
 ): Promise<IUserResponse> {
-  console.log(params, "params");
   return request(`${PREFIX}/inforgram/userLogin.json`, { params });
 }
 
