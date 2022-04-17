@@ -2,7 +2,7 @@ import { defineConfig } from "umi";
 import routes from "./routes";
 import path from "path";
 // import CaseSensitivePathsWebpackPlugin from 'case-sensitive-paths-webpack-plugin';
-const target = "http://localhost:8000";
+const target = "http://127.0.0.1:3000";
 
 /**
  * @params base 私有路径  base: "/docs"
@@ -49,6 +49,7 @@ export default defineConfig({
       pathRewrite: { "^/dt": "" },
     },
   },
+  // extraBabelPlugins: ["transform-remove-console"],
 
   // base: "/docs/",
   // publicPath: "/static/",

@@ -21,9 +21,9 @@ const RightComponent = connect(({ dispatchLogin, history }: any) => {
     form
       .validateFields()
       .then(async (values) => {
-        let { code, result, isLogin } = await dispatchLogin(values);
-        if (code == 200 && isLogin) {
-          Cookies.set("userLogin", stringify({ ...result, login: isLogin }), {
+        let { code, result, success } = await dispatchLogin(values);
+        if (code == 200 && success) {
+          Cookies.set("userLogin", stringify({ ...result }), {
             expires: 1,
           });
           history.push("/library");
