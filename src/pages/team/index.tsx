@@ -20,13 +20,7 @@ const Team: FC<ITeamProps> = ({ consumer }) => {
     consumer?.handleShowShrinkageChange(false);
   }, []);
 
-  return (
-    <div id={"team"} className={prefixCls()} onClick={handleClick}>
-      <div style={{ marginTop: "100px" }}>
-        <ShrinkLine></ShrinkLine>
-      </div>
-    </div>
-  );
+  return <div id={"team"} className={prefixCls()} onClick={handleClick}></div>;
 };
 
 export default contextConsumer(Team);

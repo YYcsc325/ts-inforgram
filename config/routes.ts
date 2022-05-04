@@ -1,9 +1,6 @@
 const routes = [
-  { path: "/login", component: "@/pages/login" },
   { path: "/home", component: "@/pages/home" },
-  { path: "/edit/:id?", component: "@/pages/edit" },
-  { path: "/demo", component: "@/pages/demo" },
-  { path: "/demoContent", component: "@/pages/demoContent" },
+  { path: "/login", component: "@/pages/login" },
   {
     path: "/",
     exact: false,
@@ -15,6 +12,7 @@ const routes = [
       { exact: true, path: "/analytics", component: "@/pages/analytics" },
       { exact: true, path: "/teams", component: "@/pages/team" },
       { exact: true, path: "/content", component: "@/pages/content" },
+      { path: "/edit/:id?", component: "@/pages/edit" },
       {
         exact: true,
         path: "/templates/:position?",

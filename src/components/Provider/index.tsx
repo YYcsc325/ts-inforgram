@@ -1,7 +1,7 @@
 import React, { ComponentType } from "react";
 
 export interface ICacheProviderValue<T = any> {
-  name?: string;
+  name: string;
   value?: T;
 }
 
@@ -12,8 +12,8 @@ export function CacheProvider({
   value,
   name,
 }: React.PropsWithChildren<ICacheProviderValue>) {
-  const context = useContext(CacheContext);
-  const contextCache = context;
+  const context = React.useContext(CacheContext);
+  const contextCache: any = context;
   if (!contextCache[name]) {
     contextCache[name] = value;
   }
@@ -53,7 +53,7 @@ export const ContextConsumer: React.FC = ({ children }) => {
 };
 
 export const useLayoutHookContext = (): any => {
-  return useContext(LayoutContext);
+  return React.useContext(LayoutContext);
 };
 
 export const contextConsumer = (Component: any) => {
