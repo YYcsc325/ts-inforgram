@@ -5,7 +5,7 @@ import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { contextConsumer } from "@/layouts/context";
 import { createPrefixClass } from "@/util/utils";
 import { BarChartOutlined } from "@ant-design/icons";
-import DropdownSearch from "@/pages/library/components/DropdownSearch";
+import DropdownSearch from "@/pages/exhibition/library/components/DropdownSearch";
 import { Link } from "umi";
 
 import TemplateCard from "./components/TemplateCard";

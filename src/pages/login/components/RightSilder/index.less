@@ -3,11 +3,13 @@
   display: inline-block;
   padding: 0 30px;
   min-height: 100vh;
+
   .form_container {
     width: 100%;
     max-width: 436px;
     margin: 70px auto 0;
     text-align: center;
+
     h1 {
       color: #656565;
       font-size: 41px;
@@ -15,10 +17,12 @@
       line-height: 60px;
       margin-bottom: 30px;
     }
+
     .soc_connect {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+
       a {
         display: inline-block;
         width: 210px;
@@ -35,12 +39,14 @@
         position: relative;
         box-sizing: border-box;
       }
+
       a::before {
         content: "";
         background-size: 50%;
         background-repeat: no-repeat;
         position: absolute;
       }
+
       .google::before {
         width: 38px;
         height: 38px;
@@ -52,6 +58,7 @@
         left: 1px;
         top: 1px;
       }
+
       .facebook::before {
         width: 40px;
         height: 40px;
@@ -59,6 +66,7 @@
         top: 10px;
         background-image: url(https://cdn.jifo.co/i/frontpage/social/facebook-white.svg);
       }
+
       .twitter::before {
         width: 40px;
         height: 40px;
@@ -66,6 +74,7 @@
         top: 10px;
         background-image: url(https://cdn.jifo.co/i/frontpage/social/twitter-white.svg);
       }
+
       .linkedin::before {
         width: 40px;
         height: 40px;
@@ -74,14 +83,17 @@
         background-image: url(https://cdn.jifo.co/i/frontpage/social/linkedin-white.svg);
       }
     }
+
     .ls_or {
       width: 100%;
       margin: 10px auto 30px;
       text-align: center;
+
       .ls_line {
         height: 1px;
         background-color: #ccc;
       }
+
       .ls_text {
         width: 160px;
         font-size: 15px;
@@ -93,57 +105,73 @@
         top: -9px;
       }
     }
-    .formViewStyle {
-      .selectCheckBox {
-        span:hover {
-          text-decoration: underline;
-        }
-        a {
-          float: right;
-          color: #3195cb;
-          font-size: 13px;
-          text-align: right;
-          &:hover {
-            text-decoration: underline;
-            opacity: 0.9;
-          }
-        }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+
+  .selectCheckBox {
+    margin-bottom: 15px;
+
+    span:hover {
+      text-decoration: underline;
+    }
+
+    a {
+      float: right;
+      color: #3195cb;
+      font-size: 13px;
+      text-align: right;
+
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.9;
       }
-      .loginStyle {
-        height: 50px;
-        border-radius: 4px;
-        background: #3195cb;
-        cursor: pointer;
-        text-align: center;
-        font-size: 17px;
-        color: #fff;
-        line-height: 50px;
+    }
+  }
+
+  .loginStyle {
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background: #3195cb;
+    cursor: pointer;
+    text-align: center;
+    font-size: 17px;
+    color: #fff;
+    line-height: 50px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .loginTextStyle {
+    .loginTextStyle_header {
+      font-size: 15px;
+      line-height: 17px;
+      color: #3195cb;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .loginLanguage {
+      display: flex;
+      justify-content: space-around;
+      font-size: 13px;
+      margin-top: 14px;
+
+      a {
+        color: #757575;
+
         &:hover {
-          opacity: 0.9;
-        }
-      }
-      .loginTextStyle {
-        .loginTextStyle_header {
-          font-size: 15px;
-          line-height: 17px;
-          color: #3195cb;
-          cursor: pointer;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-        .loginLanguage {
-          display: flex;
-          justify-content: space-around;
-          font-size: 13px;
-          margin-top: 14px;
-          a {
-            color: #757575;
-            &:hover {
-              text-decoration: underline;
-              color: #58aad7;
-            }
-          }
+          text-decoration: underline;
+          color: #58aad7;
         }
       }
     }

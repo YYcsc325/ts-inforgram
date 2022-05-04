@@ -7,12 +7,28 @@ const routes = [
     component: "@/layouts",
     routes: [
       { exact: true, path: "/", redirect: "/home", component: "@/pages/login" },
-      { exact: true, path: "/library", component: "@/pages/library" },
-      { exact: true, path: "/brandsets", component: "@/pages/brandsets" },
-      { exact: true, path: "/analytics", component: "@/pages/analytics" },
-      { exact: true, path: "/teams", component: "@/pages/team" },
-      { exact: true, path: "/content", component: "@/pages/content" },
-      { path: "/edit/:id?", component: "@/pages/edit" },
+      {
+        exact: true,
+        path: "/library",
+        component: "@/pages/exhibition/library",
+      },
+      {
+        exact: true,
+        path: "/brandsets",
+        component: "@/pages/exhibition/brandsets",
+      },
+      {
+        exact: true,
+        path: "/analytics",
+        component: "@/pages/exhibition/analytics",
+      },
+      { exact: true, path: "/teams", component: "@/pages/exhibition/team" },
+      {
+        exact: true,
+        path: "/content",
+        component: "@/pages/exhibition/content",
+      },
+      { path: "/edit/:id?", component: "@/pages/editor" },
       {
         exact: true,
         path: "/templates/:position?",

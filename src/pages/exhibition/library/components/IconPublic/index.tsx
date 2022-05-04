@@ -5,7 +5,7 @@ import { Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { TooltipPlacement } from "antd/lib/tooltip";
 import { CustomModal } from "@/components";
-import Dialog from "@/pages/library/components/ModalTemplate/Dialog";
+import Dialog from "@/pages/exhibition/library/components/ModalTemplate/Dialog";
 
 import styles from "./index.less";
 

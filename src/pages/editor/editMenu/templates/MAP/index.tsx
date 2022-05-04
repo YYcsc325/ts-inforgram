@@ -1,6 +1,6 @@
 import React from "react";
 
-import ImgBox from "@/pages/edit/components/ImgBox";
+import ImgBox from "@/pages/editor/components/ImgBox";
 import classNames from "classnames";
 
 import styles from "./index.less";
@@ -13,7 +13,8 @@ const renderList = [
     width: 200,
     height: 200,
     data: {
-      url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+      url:
+        "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     },
   },
   {
@@ -23,7 +24,8 @@ const renderList = [
     width: 200,
     height: 200,
     data: {
-      url: "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
+      url:
+        "https://infogram-thumbs-200.s3-eu-west-1.amazonaws.com/2fadc5a9-2c1f-4899-9749-da58b82a340b.jpg?v=1618138121000",
     },
   },
 ];

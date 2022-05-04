@@ -4,7 +4,7 @@ import { createPrefixClass } from "@/util/utils";
 import React, { FC, useState, useCallback } from "react";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { LazyLoadingImg } from "@/components";
-import IconPublic from "@/pages/library/components/IconPublic";
+import IconPublic from "@/pages/exhibition/library/components/IconPublic";
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("container", styles);
