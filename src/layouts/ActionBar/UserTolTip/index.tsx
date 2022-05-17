@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
-import { createPrefixClass } from "@/util/utils";
-import classNames from "classnames";
-import { PlusOutlined } from "@ant-design/icons";
+import React from "react";
 import { Link } from "umi";
+import classNames from "classnames";
+import { createPrefixClass } from "@/util/utils";
+import { PlusOutlined } from "@ant-design/icons";
 
 import styles from "./index.less";
 
@@ -13,8 +13,8 @@ interface IUserTolTipProps {
 
 const prefixCls = createPrefixClass("user-tip", styles);
 
-const UserTolTip: FC<IUserTolTipProps> = ({ className, userName }) => {
-  const [isRotate, setIsRotate] = useState(false);
+const UserTolTip: React.FC<IUserTolTipProps> = ({ className, userName }) => {
+  const [isRotate, setIsRotate] = React.useState(false);
 
   return (
     <div className={classNames(prefixCls(), className)}>

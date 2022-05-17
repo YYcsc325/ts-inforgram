@@ -23,7 +23,7 @@ const jumpTo: any = {
   billing: () => {},
   product: () => {},
   logOut: () => {
-    Cookies.set("userLogin", {});
+    Cookies.set("userLogin", "");
     history.push("/login");
   },
 };

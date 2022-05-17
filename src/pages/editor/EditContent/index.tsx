@@ -1,22 +1,26 @@
-import React, { useMemo, FC, useRef } from "react";
+import React from "react";
 import { useDrop } from "react-dnd";
 import { createPrefixClass } from "@/util/utils";
 import { dragConsts } from "@/consts";
 import { DragContainer } from "@/components";
+import { useModel } from "umi";
 import { getDragComponent } from "@/components/DragComponents";
 import classNames from "classnames";
 import ContextMenu, {
   OptionsItem,
 } from "@/components/DragContainer/ContextMenu";
+
 import {
   CloseCircleOutlined,
   CopyOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
+
 import ShrinkLine from "@/components/DragContainer/ShrinkLine";
 
-import { pageReducerTypes, boxReducerTypes } from "../reducer";
+// import { pageReducerTypes, boxReducerTypes } from '../reducer';
 import { editContextConsumer } from "../context";
+
 import styles from "./index.less";
 
 const prefixCls = createPrefixClass("edit", styles);
@@ -40,7 +44,7 @@ const options = [
   },
 ];
 
-const EditPage: FC<IEditPageProps> = ({
+const EditPage: React.FC<IEditPageProps> = ({
   index,
   pageId,
   height,
@@ -48,17 +52,15 @@ const EditPage: FC<IEditPageProps> = ({
   dataSource = [],
   editConsumer,
 }) => {
-  const {
-    checkedId,
-    modifyId,
-    editContentScrollTop,
-    dispatchPageStore,
-    dispatchBoxStore,
-  } = editConsumer;
+  const { editContentScrollTop } = editConsumer;
 
-  const contentRef = useRef<any>(null);
+  const [editorStore, editorActions] = useModel("useEditorModel.index");
 
-  const boxIds = useMemo(() => {
+  const { checkedId, modifyId } = editorStore;
+
+  const contentRef = React.useRef<any>(null);
+
+  const boxIds = React.useMemo(() => {
     return dataSource.map((item) => item.id);
   }, [dataSource]);
 
@@ -69,22 +71,30 @@ const EditPage: FC<IEditPageProps> = ({
       const isFind = boxIds.includes(item.id);
       if (!isFind) {
         let { x, y }: any = monitor.getClientOffset(); // 获取位置有点问题
-        dispatchPageStore({
-          type: pageReducerTypes.ADD_CHILDREN,
-          payload: { pageId, boxId: item.id },
+        editorActions.addPageChild(pageId, item.id);
+        editorActions.addPageBox(item.id, {
+          ...item,
+          parentId: pageId,
+          left: x,
+          top: y,
         });
-        dispatchBoxStore({
-          type: boxReducerTypes.ADD,
-          payload: {
-            boxId: item.id,
-            data: {
-              ...item,
-              parentId: pageId,
-              left: x,
-              top: y,
-            },
-          },
-        });
+
+        // dispatchPageStore({
+        //   type: pageReducerTypes.ADD_CHILDREN,
+        //   payload: { pageId, boxId: item.id },
+        // });
+        // dispatchBoxStore({
+        //   type: boxReducerTypes.ADD,
+        //   payload: {
+        //     boxId: item.id,
+        //     data: {
+        //       ...item,
+        //       parentId: pageId,
+        //       left: x,
+        //       top: y,
+        //     },
+        //   },
+        // });
       }
       return { ...item };
     },
@@ -95,21 +105,24 @@ const EditPage: FC<IEditPageProps> = ({
   });
 
   const handleBoxMenuClick = (_p: OptionsItem) => {
-    dispatchPageStore({
-      type: pageReducerTypes.DELETE_CHILDREN,
-      payload: { pageId },
-    });
-    dispatchBoxStore({
-      type: boxReducerTypes.DELETE,
-      payload: { boxId: checkedId },
-    });
+    // dispatchPageStore({
+    //   type: pageReducerTypes.DELETE_CHILDREN,
+    //   payload: { pageId },
+    // });
+    // dispatchBoxStore({
+    //   type: boxReducerTypes.DELETE,
+    //   payload: { boxId: checkedId },
+    // });
+    editorActions.deletePageChild(pageId, checkedId);
+    editorActions.deletePageBox(checkedId);
   };
 
-  const handleBoxMove = (_e: any, _id: string, data: any) => {
-    dispatchBoxStore({
-      type: boxReducerTypes.MODIFY,
-      payload: { boxId: _id, data },
-    });
+  const handleBoxMove = (_e: any, boxId: string, data: any) => {
+    // dispatchBoxStore({
+    //   type: boxReducerTypes.MODIFY,
+    //   payload: { boxId: _id, data },
+    // });
+    editorActions.modifyPageBox(boxId, data);
   };
 
   return (
@@ -158,10 +171,11 @@ const EditPage: FC<IEditPageProps> = ({
           const offsetTop = contentRef?.current?.offsetTop ?? 0;
           const editScrollTop = Number(editContentScrollTop?.current) ?? 0;
           const height = e.pageY + editScrollTop - offsetTop;
-          dispatchPageStore({
-            type: pageReducerTypes.MODIFY,
-            payload: { pageId, data: { height } },
-          });
+          // dispatchPageStore({
+          //   type: pageReducerTypes.MODIFY,
+          //   payload: { pageId, data: { height } },
+          // });
+          editorActions.modifyPage(pageId, { height });
         }}
       />
     </div>

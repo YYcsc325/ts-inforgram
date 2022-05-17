@@ -13,13 +13,13 @@ export interface IUserResponse {
 
 export async function getQueryUserData(
   params: IRequestUserParams
-): Promise<IUserResponse> {
+): Promise<[IUserResponse, ResponseWarp<IUserResponse>]> {
   return request(`${PREFIX}/inforgram/userLogin.json`, { params });
 }
 
 export async function postQueryUserData(
   data: IRequestUserParams
-): Promise<IUserResponse> {
+): Promise<[IUserResponse, ResponseWarp<IUserResponse>]> {
   return request(`${PREFIX}/inforgram/user.json`, {
     method: "POST",
     data,

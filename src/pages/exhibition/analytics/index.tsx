@@ -1,22 +1,20 @@
-import React, { FC, useEffect } from "react";
-import { contextConsumer } from "@/layouts/context";
+import React from "react";
 import { createPrefixClass } from "@/util/utils";
+import { IRouteComponentProps, useModel } from "umi";
 
 import styles from "./index.less";
 
-interface IAnalyticsProps {
-  [x: string]: any;
-}
-
 const prefixCls = createPrefixClass("analytics", styles);
 
-const Analytics: FC<IAnalyticsProps> = ({ consumer }) => {
+const Analytics: React.FC<IRouteComponentProps> = (props) => {
+  const [_, globalActions] = useModel("useGlobalModel.index");
+
   const handleClick = () => {
-    consumer?.handleShowShrinkageChange(false);
+    globalActions.changeShrinkage(false);
   };
 
-  useEffect(() => {
-    consumer?.handleShowShrinkageChange(false);
+  React.useEffect(() => {
+    handleClick();
   }, []);
 
   return (
@@ -53,4 +51,4 @@ const Analytics: FC<IAnalyticsProps> = ({ consumer }) => {
   );
 };
 
-export default contextConsumer(Analytics);
+export default Analytics;

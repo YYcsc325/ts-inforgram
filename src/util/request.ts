@@ -1,6 +1,7 @@
 import { isPlainObject } from "@/util/utils";
 import { stringify } from "qs";
 import { request } from "umi";
+import { openNotification } from "@/util/utils";
 
 // 是否json转换
 function parseJSON(response: any) {
@@ -73,11 +74,21 @@ export default function dtRequest(url: string, options: any) {
         ) {
           throw Error("错误了");
         }
-
         return res;
       })
       // .then(parseJSON)
-      .then((data: any) => data)
+      .then((res: any) => {
+        if (res.code == 200 && res.success) {
+          return [res?.result, res];
+        } else {
+          openNotification({
+            type: "warning",
+            message: res?.message,
+            description: res?.description,
+          });
+          return [res?.result, res];
+        }
+      })
       .catch((err: any) => err)
   );
 }

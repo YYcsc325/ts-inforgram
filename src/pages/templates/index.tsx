@@ -1,40 +1,36 @@
+import React from "react";
 import classNames from "classnames";
 import { templateIdConsts } from "@/consts";
-import { templateConfig } from "@/config";
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { contextConsumer } from "@/layouts/context";
+import templateConfig from "@/config/templateConfig";
 import { createPrefixClass } from "@/util/utils";
 import { BarChartOutlined } from "@ant-design/icons";
 import DropdownSearch from "@/pages/exhibition/library/components/DropdownSearch";
-import { Link } from "umi";
+import { Link, IRouteComponentProps, useModel } from "umi";
 
 import TemplateCard from "./components/TemplateCard";
 import styles from "./index.less";
-
-interface ITemplatesProps {
-  [x: string]: any;
-}
 
 type templateIds = Array<{ key: keyof typeof templateIdConsts; value: number }>;
 
 const prefixCls = createPrefixClass("templates", styles);
 
-const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
+const Templates: React.FC<IRouteComponentProps> = ({ match }) => {
   const { position } = match.params || {};
+  const [_, globalActions] = useModel("useGlobalModel.index");
 
-  const [searchVal, setSearchVal] = useState("");
-  const [activeItem, setActiveItem] = useState(position);
-  const [initialPosition, setInitialPosition] = useState<templateIds>([]);
+  const [searchVal, setSearchVal] = React.useState("");
+  const [activeItem, setActiveItem] = React.useState(position);
+  const [initialPosition, setInitialPosition] = React.useState<templateIds>([]);
 
   /** 总数据 */
-  const [dataList] = useState(templateConfig);
+  const [dataList] = React.useState(templateConfig);
   /** 过滤数据 */
-  const [filterDataList, setFilterDataList] = useState<typeof templateConfig>(
-    []
-  );
+  const [filterDataList, setFilterDataList] = React.useState<
+    typeof templateConfig
+  >([]);
   /** 所有子集数据（拍平后的数据） */
   /** 真正渲染的数据 */
-  const renderData = useMemo(() => {
+  const renderData = React.useMemo(() => {
     return searchVal ? filterDataList : dataList;
   }, [searchVal, filterDataList, dataList]);
 
@@ -52,7 +48,7 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
   };
 
   /** 选择侧边进行滚动 */
-  const handleSilderClick = useCallback(
+  const handleSilderClick = React.useCallback(
     (id) => {
       scrollById(id, initialPosition);
       setActiveItem(id);
@@ -60,7 +56,7 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
     [setActiveItem, scrollById, initialPosition]
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     const list: templateIds = templateConfig.map((item) => ({
       key: item.id,
       value: (document.getElementById(item.id)?.offsetTop || 0) - 160,
@@ -70,29 +66,17 @@ const Templates: FC<ITemplatesProps> = ({ consumer, match }) => {
   }, [renderData]);
 
   /** 搜索数据触发 */
-  const hanldeSearch = useCallback((str: string) => {
+  const hanldeSearch = React.useCallback((str: string) => {
     setSearchVal(str);
     setFilterDataList(filterSearchData(dataList, str));
   }, []);
 
-  // useEffect(() => {
-  //   window.onscroll = () => {
-  //     const findPosition = initialPosition.find(
-  //       (item) =>
-  //         window.scrollY - item.value >= -16 &&
-  //         window.scrollY - item.value <= 16
-  //     );
-  //     if (findPosition) {
-  //       setActiveItem(findPosition.key);
-  //     }
-  //   };
-  // }, [initialPosition]);
-
   const handleWarpClick = () => {
-    consumer?.handleShowShrinkageChange(false);
+    globalActions.changeShrinkage(false);
   };
-  useEffect(() => {
-    consumer?.handleShowShrinkageChange(false);
+
+  React.useEffect(() => {
+    handleWarpClick();
   }, []);
 
   return (
@@ -185,4 +169,4 @@ function filterSearchData(list: any = [], str: string) {
     .filter(Boolean);
 }
 
-export default contextConsumer(Templates);
+export default Templates;

@@ -275,14 +275,8 @@ export default class ReferenceLine {
       }
       let position = this.position;
       let bcr;
-      let {
-        left,
-        top,
-        right,
-        bottom,
-        width,
-        height,
-      } = (bcr = v.getBoundingClientRect());
+      let { left, top, right, bottom, width, height } = (bcr =
+        v.getBoundingClientRect());
       let xCenter;
       let yCenter;
       left = Math.round(left);
@@ -526,12 +520,8 @@ export default class ReferenceLine {
 
   createLine() {
     let cache = this.options.cache;
-    let {
-      left,
-      top,
-      right,
-      bottom,
-    } = (cache.bcr = this.target.getBoundingClientRect());
+    let { left, top, right, bottom } = (cache.bcr =
+      this.target.getBoundingClientRect());
     this.drawLine([left, right], [top, bottom], false);
     this.drawLine([right, left], [bottom, top], false);
     this.drawLine(

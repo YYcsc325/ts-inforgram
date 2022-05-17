@@ -1,47 +1,53 @@
 import React from "react";
+import { find, includes } from "lodash";
+import className from "classnames";
+import { useModel, useLocation } from "umi";
 import { createPrefixClass } from "@/util/utils";
 
-import styles from "./index.less";
 import Odps from "./Odps";
 import Shrinkage from "./Shrinkage";
 import { actionBarItems } from "./mock";
+import styles from "./index.less";
 
 const prefixCls = createPrefixClass("action-bar", styles);
 
-interface IActionBarState {
-  isShowShrinkage: boolean;
-}
+const visiblePathNames = [
+  "/library",
+  "/brandsets",
+  "/analytics",
+  "/content",
+  "/templates",
+  "/teams",
+];
 
-class ActionBar extends React.Component<any, IActionBarState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      isShowShrinkage: false,
-    };
-  }
+const ActionBar: React.FC = () => {
+  const location: any = useLocation();
+  const pathName = location?.pathname;
 
-  handleChangeShrinkage = (isOpen: boolean) => {
-    this.setState({
-      isShowShrinkage: isOpen,
-    });
+  const [globalStore, globalActions] = useModel("useGlobalModel.index");
+
+  const selectedBarId = find(
+    actionBarItems,
+    (item) => item.link === pathName
+  )?.id;
+
+  const handleShrinkageOpen = () => {
+    globalActions.changeShrinkage(true);
   };
 
-  render() {
-    const { isShowShrinkage } = this.state;
-    const selectedBarId = actionBarItems.find(
-      (item) => item.link === window.location.href?.split?.("#")?.[1]
-    )?.id;
-
-    return (
-      <div className={prefixCls()}>
-        <Odps
-          onOpen={() => this.setState({ isShowShrinkage: true })}
-          selectId={selectedBarId}
-        />
-        <Shrinkage isOpen={isShowShrinkage} selectId={selectedBarId} />
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      className={className({
+        [prefixCls("hidden")]: !includes(visiblePathNames, pathName),
+      })}
+    >
+      <Odps selectId={selectedBarId} onOpen={handleShrinkageOpen} />
+      <Shrinkage
+        isOpen={globalStore.isShowShrinkage}
+        selectId={selectedBarId}
+      />
+    </div>
+  );
+};
 
 export default ActionBar;

@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
-import { createPrefixClass } from "@/util/utils";
+import React from "react";
 import classNames from "classnames";
+import { createPrefixClass } from "@/util/utils";
 
 import styles from "./index.less";
 
@@ -11,8 +11,8 @@ interface IRotateAllowProps {
   className?: string;
 }
 
-const RotateAllow: FC<IRotateAllowProps> = ({ className, ...reset }) => {
-  const [rotate, setRotate] = useState(false);
+const RotateAllow: React.FC<IRotateAllowProps> = ({ className, ...reset }) => {
+  const [rotate, setRotate] = React.useState(false);
 
   return (
     <div

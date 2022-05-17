@@ -31,8 +31,9 @@ const CustomDropDown: FC<ICustomDropDownProps> = ({
   };
   const menu = (
     <Menu>
-      {options.map((item) => (
+      {options.map((item, i) => (
         <div
+          key={i}
           onClick={() => handleClick(item)}
           className={prefixCls("menu-item")}
         >

@@ -1,15 +1,15 @@
-import React, { FC, useCallback, useState, useEffect } from "react";
-import { createPrefixClass } from "@/util/utils";
+import React from "react";
 import { Link } from "umi";
-import classNames from "classnames";
-import UserTolTip from "@/layouts/ActionBar/UserTolTip";
-import Cookies from "js-cookie";
 import { parse } from "qs";
+import Cookies from "js-cookie";
+import classNames from "classnames";
 import { ellipsis } from "@/util/utils";
+import { createPrefixClass } from "@/util/utils";
 
-import styles from "./index.less";
+import UserTolTip from "../UserTolTip";
 import RotateAllow from "../RotateAllow";
 import { actionBarItems } from "../mock";
+import styles from "./index.less";
 
 const prefixCls = createPrefixClass("odps", styles);
 
@@ -18,13 +18,13 @@ interface IOdpsProps {
   onOpen: () => void;
 }
 
-const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
-  const [isShowUser, setIsShowUser] = useState(false);
+const Odps: React.FC<IOdpsProps> = ({ onOpen, selectId }) => {
+  const [isShowUser, setIsShowUser] = React.useState(false);
   const userName = ellipsis(
     parse(Cookies.get("userLogin") as string)?.name as string
   );
 
-  const handleOpenClick = useCallback(() => {
+  const handleOpenClick = React.useCallback(() => {
     onOpen?.();
   }, [onOpen]);
 
@@ -32,7 +32,7 @@ const Odps: FC<IOdpsProps> = ({ onOpen, selectId }) => {
     setIsShowUser(false);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.addEventListener("click", handleIsShowUser);
     return () => {
       document.removeEventListener("click", handleIsShowUser);

@@ -1,14 +1,15 @@
+import React from "react";
 import { Checkbox } from "antd";
-import { history } from "umi";
+import { history, useModel } from "umi";
 import { createPrefixClass } from "@/util/utils";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import React, { useState, useMemo, useCallback, useEffect } from "react";
 import {
   TableOutlined,
   DeleteOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
-import LogOut from "@/layouts/LogOut";
+import LogOut from "@/components/LogOut";
+import { IProjectListResponse } from "@/service/library";
 
 import Empty from "./components/Empty";
 import styles from "./Container.less";
@@ -16,32 +17,31 @@ import RotateBox from "./components/rotateBox";
 import Disgraceful from "./components/Disgraceful";
 import DropdownSearch from "./components/DropdownSearch";
 import TableCard from "./components/TableCard";
-import connect from "./connect";
-import { initailDataList, selectConfigure } from "./config";
+import { selectConfigure } from "./config";
 
 const prefixCls = createPrefixClass("right-silder", styles);
 
-const Container = connect(({ projectList = [] }: any) => {
-  const [searchVal, setSearchVal] = useState("");
-  const [tableTab, setTableTab] = useState(false);
+const Container: React.FC = () => {
+  const [exhibitionStore] = useModel("useExhibitionModel.index");
+  const [searchVal, setSearchVal] = React.useState("");
+  const [tableTab, setTableTab] = React.useState(false);
   /** 总数据 */
-  const [dataList, setDataList] = useState<typeof initailDataList>(projectList);
+  const [dataList, setDataList] = React.useState<IProjectListResponse>([]);
   /** 过滤数据 */
-  const [filterDataList, setFilterDataList] = useState<typeof initailDataList>(
-    []
-  );
+  const [filterDataList, setFilterDataList] =
+    React.useState<IProjectListResponse>([]);
 
-  useEffect(() => {
-    setDataList(projectList);
-  }, [projectList]);
+  React.useEffect(() => {
+    setDataList(exhibitionStore.projectList);
+  }, [exhibitionStore.projectList]);
 
   /** 真正渲染的数据 */
-  const renderList = useMemo(() => {
+  const renderList = React.useMemo(() => {
     return searchVal ? filterDataList : dataList;
   }, [searchVal, filterDataList, dataList]);
 
   /** 选中的数据list, id [1,2,3] */
-  const checkedList = useMemo(() => {
+  const checkedList = React.useMemo(() => {
     return renderList.filter((item) => item.checked).map((item) => item.id);
   }, [renderList]);
 
@@ -78,7 +78,7 @@ const Container = connect(({ projectList = [] }: any) => {
     ]);
   };
   /** 搜索数据触发 */
-  const hanldeSearch = useCallback(
+  const hanldeSearch = React.useCallback(
     (str: string) => {
       const filterData = dataList.filter(
         (tag) =>
@@ -91,7 +91,7 @@ const Container = connect(({ projectList = [] }: any) => {
   );
 
   /**  点击删除操作  */
-  const handleDelete = useCallback(() => {
+  const handleDelete = React.useCallback(() => {
     const targetData = dataList.filter(
       (item) => !checkedList.includes(item.id)
     );
@@ -103,20 +103,20 @@ const Container = connect(({ projectList = [] }: any) => {
   }, [dataList, checkedList, filterDataList]);
 
   /** 选择数据展示切换 */
-  const handleTableChange = useCallback(() => {
+  const handleTableChange = React.useCallback(() => {
     setTableTab(!tableTab);
   }, [tableTab]);
 
   /** 跳转到操作页面 */
   const handleLinkToEdit = (id: string) => {
-    history.push(`/edit/${id}`);
+    history.push(`/edit?id=${id}`);
   };
 
-  const indeterminate = useMemo(() => {
+  const indeterminate = React.useMemo(() => {
     return !!checkedList.length && checkedList.length < renderList.length;
   }, [checkedList, renderList]);
 
-  const checkAll = useMemo(() => {
+  const checkAll = React.useMemo(() => {
     if (renderList.length) return checkedList.length === renderList.length;
     return false;
   }, [checkedList, renderList]);
@@ -237,6 +237,6 @@ const Container = connect(({ projectList = [] }: any) => {
       </div>
     </div>
   );
-});
+};
 
 export default Container;

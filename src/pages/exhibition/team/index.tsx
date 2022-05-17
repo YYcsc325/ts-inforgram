@@ -1,26 +1,26 @@
-import React, { FC, useEffect, useState } from "react";
-import { contextConsumer } from "@/layouts/context";
+import React from "react";
 import { createPrefixClass } from "@/util/utils";
-import ShrinkLine from "@/components/DragContainer/ShrinkLine";
+import { IRouteComponentProps, useModel } from "umi";
 
 import styles from "./index.less";
 
-interface ITeamProps {
-  [x: string]: any;
-}
-
 const prefixCls = createPrefixClass("team", styles);
 
-const Team: FC<ITeamProps> = ({ consumer }) => {
+const Team: React.FC<IRouteComponentProps> = () => {
+  const [_, globalActions] = useModel("useGlobalModel.index");
   const handleClick = () => {
-    consumer?.handleShowShrinkageChange(false);
+    globalActions.changeShrinkage(false);
   };
 
-  useEffect(() => {
-    consumer?.handleShowShrinkageChange(false);
+  React.useEffect(() => {
+    handleClick();
   }, []);
 
-  return <div id={"team"} className={prefixCls()} onClick={handleClick}></div>;
+  return (
+    <div className={prefixCls()} onClick={handleClick}>
+      team
+    </div>
+  );
 };
 
-export default contextConsumer(Team);
+export default Team;

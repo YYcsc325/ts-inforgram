@@ -1,18 +1,18 @@
+import React from "react";
 import { Link } from "umi";
+import { parse } from "qs";
+import Cookies from "js-cookie";
 import classNames from "classnames";
-import React, { FC, useState, useMemo, useEffect } from "react";
+import { ellipsis } from "@/util/utils";
 import { createPrefixClass } from "@/util/utils";
 import UpDownArrow from "@/components/UpDownArrow";
 import { MedicineBoxOutlined } from "@ant-design/icons";
-import UserTolTip from "@/layouts/ActionBar/UserTolTip";
 import { actionBarConsts } from "@/consts";
-import Cookies from "js-cookie";
-import { parse } from "qs";
-import { ellipsis } from "@/util/utils";
 
-import styles from "./index.less";
+import UserTolTip from "../UserTolTip";
 import LabelTitle from "../LabelTitle";
 import { actionBarList, actionBarItems, libraryItems } from "../mock";
+import styles from "./index.less";
 
 const prefixCls = createPrefixClass("shrinkage", styles);
 
@@ -21,9 +21,9 @@ interface IShrinkageProps {
   isOpen?: boolean;
 }
 
-const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [isShowUser, setIsShowUser] = useState(false);
+const Shrinkage: React.FC<IShrinkageProps> = ({ isOpen, selectId }) => {
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const [isShowUser, setIsShowUser] = React.useState(false);
   const userName = ellipsis(
     parse(Cookies.get("userLogin") as string)?.name as string
   );
@@ -32,7 +32,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
     setIsShowUser(false);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.addEventListener("click", handleIsShowUser);
     return () => {
       document.removeEventListener("click", handleIsShowUser);
@@ -43,7 +43,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
     setVisible(!visible);
   };
 
-  const renderStepList: any[] = useMemo(() => {
+  const renderStepList: any[] = React.useMemo(() => {
     return selectId === actionBarConsts.LIBRARY
       ? actionBarList
       : actionBarItems;
@@ -110,7 +110,7 @@ const Shrinkage: FC<IShrinkageProps> = ({ isOpen, selectId }) => {
                       key={name}
                     >
                       <Icon style={{ marginRight: "10px" }} />
-                      <LabelTitle type={type} name={name} />
+                      <LabelTitle type={type as any} name={name} />
                     </div>
                   );
                 }

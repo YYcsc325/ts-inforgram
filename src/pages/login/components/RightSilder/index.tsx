@@ -1,38 +1,21 @@
 import React, { useState } from "react";
 import { Form, Checkbox, Input } from "antd";
-import Cookies from "js-cookie";
-import { stringify } from "qs";
-import { withRouter } from "umi";
-
-import { openNotification } from "@/util/utils";
-import connect from "@/pages/login/connect";
+import { useModel } from "umi";
 
 import RedicretComponent from "./Redicret";
 import { mockData } from "./mockData";
 import styles from "./index.less";
 
-const RightComponent = connect(({ dispatchLogin, history }: any) => {
+const RightComponent: React.FC = () => {
   const [form] = Form.useForm();
   const [isChecked, setIsChecked] = useState(false);
+  const [_, userActions] = useModel("useUserModel.index");
 
   const handleSubmit = () => {
     form
       .validateFields()
-      .then(async (values) => {
-        console.log(values, "values");
-        let res = await dispatchLogin(values);
-        if (res.code == 200 && res.success) {
-          Cookies.set("userLogin", stringify({ ...res.result }), {
-            expires: 1,
-          });
-          history.push("/library");
-        } else {
-          openNotification({
-            type: "warning",
-            message: "email or password error",
-            description: "邮箱或者密码输入错误，请从新确认!",
-          });
-        }
+      .then((values) => {
+        userActions.fetchUserData(values);
       })
       .catch((err: any) => {
         console.log(err);
@@ -100,5 +83,5 @@ const RightComponent = connect(({ dispatchLogin, history }: any) => {
       </div>
     </div>
   );
-});
-export default withRouter(RightComponent);
+};
+export default RightComponent;

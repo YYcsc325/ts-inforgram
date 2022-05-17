@@ -15,6 +15,6 @@ export type IEditContentParams = { id: string };
 
 export async function getEditContentDataSource(
   params: IEditContentParams
-): Promise<IEditContentResponse> {
+): Promise<[IEditContentResponse, ResponseWarp<IEditContentResponse>]> {
   return request(`${PREFIX}/inforgram/editContentDataSource.json`, { params });
 }
