@@ -5,6 +5,10 @@ const routes = [
     path: "/",
     exact: false,
     component: "@/layouts",
+    /** indexRoute 这里直接location.href也会重定向 */
+    indexRoute: {
+      redirect: "home",
+    },
     routes: [
       { exact: true, path: "/", redirect: "/home", component: "@/pages/login" },
       {

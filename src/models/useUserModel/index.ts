@@ -17,9 +17,9 @@ const reducer = (
   { type, payload }: { type?: keyof typeof ACTION_TYPE; payload?: any }
 ): IinitUserState => {
   switch (type) {
-    case ACTION_TYPE.SET_MULTI_KEY:
-      return { ...state, [payload.key]: payload.value };
     case ACTION_TYPE.SET_SINGLE_KEY:
+      return { ...state, [payload.key]: payload.value };
+    case ACTION_TYPE.SET_MULTI_KEY:
       return { ...state, ...payload };
     default:
       return { ...state };
@@ -36,7 +36,7 @@ export default function useUserModel() {
       formatResult: (res) => res,
       onSuccess: ([result]) => {
         if (result) {
-          Cookies.set("userLogin", stringify({ result }), {
+          Cookies.set("userLogin", stringify(result), {
             expires: 1,
           });
           history.push("/library");
@@ -53,7 +53,7 @@ export default function useUserModel() {
     updateSingleKeyStore: (key: string, value: any) => {
       dispatchStore({
         type: ACTION_TYPE.SET_SINGLE_KEY,
-        payload: { [key]: value },
+        payload: { key, value },
       });
     },
 

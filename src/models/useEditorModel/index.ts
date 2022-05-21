@@ -11,9 +11,9 @@ const reducer = (
   { type, payload }: { type?: keyof typeof ACTION_TYPE; payload?: any }
 ): IinitEditorState => {
   switch (type) {
-    case ACTION_TYPE.SET_MULTI_KEY:
-      return { ...state, [payload.key]: payload.value };
     case ACTION_TYPE.SET_SINGLE_KEY:
+      return { ...state, [payload.key]: payload.value };
+    case ACTION_TYPE.SET_MULTI_KEY:
       return { ...state, ...payload };
     default:
       return { ...state };
@@ -40,7 +40,7 @@ export default function useEditorModel() {
     updateSingleKeyStore: (key: string, value: any) => {
       dispatchStore({
         type: ACTION_TYPE.SET_SINGLE_KEY,
-        payload: { [key]: value },
+        payload: { key, value },
       });
     },
 
@@ -122,8 +122,10 @@ export default function useEditorModel() {
     fetchDidMount: async (
       params: GetFucParamsType<typeof getEditContentDataSource>
     ) => {
-      const [resResult] = await dispatchEditData(params);
-      const normalize = normalizePagesData(resResult || []);
+      const [result] = await dispatchEditData(params);
+      const normalize = normalizePagesData(result || []);
+      console.log(normalize.pages, "pages");
+      console.log(normalize.boxs, "boxs");
       actions.updateMultiKeyStore({
         pages: normalize?.pages,
         pageBoxs: normalize?.boxs,
