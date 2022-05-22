@@ -18,7 +18,6 @@ import {
 
 import ShrinkLine from "@/components/DragContainer/ShrinkLine";
 
-// import { pageReducerTypes, boxReducerTypes } from '../reducer';
 import { editContextConsumer } from "../context";
 
 import styles from "./index.less";
@@ -78,23 +77,6 @@ const EditPage: React.FC<IEditPageProps> = ({
           left: x,
           top: y,
         });
-
-        // dispatchPageStore({
-        //   type: pageReducerTypes.ADD_CHILDREN,
-        //   payload: { pageId, boxId: item.id },
-        // });
-        // dispatchBoxStore({
-        //   type: boxReducerTypes.ADD,
-        //   payload: {
-        //     boxId: item.id,
-        //     data: {
-        //       ...item,
-        //       parentId: pageId,
-        //       left: x,
-        //       top: y,
-        //     },
-        //   },
-        // });
       }
       return { ...item };
     },
@@ -105,23 +87,11 @@ const EditPage: React.FC<IEditPageProps> = ({
   });
 
   const handleBoxMenuClick = (_p: OptionsItem) => {
-    // dispatchPageStore({
-    //   type: pageReducerTypes.DELETE_CHILDREN,
-    //   payload: { pageId },
-    // });
-    // dispatchBoxStore({
-    //   type: boxReducerTypes.DELETE,
-    //   payload: { boxId: checkedId },
-    // });
     editorActions.deletePageChild(pageId, checkedId);
     editorActions.deletePageBox(checkedId);
   };
 
   const handleBoxMove = (_e: any, boxId: string, data: any) => {
-    // dispatchBoxStore({
-    //   type: boxReducerTypes.MODIFY,
-    //   payload: { boxId: _id, data },
-    // });
     editorActions.modifyPageBox(boxId, data);
   };
 
@@ -171,10 +141,6 @@ const EditPage: React.FC<IEditPageProps> = ({
           const offsetTop = contentRef?.current?.offsetTop ?? 0;
           const editScrollTop = Number(editContentScrollTop?.current) ?? 0;
           const height = e.pageY + editScrollTop - offsetTop;
-          // dispatchPageStore({
-          //   type: pageReducerTypes.MODIFY,
-          //   payload: { pageId, data: { height } },
-          // });
           editorActions.modifyPage(pageId, { height });
         }}
       />

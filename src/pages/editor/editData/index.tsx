@@ -5,7 +5,6 @@ import { ColorModifier } from "@/components";
 
 import LabelInput from "../components/LabelInput";
 import { editContextConsumer } from "../context";
-// import { pageReducerTypes, boxReducerTypes } from '../reducer';
 import styles from "./index.less";
 
 interface IEditDataProps {
@@ -13,34 +12,19 @@ interface IEditDataProps {
 }
 
 const EditData: FC<IEditDataProps> = (props) => {
-  const {
-    checkedId,
-    // boxStore,
-    // pageStore,
-    // dispatchPageStore,
-    // dispatchBoxStore,
-  } = props.editConsumer;
-
   const [editorStore, editorActions] = useModel("useEditorModel.index");
+  const { checkedId } = editorStore;
 
   const allData = { ...editorStore.pages, ...editorStore.pageBoxs };
   const renderData = allData[checkedId] || {};
 
   // page修改统一处理
   const handlePageModify = (data: any) => {
-    // dispatchPageStore({
-    //   type: pageReducerTypes.MODIFY,
-    //   payload: { pageId: checkedId, data },
-    // });
     editorActions.modifyPage(checkedId, data);
   };
 
   // box修改统一处理
   const handleBoxModify = (data: any) => {
-    // dispatchBoxStore({
-    //   type: boxReducerTypes.MODIFY,
-    //   payload: { boxId: checkedId, data },
-    // });
     editorActions.modifyPageBox(checkedId, data);
   };
 

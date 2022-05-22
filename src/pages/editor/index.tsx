@@ -65,8 +65,6 @@ const Editor: React.FC<IEditProps> = (props) => {
     };
   }, []);
 
-  console.log(editorStore, "editorStore");
-
   return (
     <EditContextProvider
       value={{
