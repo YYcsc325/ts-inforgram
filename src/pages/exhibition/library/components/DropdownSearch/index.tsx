@@ -8,7 +8,7 @@ import React, {
 import { Dropdown, Menu, Input } from "antd";
 import { createPrefixClass } from "@/util/utils";
 import { SearchOutlined } from "@ant-design/icons";
-import { LazyLoadingImg } from "@/components";
+import { LazyLoadingImg } from "react-dtcomponents";
 import classNames from "classnames";
 
 import styles from "./index.less";

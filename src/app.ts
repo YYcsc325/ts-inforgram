@@ -1,5 +1,6 @@
 import { notification } from "antd";
 import { RequestConfig } from "umi";
+import "react-dtcomponents/dist/index.css";
 
 export const request: RequestConfig = {
   responseInterceptors: [checkStatus],

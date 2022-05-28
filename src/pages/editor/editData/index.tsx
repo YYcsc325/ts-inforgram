@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Divider } from "antd";
 import { useModel } from "umi";
-import { ColorModifier } from "@/components";
+import { ColorModifier } from "react-dtcomponents";
 
 import LabelInput from "../components/LabelInput";
 import { editContextConsumer } from "../context";

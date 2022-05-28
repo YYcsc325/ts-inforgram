@@ -2,6 +2,7 @@ import React from "react";
 import { Spin } from "antd";
 import { useModel } from "umi";
 import { createPrefixClass } from "@/util/utils";
+import { CardTabs } from "react-dtcomponents";
 
 import LeftComponent from "./components/LeftSilder";
 import RightComponent from "./components/RightSilder";

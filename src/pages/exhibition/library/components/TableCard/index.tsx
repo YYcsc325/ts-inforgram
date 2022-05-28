@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react";
 import { createPrefixClass } from "@/util/utils";
 import { Checkbox } from "antd";
 import classNames from "classnames";
-import { LazyLoadingImg } from "@/components";
+import { LazyLoadingImg } from "react-dtcomponents";
 
 import styles from "./index.less";
 

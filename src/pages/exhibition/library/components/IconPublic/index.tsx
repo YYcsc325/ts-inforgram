@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { TooltipPlacement } from "antd/lib/tooltip";
-import { CustomModal } from "@/components";
+import { CustomModal } from "react-dtcomponents";
 import Dialog from "@/pages/exhibition/library/components/ModalTemplate/Dialog";
 
 import styles from "./index.less";

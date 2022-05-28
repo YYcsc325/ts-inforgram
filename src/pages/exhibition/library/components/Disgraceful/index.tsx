@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import React, { FC, useState, useCallback } from "react";
 import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { LazyLoadingImg } from "@/components";
+import { LazyLoadingImg } from "react-dtcomponents";
 import IconPublic from "@/pages/exhibition/library/components/IconPublic";
 import styles from "./index.less";
 

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { createPrefixClass } from "@/util/utils";
 import React, { forwardRef, ForwardRefRenderFunction, useState } from "react";
-import { LazyLoadingImg } from "@/components";
+import { LazyLoadingImg } from "react-dtcomponents";
 
 import styles from "./index.less";
 
