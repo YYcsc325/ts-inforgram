@@ -23,14 +23,21 @@ const reducer = (
 export default function useEditorModel() {
   const [store, dispatchStore] = React.useReducer(reducer, initEditorState);
 
-  const {
-    data: [editContentDataSource = []] = [],
-    loading: editDataLoading,
-    run: dispatchEditData,
-  } = useRequest(getEditContentDataSource, {
-    manual: true,
-    formatResult: (res) => res,
-  });
+  const { loading: editDataLoading, run: fetchEditData } = useRequest(
+    getEditContentDataSource,
+    {
+      manual: true,
+      formatResult: (response) => {
+        const [result] = response;
+        const normalize = normalizePagesData(result || []);
+        actions.updateMultiKeyStore({
+          pages: normalize?.pages,
+          pageBoxs: normalize?.boxs,
+        });
+        return response;
+      },
+    }
+  );
 
   const actions = {
     initStore: () => {
@@ -119,24 +126,10 @@ export default function useEditorModel() {
       actions.updateSingleKeyStore("modifyId", modifyId);
     },
 
-    fetchDidMount: async (
-      params: GetFucParamsType<typeof getEditContentDataSource>
-    ) => {
-      const [result] = await dispatchEditData(params);
-      const normalize = normalizePagesData(result || []);
-      console.log(normalize.pages, "pages");
-      console.log(normalize.boxs, "boxs");
-      actions.updateMultiKeyStore({
-        pages: normalize?.pages,
-        pageBoxs: normalize?.boxs,
-      });
-    },
+    fetchEditData,
   };
 
-  const editLoading = editDataLoading;
+  const loading = editDataLoading;
 
-  return [
-    { ...store, loading: editLoading, editContentDataSource },
-    actions,
-  ] as [typeof store, typeof actions];
+  return [{ ...store, loading }, actions] as [typeof store, typeof actions];
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRequest } from "umi";
 import ACTION_TYPE from "@/consts/actionType";
 import { getProjectList } from "@/service/library";
 
@@ -21,6 +22,18 @@ const reducer = (
 export default function useExhibitionModel() {
   const [store, dispatchStore] = React.useReducer(reducer, initExhibitionState);
 
+  const { loading: ProjectListLoading, run: fetchProjectList } = useRequest(
+    getProjectList,
+    {
+      manual: true,
+      formatResult: (res) => {
+        const [resResult] = res;
+        if (resResult) actions.updateSingleKeyStore("projectList", resResult);
+        return res;
+      },
+    }
+  );
+
   const actions = {
     initStore: () => {
       dispatchStore({ payload: initExhibitionState });
@@ -37,16 +50,10 @@ export default function useExhibitionModel() {
       dispatchStore({ type: ACTION_TYPE.SET_MULTI_KEY, payload: value });
     },
 
-    fetchProjectList: async () => {
-      actions.updateSingleKeyStore("loading", true);
-      const [resResult, res] = await getProjectList();
-      if (resResult) {
-        actions.updateSingleKeyStore("projectList", resResult);
-      }
-      actions.updateSingleKeyStore("loading", false);
-      return res;
-    },
+    fetchProjectList,
   };
 
-  return [store, actions] as [typeof store, typeof actions];
+  const loading = ProjectListLoading;
+
+  return [{ ...store, loading }, actions] as [typeof store, typeof actions];
 }

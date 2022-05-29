@@ -27,7 +27,7 @@ const Editor: React.FC<IEditProps> = (props) => {
   const editContentScrollTop = React.useRef<number>(0);
 
   React.useEffect(() => {
-    editorActions.fetchDidMount?.({
+    editorActions.fetchEditData?.({
       id: targetId as string,
     });
   }, []);
